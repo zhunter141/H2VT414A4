@@ -29,4 +29,23 @@ public class SquareTests {
 		assertEquals("GO",mySquare.getName());
 	}
 
+	@Test
+	public void testIsPurchaseable(){
+		// test that a regular square is not purchasable by default
+		assertFalse(mySquare.isPurchasable());
+	}
+	@Test
+	public void testGetNext1(){
+		// check null return value when square has no reference to another square 'next'
+		assertEquals(null,mySquare.getNext());
+	}
+	@Test 
+	public void testGetNext2(){
+		// check correct square is returned 
+		// note equals method overriden for Square class so that two 
+		// square are equal if the have the same name. 
+		Square nextSquare = new Square("BLUE","GO TO JAIL");
+		mySquare.setNext(nextSquare);
+		assertEquals(nextSquare, mySquare.getNext());
+	}
 }
