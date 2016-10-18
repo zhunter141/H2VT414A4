@@ -1,7 +1,7 @@
 /*  
  * Edited by Victor Fuentes 10/17/2016 
  */
-package H2VT414A4;
+package cs414.a4;
 
 public class Square {
 	private String color;
