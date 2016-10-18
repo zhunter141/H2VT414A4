@@ -1,0 +1,23 @@
+/*  
+ * Edited by Victor Fuentes 10/17/2016 
+ */
+package H2VT414A4;
+
+public class Square {
+	private String color;
+	private String name;
+	
+	public Square(String color,String name){
+		this.color = color.toUpperCase();
+		this.name = name.toUpperCase();
+	}
+	
+	public String getColor(){
+		return color;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+}
