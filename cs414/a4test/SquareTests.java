@@ -8,7 +8,7 @@ import cs414.a4.*;
 
 public class SquareTests {
 	private Square mySquare;
-	private final static String COLOR = "red";
+	private final static String COLOR = "RED";
 	private final static String NAME = "GO";
 	@Before
 	public void setUp(){
@@ -16,12 +16,12 @@ public class SquareTests {
 	}
 	@After
 	public void tearDown(){
-		
+		mySquare = null;
 	}
 	@Test
 	public void testConstructor1() {
 		// test to see correct color has been set for this square.
-		assertEquals("red",mySquare.getColor());
+		assertEquals("RED",mySquare.getColor());
 	}
 	@Test
 	public void testConstructor2(){

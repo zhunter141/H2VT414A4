@@ -6,10 +6,12 @@ package cs414.a4;
 public class Square {
 	private String color;
 	private String name;
+	private boolean isPurchaseable;
 	
 	public Square(String color,String name){
 		this.color = color.toUpperCase();
 		this.name = name.toUpperCase();
+		isPurchaseable = false;
 	}
 	
 	public String getColor(){
@@ -19,5 +21,6 @@ public class Square {
 	public String getName(){
 		return name;
 	}
+	
 	
 }
