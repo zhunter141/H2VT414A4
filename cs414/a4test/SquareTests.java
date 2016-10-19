@@ -57,14 +57,4 @@ public class SquareTests {
 		// a default square has no owner, this method should return a null reference
 		assertEquals(null,mySquare.getOwner());
 	}
-	
-	@Test
-	public void testGetOwner2(){
-		/* Some squares can be considered to be owned by the bank.
-		 * Such as the Luxary Tax. This way when a player lands on this
-		 * square they must pay the bank.  
-		 */
-		mySquare.setOwner(bank);
-		assertEquals(bank,mySquare.getOwner());
-	}
 }

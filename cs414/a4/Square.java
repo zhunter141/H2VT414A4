@@ -8,16 +8,14 @@ public class Square {
 	private String name;
 	private boolean isPurchasable;
 	private Square next;
-	private Player owner;
 	
 	public Square(String color,String name){
 		this.color = color.toUpperCase();
 		this.name = name.toUpperCase();
 		isPurchasable = false;
 		next = null;
-		owner = null;
 	}
-	
+	// Getters
 	public String getColor(){
 		return color;
 	}
@@ -34,14 +32,18 @@ public class Square {
 		return next;
 	}
 	
+	public Player getOwner(){
+		return null;
+	}
+	
+	// Setters
 	public void setNext(Square next){
 		this.next = next;
 	}
 	
-	public Player getOwner(){
-		return owner;
+	public void setOwner(Player p){
+		// Do nothing because regular squares cannot be owned by anyone
 	}
-	
 	@Override
 	public boolean equals(Object o){
 		if(o instanceof Square){
