@@ -1,3 +1,5 @@
+package cs414.a4test;
+
 import static org.junit.Assert.*;
 
 import org.junit.Before;
