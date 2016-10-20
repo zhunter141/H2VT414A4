@@ -14,27 +14,54 @@ public class MonopolyGameView extends JFrame{
 	
 	// Window objects
 	JButton buyButton;
+	JButton sellButton;
 	JPanel buttonPanel;
+	JPanel gameMsgPanel;
+	JTextArea msgTextArea;
 	
 	//Game objects
-	// MonopolyGameModel
+	// MonopolyGameModel model = new MonopolyGameModel();
+	
 	public MonopolyGameView(){
 		setTitle("Monopoly Game");
 		setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
 		
+		addButtonPanel();
+		
+		addMsgPanel();
+	}
+	
+	private void addButtonPanel(){
 		// setup button panel
-		buttonPanel = new JPanel();
-		buttonPanel.setBackground(Color.blue);
-		buttonPanel.setLayout(new GridLayout(0,2));
+				buttonPanel = new JPanel();
+				buttonPanel.setBackground(Color.blue);
+				buttonPanel.setLayout(new GridLayout(0,2));
+				
+				// Buttons initialization
+				buyButton = new JButton("Buy");
+				sellButton = new JButton("Sell");
+				
+				// Add buttons to buttonPanel
+				buttonPanel.add(buyButton);
+				buttonPanel.add(sellButton);
+				
+				// Add button panel to JFrame
+				add(buttonPanel,BorderLayout.SOUTH);
+	}
+	private void addMsgPanel(){
+		// initialization
+		gameMsgPanel = new JPanel();
+		gameMsgPanel.setBackground(Color.cyan);
 		
-		// Buttons initialization
-		buyButton = new JButton("Buy");
+		// msgTextFiled initialization 
+		msgTextArea = new JTextArea(20,20);
 		
-		// Add buttons to buttonPanel
-		buttonPanel.add(buyButton);
+		// Add a textfield to the gameMsgPanel
+		gameMsgPanel.add(msgTextArea);
 		
-		// Add button panel to JFrame
-		add(buttonPanel,BorderLayout.SOUTH);
+		// add gameMsgPanel to MonopolyGameFrame
+		add(gameMsgPanel, BorderLayout.EAST);
+		
 	}
 	
 	public static void main(String[] args){
@@ -43,6 +70,7 @@ public class MonopolyGameView extends JFrame{
 				MonopolyGameView mgv = new MonopolyGameView();
 				mgv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				mgv.setLocationByPlatform(true);
+				mgv.setSize(800, 600);
 				mgv.setVisible(true);
 			}
 		});
