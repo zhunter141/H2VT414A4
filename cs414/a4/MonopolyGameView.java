@@ -15,8 +15,11 @@ public class MonopolyGameView extends JFrame{
 	// Window objects
 	JButton buyButton;
 	JButton sellButton;
+	JButton endTurnButton;
+	
 	JPanel buttonPanel;
 	JPanel gameMsgPanel;
+	
 	JTextArea msgTextArea;
 	
 	//Game objects
@@ -42,22 +45,36 @@ public class MonopolyGameView extends JFrame{
 				sellButton = new JButton("Sell");
 				
 				// Add buttons to buttonPanel
-				buttonPanel.add(buyButton);
-				buttonPanel.add(sellButton);
+				JPanel container1 = new JPanel();
+				JPanel container2 = new JPanel();
+				
+				container1.add(buyButton);
+				container2.add(sellButton);
+				
+				buttonPanel.add(container1);
+				buttonPanel.add(container2);
 				
 				// Add button panel to JFrame
 				add(buttonPanel,BorderLayout.SOUTH);
 	}
+	
 	private void addMsgPanel(){
 		// initialization
 		gameMsgPanel = new JPanel();
 		gameMsgPanel.setBackground(Color.cyan);
+		gameMsgPanel.setLayout(new GridLayout(2,0));
 		
 		// msgTextFiled initialization 
 		msgTextArea = new JTextArea(20,20);
+		JPanel container = new JPanel();
+		container.setSize(20, 20);
+		container.setBackground(Color.ORANGE);
 		
+		endTurnButton = new JButton("End Turn");
+		container.add(endTurnButton);
 		// Add a textfield to the gameMsgPanel
 		gameMsgPanel.add(msgTextArea);
+		gameMsgPanel.add(container);
 		
 		// add gameMsgPanel to MonopolyGameFrame
 		add(gameMsgPanel, BorderLayout.EAST);
