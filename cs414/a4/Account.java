@@ -1,6 +1,5 @@
 package cs414.a4;
 
-import HJ.Player;
 
 public class Account {
 	private double curBalance;
