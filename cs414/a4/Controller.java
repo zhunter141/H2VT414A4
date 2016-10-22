@@ -13,6 +13,4 @@ public class Controller {
 	public void addView(View v)
 	  {view = v;}
 	 
-	 
-	 
 }
