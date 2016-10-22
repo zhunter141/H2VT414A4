@@ -12,7 +12,7 @@ public class Square {
 	public Square(String color,String name){
 		this.color = color.toUpperCase();
 		this.name = name.toUpperCase();
-		isPurchasable = false;
+		setPurchasable(false);
 		next = null;
 	}
 	// Getters
@@ -50,5 +50,13 @@ public class Square {
 			return ((Square) o).getName().equals(this.getName());
 		}
 		return false;
+	}
+	
+	public boolean getPurchasable() {
+		return isPurchasable;
+	}
+	
+	public void setPurchasable(boolean isPurchasable) {
+		this.isPurchasable = isPurchasable;
 	}
 }
