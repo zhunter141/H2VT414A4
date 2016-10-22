@@ -1,5 +1,5 @@
-/*  
- * Edited by Victor Fuentes 10/17/2016 
+/* 
+ * Team cs414d
  */
 package cs414.a4;
 
