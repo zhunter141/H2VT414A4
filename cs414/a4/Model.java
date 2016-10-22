@@ -10,9 +10,9 @@ public class Model {
 	private Player[] allPlayers = new Player[4];
 	private HashSet<Token> allTokens;
 	private HashSet<Deed> allDeeds;
-	private Board monopolyBoard;
+	private Board board;
 	private Bank monopolyBank;
-	private Dice twoDices;
+	private Dice dice;
 	private int counter = 0;
 	private int iterator = 0;
 
@@ -22,7 +22,8 @@ public class Model {
 	private View view; 
 	//Constructor
 	public Model(){
-		
+		board = new Board();
+		board.initialize();
 	}
 	
 	
@@ -40,8 +41,8 @@ public class Model {
 		int steps = d.roll();
 		curPlayer = allPlayers[iterator%counter];
 
+		board.move(steps,curPlayer.getToken());
 
-		monopolyBoard.move(steps,curPlayer.getToken());
 		
 		//Refactor later maybe
 		
@@ -82,7 +83,7 @@ public class Model {
 		curPlayer = allPlayers[iterator%counter];
 
 		if (view != null)    {
-		      view.update();
+		      //view.update();
 		}
 		
 		
@@ -96,7 +97,7 @@ public class Model {
 		monopolyBank.addClientANDAccount(p);
 		
 		if (view != null)    {
-		      view.update();
+		      //view.update();
 		}
 		
 		
@@ -112,7 +113,7 @@ public class Model {
 		
 		
 		if (view != null)    {
-		      view.update();
+		      //view.update();
 		}
 	}
 	
@@ -123,7 +124,7 @@ public class Model {
 		
 		
 		if (view != null)    {
-		      view.update();
+		      //view.update();
 		}
 	}
 	
@@ -139,30 +140,21 @@ public class Model {
 	
 	//get status aka give status to view/others
 	
-	 Player[] getPlayers(){
+	 public Player[] getPlayers(){
+
 		 return allPlayers;
 	 }
-	 HashSet<Token> getTokens(){
+	 public HashSet<Token> getTokens(){
 		 return allTokens;
 	 }
-	 HashSet<Deed> getDeeds(){
+	 public HashSet<Deed> getDeeds(){
 		 return allDeeds;
 	 }
 	 
-	 Board getBoard(){
-		 return monopolyBoard;
+	 public Board getBoard(){
+		 return board;
 	 }
 	 
-	
-	
-	
-	public static void main(String args[]) throws IOException{
-	//Need throw exception?
-	
-	//Here Start
-	Model ourGame = new Model();
-
-	}
 /*
 private void startup() throws IOException{
 	Player player1 = new Player();

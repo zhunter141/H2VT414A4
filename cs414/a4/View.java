@@ -2,7 +2,6 @@ package cs414.a4;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import javax.swing.*; 
@@ -16,6 +15,8 @@ public class View extends JFrame{
 	private JButton buyButton;
 	private JButton sellButton;
 	private JButton endTurnButton;
+	private JButton rollButton;
+	//private JButton payButton;
 	
 	private JPanel buttonPanel;
 	private JPanel gameMsgPanel;
@@ -24,7 +25,7 @@ public class View extends JFrame{
 	private JTextArea msgTextArea;
 	
 	//Game objects
-	private MonopolyGame model;
+	private Model model;
 	//private Controller ctrl;
 	
 	
@@ -41,21 +42,19 @@ public class View extends JFrame{
 		// setup button panel
 				buttonPanel = new JPanel();
 				buttonPanel.setBackground(Color.blue);
-				buttonPanel.setLayout(new GridLayout(0,2));
+				buttonPanel.setLayout(new GridLayout(2,2));
 				
 				// Buttons initialization
 				buyButton = new JButton("Buy");
 				sellButton = new JButton("Sell");
+				rollButton   = new JButton("rollDice");
+				//payButton = new JButton("payDues");
 				
 				// Add buttons to buttonPanel
-				JPanel container1 = new JPanel();
-				JPanel container2 = new JPanel();
-				
-				container1.add(buyButton);
-				container2.add(sellButton);
-				
-				buttonPanel.add(container1);
-				buttonPanel.add(container2);
+				buttonPanel.add(buyButton);
+				buttonPanel.add(sellButton);
+				buttonPanel.add(rollButton);
+				//buttonPanel.add(payButton);
 				
 				// Add button panel to JFrame
 				add(buttonPanel,BorderLayout.SOUTH);
@@ -85,7 +84,7 @@ public class View extends JFrame{
 		
 	}
 	
-	public void addModel(MonopolyGame model){
+	public void addModel(Model model){
 		this.model = model;
 	}
 	
@@ -96,7 +95,9 @@ public class View extends JFrame{
 	*/
 	
 	public void setupBoard(){
-		//Board myBoard = model.getBoard();
+		Board myBoard = model.getBoard();
+		Square curr = myBoard.getStart();
+		
 		boardPanel = new JPanel();
 		boardPanel.setBackground(Color.ORANGE);
 		boardPanel.setLayout(new GridLayout(3,0));
@@ -104,8 +105,9 @@ public class View extends JFrame{
 		JPanel r1 = new JPanel();
 		
 		for(int i=0;i<10;i++){
-			JButton b1 = new JButton(""+i);
+			JButton b1 = new JButton(""+curr.getName());
 			r1.add(b1);
+			curr = curr.getNext();
 		}
 		
 		JPanel r2 = new JPanel();
@@ -136,7 +138,6 @@ public class View extends JFrame{
 		r2.add(r2c2);
 		r2.add(r2c3);
 		
-		
 		JPanel r3 = new JPanel();
 		
 		for(int i=0;i<10;i++){
@@ -163,7 +164,7 @@ public class View extends JFrame{
 				
 				
 				//Controller ctrl = new Controller();
-				MonopolyGame model = new MonopolyGame();
+				Model model = new Model();
 				
 				// link everything
 				view.addModel(model);
