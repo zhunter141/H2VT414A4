@@ -16,7 +16,7 @@ public class SquareTests {
 	public void setUp(){
 		mySquare = new Square(COLOR,NAME);
 		myToken = new Token("boot");
-		Player bank(101,"bank",myToken);
+		Player bank = new Player(101,"bank",myToken);
 	}
 	@After
 	public void tearDown(){
