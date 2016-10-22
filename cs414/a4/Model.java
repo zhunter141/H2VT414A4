@@ -9,7 +9,7 @@ public class Model {
 	
 	private Player[] allPlayers = new Player[4];
 	private HashSet<Token> allTokens;
-	private HashSet<Deed> allDeeds;
+	private HashSet<Square> allDeeds;
 	private Board board;
 	private Bank monopolyBank;
 	private Dice dice;
@@ -37,8 +37,8 @@ public class Model {
 		return curPlayer;
 	}
 	
-	void rollDiceThroughButton(Dice d){
-		int steps = d.roll();
+	void rollDiceThroughButton(){
+		int steps = dice.roll();
 		curPlayer = allPlayers[iterator%counter];
 
 
@@ -122,7 +122,7 @@ public class Model {
 	 public HashSet<Token> getTokens(){
 		 return allTokens;
 	 }
-	 public HashSet<Deed> getDeeds(){
+	 public HashSet<Square> getDeeds(){
 		 return allDeeds;
 	 }
 	 

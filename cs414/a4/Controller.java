@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 import javax.swing.JButton;
-import javax.swing.text.View;
 
 public class Controller {
 	private Model model;
@@ -33,31 +32,31 @@ public class Controller {
 		  
 		  return a;
 	}
-	
+	/*
 	JButton getSellButton(){
 		  HashSet<Square> temp = model.getDeeds();//deeds = property
 		  //Hand view class deeds for player to select which deed to sell
-		  View.chooseDeeds(temp);
+		  Deed d = View.chooseDeeds(temp);
 		  JButton b = new JButton();
 		  
 		  b.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e)
 			  {
 				  System.out.println("Debug-Controller: " + "Sell button pressed");
-				  model.sellDeedThroughButton(temp);} 
+				  model.sellDeedThroughButton(d);} 
 		  });
 		  
 		  return b;
 	}
-	
+	*/
 	JButton getRollDiceButton(){
-		  JButton c = new JButton();
+		  JButton c = new JButton("Roll");
 		  
 		  c.addActionListener(new ActionListener() {
-			  public void actionPerformed(ActionEvent e)
-			  {
+			  public void actionPerformed(ActionEvent e){
 				  System.out.println("Debug-Controller: " + "Roll Dice button pressed");
-				  model.rollDiceThroughButton();} 
+				  //model.rollDiceThroughButton();
+				  } 
 		  });
 		  
 		  return c;
