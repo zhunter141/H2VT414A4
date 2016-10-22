@@ -27,9 +27,6 @@ public class DeedTests {
 	@After
 	public void tearDown() throws Exception {
 		myDeed = null;
-		myToken = null;
-		p1 = null;
-		mySquare = null;
 	}
 
 	@Test
