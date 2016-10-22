@@ -6,7 +6,7 @@ import java.util.Set;
 public class Player {
 	private int id;
 	private String name;
-	private HashSet myDeeds;
+	private HashSet<Square> myDeeds;
 	private Token token;
 	
 	public Player(int id, String name, Token token) {
@@ -27,7 +27,7 @@ public class Player {
 		return token;
 	}
 	
-	public HashSet getMyDeeds(){
+	public HashSet<Square> getMyDeeds(){
 		return myDeeds;
 	}
 	
