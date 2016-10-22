@@ -14,15 +14,18 @@ public class Model {
 	private Dice dice;
 	private int counter = 0;
 	private int iterator = 0;
-
 	private Player curPlayer;
+	private String msg;
 
 	
 	private View view; 
 	//Constructor
 	public Model(){
+		// initialize game objects
 		board = new Board();
+		dice = new Dice();
 		board.initialize();
+		msg = "";
 	}
 	
 	
@@ -38,6 +41,8 @@ public class Model {
 	
 	void rollDiceThroughButton(){
 		int steps = dice.roll();
+		msg = ""+steps;
+		
 		curPlayer = allPlayers[iterator%counter];
 
 		board.move(steps,curPlayer.getToken());
@@ -107,21 +112,23 @@ public class Model {
 		curPlayer = allPlayers[iterator%counter];
 
 		if (view != null)    {
-		      //view.update();
+		      view.update();
 		}
 		
 		
 	}
 	
-	void addPlayerThroughButton(Player p){
-		
+	void addPlayerThroughButton(String name){
+		Token t = new Token("");
+		Player p = new Player(counter,name,t);
 		allPlayers[counter] = p;
 		counter ++;
 		
 		monopolyBank.addClientANDAccount(p);
 		
-		if (view != null)    {
-		      //view.update();
+		if (view != null){
+			msg = "Added Player";
+			view.update();
 		}
 		
 		
@@ -240,26 +247,8 @@ public class Model {
 		 return board;
 	 }
 	 
-/*
-private void startup() throws IOException{
-	Player player1 = new Player();
-	Player player2 = new Player();
-
-	Board theBoard = new Board();
-	
-	Square startSqr = theBoard.createBoard();
-	
-	player1.setSqr(startSqr);
-	player2.setSqr(startSqr);
-
-	
-
-	
-
-
-	
-	
-}*/
-
+	 public String getMsg(){
+		 return msg;
+	 }
 
 }
