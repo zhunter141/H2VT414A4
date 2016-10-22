@@ -2,6 +2,7 @@ package cs414.a4;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import javax.swing.*; 
@@ -18,6 +19,7 @@ public class View extends JFrame{
 	
 	private JPanel buttonPanel;
 	private JPanel gameMsgPanel;
+	private JPanel boardPanel;
 	
 	private JTextArea msgTextArea;
 	
@@ -93,19 +95,81 @@ public class View extends JFrame{
 	}
 	*/
 	
+	public void setupBoard(){
+		//Board myBoard = model.getBoard();
+		boardPanel = new JPanel();
+		boardPanel.setBackground(Color.ORANGE);
+		boardPanel.setLayout(new GridLayout(3,0));
+		
+		JPanel r1 = new JPanel();
+		
+		for(int i=0;i<10;i++){
+			JButton b1 = new JButton(""+i);
+			r1.add(b1);
+		}
+		
+		JPanel r2 = new JPanel();
+		r2.setLayout(new GridLayout(0,3));
+		
+		JPanel r2c1 = new JPanel();
+		r2c1.setBackground(Color.PINK);
+		r2c1.setLayout(new GridLayout(10,0));
+		
+		for(int i=0;i<10;i++){
+			JButton b1 = new JButton("Avenue "+i);
+			r2c1.add(b1);
+		}
+		
+		JPanel r2c2 = new JPanel();
+		r2.setBackground(Color.yellow);
+	
+		JPanel r2c3 = new JPanel();
+		r2.setBackground(Color.blue);
+		r2c3.setLayout(new GridLayout(10,0));
+		
+		for(int i=0;i<10;i++){
+			JButton b1 = new JButton(""+i);
+			r2c3.add(b1);
+		}
+		// add cols to r2
+		r2.add(r2c1);
+		r2.add(r2c2);
+		r2.add(r2c3);
+		
+		
+		JPanel r3 = new JPanel();
+		
+		for(int i=0;i<10;i++){
+			JButton b1 = new JButton(""+i);
+			r3.add(b1);
+		}
+		
+		// add all rows to boardPanel
+		boardPanel.add(r1);
+		boardPanel.add(r2);
+		boardPanel.add(r3);
+		
+		// add boardPanel to JFrame
+		add(boardPanel,BorderLayout.WEST);
+	}
+	
 	public static void main(String[] args){
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
-				View mgv = new View();
-				mgv.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				mgv.setLocationByPlatform(true);
-				mgv.setSize(800, 600);
-				mgv.setVisible(true);
+				View view = new View();
+				view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				view.setLocationByPlatform(true);
+				view.setSize(800, 600);
+				
 				
 				//Controller ctrl = new Controller();
 				MonopolyGame model = new MonopolyGame();
 				
 				// link everything
+				view.addModel(model);
+				view.setupBoard();
+				
+				view.setVisible(true);
 			}
 		});
 	}
