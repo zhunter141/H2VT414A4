@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.util.HashSet;
+
 import javax.swing.*; 
 
 @SuppressWarnings("serial")
@@ -153,6 +155,10 @@ public class View extends JFrame{
 		
 		// add boardPanel to JFrame
 		add(boardPanel,BorderLayout.WEST);
+	}
+	
+	public void chooseDeeds(HashSet<Square> myDeeds){
+		System.out.println("Player Must choose a deed to sell.");
 	}
 	
 	public static void main(String[] args){
