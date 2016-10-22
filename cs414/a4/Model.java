@@ -1,14 +1,15 @@
 package cs414.a4;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Set;
 
-import colorCalculator.View;
 
 public class Model {
 	
-	private Set<Player> allPlayers;
-	private Set<Token> allTokens;
+	private HashSet<Player> allPlayers;
+	private HashSet<Token> allTokens;
+	private HashSet<Deed> allDeeds;
 	private Board monopolyBoard;
 	private Bank monopolyBank;
 	private Dice twoDices;
@@ -30,12 +31,12 @@ public class Model {
 	
 	void rollDiceThroughButton(Player p,Dice d){
 		int steps = d.roll();
-		//need update
-		monopolyBoard.move();
+
+		monopolyBoard.move(p.getToken(),steps);
 		
 		if (view != null)    {
 		      view.update();
-		      }
+		}
 		
 	}
 	
@@ -58,9 +59,20 @@ public class Model {
 	
 	//get status aka give status to view/others
 	
-	
-	
-	
+	 HashSet<Player> getPlayers(){
+		 return allPlayers;
+	 }
+	 HashSet<Token> getTokens(){
+		 return allTokens;
+	 }
+	 HashSet<Deed> getDeeds(){
+		 return allDeeds;
+	 }
+	 
+	 Board getBoard(){
+		 return monopolyBoard;
+	 }
+	 
 	
 	
 	
