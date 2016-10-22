@@ -16,6 +16,8 @@ public class View extends JFrame{
 	private JButton buyButton;
 	private JButton sellButton;
 	private JButton endTurnButton;
+	private JButton rollButton;
+	//private JButton payButton;
 	
 	private JPanel buttonPanel;
 	private JPanel gameMsgPanel;
@@ -41,21 +43,19 @@ public class View extends JFrame{
 		// setup button panel
 				buttonPanel = new JPanel();
 				buttonPanel.setBackground(Color.blue);
-				buttonPanel.setLayout(new GridLayout(0,2));
+				buttonPanel.setLayout(new GridLayout(2,2));
 				
 				// Buttons initialization
 				buyButton = new JButton("Buy");
 				sellButton = new JButton("Sell");
+				rollButton   = new JButton("rollDice");
+				//payButton = new JButton("payDues");
 				
 				// Add buttons to buttonPanel
-				JPanel container1 = new JPanel();
-				JPanel container2 = new JPanel();
-				
-				container1.add(buyButton);
-				container2.add(sellButton);
-				
-				buttonPanel.add(container1);
-				buttonPanel.add(container2);
+				buttonPanel.add(buyButton);
+				buttonPanel.add(sellButton);
+				buttonPanel.add(rollButton);
+				//buttonPanel.add(payButton);
 				
 				// Add button panel to JFrame
 				add(buttonPanel,BorderLayout.SOUTH);
