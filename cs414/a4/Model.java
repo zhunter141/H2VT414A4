@@ -99,34 +99,18 @@ public class Model {
 	}
 	
 	void sellDeedThroughButton(Deed d){
-		
-		
-		
-		
-		
 		if (view != null)    {
 		      //view.update();
 		}
 	}
 	
 	void buyDeedThroughButton(){
-		
-		
-		
-		
-		
 		if (view != null)    {
 		      //view.update();
 		}
 	}
 	
 	void startThroughButton(){
-		
-		
-		
-		
-		
-		
 	}
 	
 	

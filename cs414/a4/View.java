@@ -28,7 +28,7 @@ public class View extends JFrame{
 	
 	//Game objects
 	private Model model;
-	//private Controller ctrl;
+	private Controller ctrl;
 	
 	
 	public View(){
@@ -90,11 +90,10 @@ public class View extends JFrame{
 		this.model = model;
 	}
 	
-	/*
 	public void addController(Controller ctrl){
 		this.ctrl = ctrl;
 	}
-	*/
+	
 	
 	public void setupBoard(){
 		Board myBoard = model.getBoard();
@@ -159,6 +158,7 @@ public class View extends JFrame{
 	
 	public void chooseDeeds(HashSet<Square> myDeeds){
 		System.out.println("Player Must choose a deed to sell.");
+		
 	}
 	
 	public static void main(String[] args){
@@ -168,15 +168,15 @@ public class View extends JFrame{
 				view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				view.setLocationByPlatform(true);
 				view.setSize(800, 600);
-				//view.pack();
 				
-				
-				//Controller ctrl = new Controller();
+				Controller ctrl = new Controller();
 				Model model = new Model();
 				
 				// link everything
 				view.addModel(model);
 				view.setupBoard();
+				view.addController(ctrl);
+				
 				
 				view.setVisible(true);
 			}

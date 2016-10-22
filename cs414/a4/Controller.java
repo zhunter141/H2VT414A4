@@ -11,8 +11,8 @@ public class Controller {
 	private Model model;
 	private View view;
 	private Deed d;
-	public Controller()
-	  {}
+	
+	public Controller(){}
 	 
 	public void addModel(Model m)
 	  {model = m;}
@@ -37,7 +37,7 @@ public class Controller {
 	JButton getSellButton(){
 		  HashSet<Square> temp = model.getDeeds();//deeds = property
 		  //Hand view class deeds for player to select which deed to sell
-		  View.chooseDeed(temp);
+		  View.chooseDeeds(temp);
 		  JButton b = new JButton();
 		  
 		  b.addActionListener(new ActionListener() {
@@ -64,4 +64,4 @@ public class Controller {
 	}
 	 
 }
->>>>>>> master
+
