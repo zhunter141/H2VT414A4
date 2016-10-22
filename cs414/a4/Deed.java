@@ -1,22 +1,20 @@
 package cs414.a4;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
-import org.junit.Test;
-
 public class Deed extends Square {
 	private int cost;
 	private int houseCost;
 	private int hotelCost;
 	private Player owner;
+	private int rentCost;
 	
-	public Deed(String color, String name,int cost,int houseCost,int hotelCost) {
+	public Deed(String color, String name,int cost,int houseCost,int hotelCost, int rentCost) {
 		super(color,name);
 		this.cost = cost;
 		this.houseCost = houseCost;
 		this.hotelCost = hotelCost;
 		owner = null;
+		this.setPurchasable(true);
+		this.rentCost = rentCost;
 	}
 	
 	public int getCost(){
@@ -29,5 +27,17 @@ public class Deed extends Square {
 
 	public int getHotelCost(){
 		return hotelCost;
+	}
+	
+	public void setOwner(Player o){
+		owner = o;
+	}
+	
+	public int getRentCost(){
+		return rentCost;
+	}
+	
+	public Player getOwner(){
+		return owner;
 	}
 }
