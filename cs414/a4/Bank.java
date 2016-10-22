@@ -19,14 +19,14 @@ public class Bank {
 	
 	//Does the account match
 	//Create class Due, because the bank can't hold all data.
-	public void payDue(Player p, Due d){
+	public void payDue(Player p, int d){
 		Account curAccount =  (Account) accountMap.get(p);
 		//box in view maybe, how we convert it
 		if(willBroken(curAccount,d) == true){
 			System.out.println("No enough money");
 		}
 		else{
-			curAccount.takeOutBalance(d.getAmount());
+			curAccount.takeOutBalance(d);
 		}
 		
 		
@@ -36,15 +36,15 @@ public class Bank {
 	}
 	
 	//this due is positive
-	public void withdrawl(Player p,Due d){
+	public void withdrawl(Player p,int d){
 		Account curAccount =  (Account) accountMap.get(p);
-		curAccount.addInBalance(d.getAmount());
+		curAccount.addInBalance(d);
 
 	}
 
-	private boolean willBroken(Account curAccount,Due d) {
-		double curBalance = curAccount.getBalance();
-		if(curBalance-d.getAmount() < 0.0 ){
+	private boolean willBroken(Account curAccount,int d) {
+		int curBalance = curAccount.getBalance();
+		if(curBalance-d < 0.0 ){
 			return true;
 		}
 		else{

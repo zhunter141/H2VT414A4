@@ -2,7 +2,7 @@ package cs414.a4;
 
 
 public class Account {
-	private double curBalance;
+	private int curBalance;
 	private Player curOwner ; 
 			
 			
@@ -16,18 +16,18 @@ public class Account {
 	}
 			
 	public void setDefaultBalance(){
-		curBalance = 0.0;
+		curBalance = 0;
 	}
 	
 	//-
-	public void takeOutBalance(double due){
+	public void takeOutBalance(int due){
 		curBalance = curBalance-due;
 	}
 	//+
-	public void addInBalance(double due){
+	public void addInBalance(int due){
 		curBalance = curBalance+due;
 	}
-	public double getBalance(){
+	public int getBalance(){
 		return curBalance;
 	}
 	
