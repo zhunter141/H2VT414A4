@@ -10,6 +10,7 @@ public class DeedTests {
 	private Deed myDeed;
 	private Token myToken;
 	private Player p1;
+	private Square mySquare;
 	private final static String COLOR = "BROWN";
 	private final static String NAME = "BALTIC AVENUE";
 	private final static int COST = 60;
@@ -36,7 +37,7 @@ public class DeedTests {
 	@Test
 	public void testConstructor2(){
 		// test to see that the name of the square has been correctly set.
-		assertEquals("GO",myDeed.getName());
+		assertEquals("BALTIC AVENUE",myDeed.getName());
 	}
 	@Test
 	public void testIsPurchaseable(){
@@ -70,7 +71,7 @@ public class DeedTests {
 		 * Such as the Luxary Tax. This way when a player lands on this
 		 * square they must pay the bank.  
 		 */
-		myDeed.setOwner(p1);
+		myDeed.setOwner(p1); // setOwner is returning null right now, so this won't work
 		assertEquals(p1, myDeed.getOwner());
 	}
 }

@@ -17,6 +17,7 @@ public class Deed extends Square {
 		this.houseCost = houseCost;
 		this.hotelCost = hotelCost;
 		owner = null;
+		this.setPurchasable(true);
 	}
 	
 	public int getCost(){
