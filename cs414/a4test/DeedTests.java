@@ -8,6 +8,8 @@ import cs414.a4.*;
 
 public class DeedTests {
 	private Deed myDeed;
+	private Token myToken;
+	private Player p1;
 	private final static String COLOR = "BROWN";
 	private final static String NAME = "BALTIC AVENUE";
 	private final static int COST = 60;
@@ -18,7 +20,7 @@ public class DeedTests {
 	public void setUp() throws Exception {
 		myDeed = new Deed(COLOR,NAME,COST,HOUSECOST,HOTELCOST);
 		myToken = new Token("boot");
-		Player p1(101,"p1",myToken);
+		p1 = new Player(101,"p1",myToken);
 	}
 
 	@After
@@ -69,6 +71,6 @@ public class DeedTests {
 		 * square they must pay the bank.  
 		 */
 		myDeed.setOwner(p1);
-		assertEquals(p1,myDeed.getOwner());
+		assertEquals(p1, myDeed.getOwner());
 	}
 }
