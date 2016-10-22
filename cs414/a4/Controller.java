@@ -9,10 +9,7 @@ import javax.swing.JButton;
 public class Controller {
 	private Model model;
 	private View view;
-	private Deed d;
-	
-	public Controller(){}
-	 
+
 	public void addModel(Model m)
 	  {model = m;}
 	 
