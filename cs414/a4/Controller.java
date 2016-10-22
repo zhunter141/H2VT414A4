@@ -9,6 +9,7 @@ import javax.swing.text.View;
 
 public class Controller {
 	private Model model;
+	private View view;
 	private Deed d;
 	public Controller()
 	  {}
