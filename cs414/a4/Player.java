@@ -31,11 +31,11 @@ public class Player {
 		return myDeeds;
 	}
 	
-	public void addDeed(Deed d){
+	public void addDeed(Square d){
 		myDeeds.add(d);
 	} 
 	
-	public void removeDeed(Deed d){
+	public void removeDeed(Square d){
 		myDeeds.remove(d);
 	}
 }

@@ -9,7 +9,6 @@ public class Model {
 	
 	private Player[] allPlayers = new Player[4];
 	private HashSet<Token> allTokens;
-	private HashSet<Square> allDeeds;
 	private Board board;
 	private Bank monopolyBank;
 	private Dice dice;
@@ -41,35 +40,65 @@ public class Model {
 		int steps = dice.roll();
 		curPlayer = allPlayers[iterator%counter];
 
-
 		board.move(steps,curPlayer.getToken());
+
 		
 		//Refactor later maybe
-		
+		//Do nothing because the player can click the button"Buy a deed"
+
 		Square newSqr = curPlayer.getToken().getLoc();
-		//Is a deed
-		if(newSqr instanceof Deed){
-			Deed deed =  (Deed)newSqr;
+
+
+		if(newSqr instanceof Utility){
+			    Utility utility = (Utility)newSqr;
 			
+			
+			    if(newSqr.getOwner() == null){
+				//Do nothing because the player can click the button"Buy a deed"	
+				}
+				//pay rent
+				else{
+					int cost = utility.getRentCost();
+					monopolyBank.payDue(curPlayer, cost);
+					monopolyBank.withdrawl(utility.getOwner(), cost);
+				}
 
+			
 		}
-		//Utility or a RailRoad
-		else{
-			if(newSqr instanceof Utility){
+		else if(newSqr instanceof Deed){
+				Deed deed = (Deed)newSqr;
 				
-			}
-			else{
-				RailRoad railRoad =  (RailRoad)newSqr;
-
-				monopolyBank.payDue(curPlayer, railRoad.getCost());
-
-			}
+				
+			    if(deed.getOwner() == null){
+				//Do nothing because the player can click the button"Buy a deed"	
+				}
+				//pay rent
+				else{
+					int cost = deed.getRentCost();
+					monopolyBank.payDue(curPlayer, cost);
+					monopolyBank.withdrawl(deed.getOwner(), cost);
+				}
 
 		}
-		
-		
-		
-		
+		else if(newSqr instanceof RailRoad){
+			RailRoad railRoad = (RailRoad)newSqr;
+			
+			
+		    if(railRoad.getOwner() == null){
+			//Do nothing because the player can click the button"Buy a deed"	
+			}
+			//pay rent
+			else{
+				int cost = railRoad.getRentCost();
+				monopolyBank.payDue(curPlayer, cost);
+				monopolyBank.withdrawl(railRoad.getOwner(), cost);
+			}
+
+
+		}
+		else{
+			
+		}
 		
 		
 		iterator++;
@@ -98,32 +127,113 @@ public class Model {
 		
 	}
 	
-	void sellDeedThroughButton(Deed d){
+	// In this method, deed is a utility, railroad, deed
+	//Pay attention on choose deed
+	void sellDeedThroughButton(Square d){
+		//removeDeeds()
+		curPlayer.removeDeed(d);
+		
+		
+		if(d instanceof Utility){
+			Utility utility =  (Utility)d;
+			d =  (Utility)d;
+
+			int cost = utility.getCost();
+			
+			monopolyBank.payDue(curPlayer, cost);
+			monopolyBank.withdrawl(utility.getOwner(), cost);
+			
+			
+		}
+		else if(d instanceof Deed){
+			Deed deed =  (Deed)d;
+			d =  (Deed)d;
+
+			int cost = deed.getCost();
+			
+			monopolyBank.payDue(curPlayer, cost);
+			monopolyBank.withdrawl(deed.getOwner(), cost);
+			
+		}
+		else if(d instanceof RailRoad){
+			RailRoad railRoad =  (RailRoad)d;
+			d =  (RailRoad)d;
+
+			int cost = railRoad.getCost();
+
+			monopolyBank.payDue(curPlayer, cost);
+			monopolyBank.withdrawl(railRoad.getOwner(), cost);
+
+
+		}
+		else{}
+		
+
+		//may go wrong because of the type
+		d.setOwner(null);
+		
 		if (view != null)    {
 		      //view.update();
 		}
 	}
 	
 	void buyDeedThroughButton(){
+		Square cursqr = curPlayer.getToken().getLoc();
+		Square sqrCopy = cursqr;
+		int cost = 0;
+
+		if(cursqr.isPurchasable() != true){}
+		else{
+			if(cursqr instanceof Utility){
+				Utility utility =  (Utility)cursqr;
+				cursqr =  (Utility)cursqr;
+	
+				cost = utility.getCost();
+				
+			
+				
+			}
+			else if(cursqr instanceof Deed){
+				Deed deed =  (Deed)cursqr;
+				cursqr =  (Deed)cursqr;
+	
+				cost = deed.getCost();
+				
+			}
+			else if(cursqr instanceof RailRoad){
+				RailRoad railRoad =  (RailRoad)cursqr;
+				cursqr =  (RailRoad)cursqr;
+	
+				cost = railRoad.getCost();
+	
+	
+	
+			}
+			else{}
+			
+			monopolyBank.payDue(curPlayer, cost);
+			monopolyBank.withdrawl(cursqr.getOwner(), cost);
+			
+			curPlayer.addDeed(sqrCopy);
+			cursqr.setOwner(curPlayer);
+		}
 		if (view != null)    {
 		      //view.update();
 		}
 	}
 	
-	void startThroughButton(){
-	}
-	
-	
 	//get status aka give status to view/others
 	
 	 public Player[] getPlayers(){
+
 		 return allPlayers;
 	 }
 	 public HashSet<Token> getTokens(){
 		 return allTokens;
 	 }
+
 	 public HashSet<Square> getDeeds(){
-		 return allDeeds;
+		 return curPlayer.getMyDeeds();
 	 }
 	 
 	 public Board getBoard(){
