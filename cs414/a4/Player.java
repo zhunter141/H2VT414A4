@@ -1,11 +1,12 @@
 package cs414.a4;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Player {
 	private int id;
 	private String name;
-	private Set myDeeds;
+	private HashSet myDeeds;
 	private Token token;
 	
 	public Player(int id, String name, Token token) {
@@ -20,6 +21,10 @@ public class Player {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public Token getToken(){
+		return token;
 	}
 	
 	public Set getMyDeeds(){
