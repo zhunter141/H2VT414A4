@@ -54,13 +54,18 @@ public class Model {
 		else{
 			if(newSqr instanceof Utility){
 				Utility utility =  (Utility)newSqr;
-				monopolyBank.payDue(curPlayer, utility.getCost());
+				int cost = utility.getCost();
+				monopolyBank.payDue(curPlayer, cost);
+				monopolyBank.withdrawl(utility.getOwner(), cost);
 				
 			}
 			else{
 				RailRoad railRoad =  (RailRoad)newSqr;
+				int cost = railRoad.getCost();
 
-				monopolyBank.payDue(curPlayer, railRoad.getCost());
+				monopolyBank.payDue(curPlayer, cost);
+				monopolyBank.withdrawl(railRoad.getOwner(), cost);
+
 
 			}
 
@@ -97,8 +102,11 @@ public class Model {
 		
 	}
 	
+	//Pay attention on choose deed
 	void sellDeedThroughButton(Deed d){
-		
+		//removeDeeds()
+		curPlayer.removeDeeds(d);
+		monopolyBank.withdrawl(curPlayer, d.getCost());
 		
 		
 		
