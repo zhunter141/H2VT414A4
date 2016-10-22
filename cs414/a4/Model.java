@@ -41,20 +41,20 @@ public class Model {
 		curPlayer = allPlayers[iterator%counter];
 
 
-		monopolyBoard.move(curPlayer.getToken(),steps);
+		monopolyBoard.move(steps,curPlayer.getToken());
 		
 		//Refactor later maybe
 		
 		Square newSqr = curPlayer.getToken().getLoc();
 		//Is a deed
 		if(newSqr instanceof Deed){
-			Deed deed =  (Deed)newSqr;
-			
-
+		//Do nothing because the player can click the button"Buy a deed"
 		}
 		//Utility or a RailRoad
 		else{
 			if(newSqr instanceof Utility){
+				Utility utility =  (Utility)newSqr;
+				monopolyBank.payDue(curPlayer, utility.getCost());
 				
 			}
 			else{
@@ -131,7 +131,7 @@ public class Model {
 	
 	//get status aka give status to view/others
 	
-	 HashSet<Player> getPlayers(){
+	 Player[] getPlayers(){
 		 return allPlayers;
 	 }
 	 HashSet<Token> getTokens(){
