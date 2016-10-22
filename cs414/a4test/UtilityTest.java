@@ -41,5 +41,10 @@ public class UtilityTest {
 	public void testConstructorCost() {
 		assertEquals(20, myUtil.getCost());	
 	}
+	
+	@Test
+	public void testConstructorCost2() {
+		assertNotEquals(50, myUtil.getCost());	
+	}
 
 }
