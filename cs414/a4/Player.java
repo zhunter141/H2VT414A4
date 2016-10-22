@@ -27,7 +27,10 @@ public class Player {
 		return token;
 	}
 	
-	public Set getMyDeeds(){
+	public HashSet getMyDeeds(){
 		return myDeeds;
 	}
+	public void addDeed(HashSet d){
+		myDeeds.add(d);
+	} 
 }
