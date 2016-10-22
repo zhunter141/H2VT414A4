@@ -30,4 +30,10 @@ public class Board {
 		
 		return start;
 	}
+	
+	public void move(int steps, Token t){
+		for(int i=0;i<steps;i++){
+			t.move();
+		}
+	}
 }
