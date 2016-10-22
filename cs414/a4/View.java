@@ -23,7 +23,7 @@ public class View extends JFrame{
 	
 	//Game objects
 	private MonopolyGame model;
-	private Controller ctrl;
+	//private Controller ctrl;
 	
 	
 	public View(){
@@ -87,9 +87,11 @@ public class View extends JFrame{
 		this.model = model;
 	}
 	
+	/*
 	public void addController(Controller ctrl){
 		this.ctrl = ctrl;
 	}
+	*/
 	
 	public static void main(String[] args){
 		EventQueue.invokeLater(new Runnable(){
@@ -99,6 +101,9 @@ public class View extends JFrame{
 				mgv.setLocationByPlatform(true);
 				mgv.setSize(800, 600);
 				mgv.setVisible(true);
+				
+				//Controller ctrl = new Controller();
+				MonopolyGame model = new MonopolyGame();
 				
 				// link everything
 			}
