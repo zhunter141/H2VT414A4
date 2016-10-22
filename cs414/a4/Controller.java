@@ -10,7 +10,6 @@ import javax.swing.text.View;
 public class Controller {
 	private Model model;
 	private View view;
-	private Deed d;
 	public Controller()
 	  {}
 	 
@@ -37,14 +36,14 @@ public class Controller {
 	JButton getSellButton(){
 		  HashSet<Square> temp = model.getDeeds();//deeds = property
 		  //Hand view class deeds for player to select which deed to sell
-		  View.chooseDeed(temp);
+		  Deed d = View.chooseDeeds(temp);
 		  JButton b = new JButton();
 		  
 		  b.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e)
 			  {
 				  System.out.println("Debug-Controller: " + "Sell button pressed");
-				  model.sellDeedThroughButton(temp);} 
+				  model.sellDeedThroughButton(d);} 
 		  });
 		  
 		  return b;
@@ -64,3 +63,4 @@ public class Controller {
 	}
 	 
 }
+>>>>>>> master
