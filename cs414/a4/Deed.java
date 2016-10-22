@@ -30,4 +30,8 @@ public class Deed extends Square {
 	public int getHotelCost(){
 		return hotelCost;
 	}
+	
+	public void setOwner(Player o){
+		owner = o;
+	}
 }

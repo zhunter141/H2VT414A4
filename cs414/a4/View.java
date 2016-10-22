@@ -101,6 +101,7 @@ public class View extends JFrame{
 		boardPanel = new JPanel();
 		boardPanel.setBackground(Color.ORANGE);
 		boardPanel.setLayout(new GridLayout(3,0));
+		boardPanel.setSize(10,10);
 		
 		JPanel r1 = new JPanel();
 		
@@ -161,6 +162,7 @@ public class View extends JFrame{
 				view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				view.setLocationByPlatform(true);
 				view.setSize(800, 600);
+				//view.pack();
 				
 				
 				//Controller ctrl = new Controller();
