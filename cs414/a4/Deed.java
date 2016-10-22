@@ -17,6 +17,7 @@ public class Deed extends Square {
 		this.houseCost = houseCost;
 		this.hotelCost = hotelCost;
 		owner = null;
+		this.setPurchasable(true);
 	}
 	
 	public int getCost(){
@@ -29,5 +30,9 @@ public class Deed extends Square {
 
 	public int getHotelCost(){
 		return hotelCost;
+	}
+	
+	public void setOwner(Player o){
+		owner = o;
 	}
 }

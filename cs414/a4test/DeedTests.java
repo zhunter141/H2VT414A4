@@ -8,6 +8,9 @@ import cs414.a4.*;
 
 public class DeedTests {
 	private Deed myDeed;
+	private Token myToken;
+	private Player p1;
+	private Square mySquare;
 	private final static String COLOR = "BROWN";
 	private final static String NAME = "BALTIC AVENUE";
 	private final static int COST = 60;
@@ -18,7 +21,7 @@ public class DeedTests {
 	public void setUp() throws Exception {
 		myDeed = new Deed(COLOR,NAME,COST,HOUSECOST,HOTELCOST);
 		myToken = new Token("boot");
-		Player p1(101,"p1",myToken);
+		p1 = new Player(101,"p1",myToken);
 	}
 
 	@After
@@ -34,7 +37,7 @@ public class DeedTests {
 	@Test
 	public void testConstructor2(){
 		// test to see that the name of the square has been correctly set.
-		assertEquals("GO",myDeed.getName());
+		assertEquals("BALTIC AVENUE",myDeed.getName());
 	}
 	@Test
 	public void testIsPurchaseable(){
@@ -68,7 +71,7 @@ public class DeedTests {
 		 * Such as the Luxary Tax. This way when a player lands on this
 		 * square they must pay the bank.  
 		 */
-		myDeed.setOwner(p1);
-		assertEquals(p1,myDeed.getOwner());
+		myDeed.setOwner(p1); // setOwner is returning null right now, so this won't work
+		assertEquals(p1, myDeed.getOwner());
 	}
 }
