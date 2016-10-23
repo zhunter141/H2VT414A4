@@ -2,7 +2,9 @@ package cs414.a4;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.HashSet;
 
@@ -39,7 +41,7 @@ public class View extends JFrame{
 	public void setUpGUI(){
 		addButtonPanel();
 		addMsgPanel();
-		//setupBoard();
+		setupBoard();
 	}
 	private void addButtonPanel(){
 		// setup button panel
@@ -128,6 +130,8 @@ public class View extends JFrame{
 		r2.setBackground(Color.yellow);
 		
 		JPanel r3 = new JPanel();
+		r3.setLayout( new FlowLayout(FlowLayout.RIGHT) );
+		r3.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		
 		for(int i=0;i<10;i++){
 			JButton b1 = new JButton(""+curr.getName());

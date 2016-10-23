@@ -16,7 +16,7 @@ public class Board {
 		 */
 		  
 		// First 10 squares creation
-		start = new Square("GREY","GO");
+		start = new Square("GRAY","GO");
 		Deed kr = new Deed("BROWN","OLD KENT ROAD",60,50,50,50);
 		Square cc1 = new Square("GRAY","COMMUNITY CHEST");
 		Deed wr = new Deed("BROWN","WHITECHAPEL ROAD",60,50,50,50);
