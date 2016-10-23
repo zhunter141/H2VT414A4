@@ -19,14 +19,15 @@ public class Bank {
 	
 	//Does the account match
 	//Create class Due, because the bank can't hold all data.
-	public void payDue(Player p, int d){
+	public boolean payDue(Player p, int d){
 		Account curAccount =  (Account) accountMap.get(p);
 		//box in view maybe, how we convert it
 		if(willBroken(curAccount,d) == true){
-			System.out.println("No enough money");
+		return false;
 		}
 		else{
 			curAccount.takeOutBalance(d);
+			return true;
 		}
 		
 		
@@ -52,7 +53,9 @@ public class Bank {
 		}		
 	}
 	
-	
+	public HashMap getAccountListForTest(){
+		return accountMap;
+	}
 	
 	
 }

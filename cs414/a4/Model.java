@@ -7,47 +7,79 @@ import java.util.Set;
 
 public class Model {
 	
-	private Player[] allPlayers = new Player[4];
-	private HashSet<Token> allTokens;
-
+	private Player[] players;
+	private Token[] allTokens;
 	private Board board;
 	private Bank monopolyBank;
 	private Dice dice;
-	private int counter = 0;
-	private int iterator = 0;
-
-	private Player curPlayer;
-
+	private int counter;
+	private int iterator;
+	private Player currPlayer;
+	private String msg;
+	private View view;
 	
-	private View view; 
-	//Constructor
 	public Model(){
+		// initialize game objects
 		board = new Board();
+		dice = new Dice();
+		monopolyBank = new Bank();
 		board.initialize();
+		msg = "";
+		players = new Player[4];
+		allTokens = new Token[4];
+		iterator = 0;
+		counter = 0;
+		createTokens();
 	}
-	
-	
+	private void createTokens(){
+		Token t1 =new Token("A",board.getStart());
+		Token t2 =new Token("B",board.getStart());
+		Token t3 =new Token("C",board.getStart());
+		Token t4 =new Token("D",board.getStart());
+		allTokens[0] = t1;		
+		allTokens[1] = t2;
+		allTokens[2] = t3;
+		allTokens[3] = t4;
+	}
 	
 	//Our "View" class
-	public void addView(View v)
-	  {view = v;}
+	public void addView(View v){
+		view = v;
+	}
 
 	
-	Player getCurPlayer(){
-		return curPlayer;
+	Player getCurrPlayer(){
+		return currPlayer;
 	}
 	
-	void rollDiceThroughButton(){
+	// Respond to Controller button presses
+	
+	public void startGame(){
+		// Start the game by setting the current player
+		currPlayer = players[0];
+		msg = currPlayer.getName();
+	}
+	
+	public void rollDice(){
+		// Determine who is the current Player
+		currPlayer = players[iterator%counter];
 		int steps = dice.roll();
-		curPlayer = allPlayers[iterator%counter];
-
-		board.move(steps,curPlayer.getToken());
-
-		
+		msg = ""+currPlayer.getName()+" rolled: "+steps;
+		view.update();
+		move(steps);
+	}
+	
+	private void move(int steps){
+		// Tell the board to Move the player's token 
+			board.move(steps,currPlayer.getToken());
+			Square currLoc = currPlayer.getToken().getLoc();
+			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName();
+			view.update();
+		/*
 		//Refactor later maybe
 		//Do nothing because the player can click the button"Buy a deed"
 
-		Square newSqr = curPlayer.getToken().getLoc();
+		Square newSqr = currPlayer.getToken().getLoc();
 
 
 		if(newSqr instanceof Utility){
@@ -60,7 +92,11 @@ public class Model {
 				//pay rent
 				else{
 					int cost = utility.getRentCost();
-					monopolyBank.payDue(curPlayer, cost);
+
+					if(monopolyBank.payDue(currPlayer, cost) == true){}
+					else{
+						msg = "No enough money to pay rent/taxes";
+					}
 					monopolyBank.withdrawl(utility.getOwner(), cost);
 				}
 
@@ -76,7 +112,12 @@ public class Model {
 				//pay rent
 				else{
 					int cost = deed.getRentCost();
-					monopolyBank.payDue(curPlayer, cost);
+
+					if(monopolyBank.payDue(currPlayer, cost) == true){}
+					else{
+						msg = "No enough money to pay rent/taxes";
+
+					}
 					monopolyBank.withdrawl(deed.getOwner(), cost);
 				}
 
@@ -91,7 +132,12 @@ public class Model {
 			//pay rent
 			else{
 				int cost = railRoad.getRentCost();
-				monopolyBank.payDue(curPlayer, cost);
+				
+				if(monopolyBank.payDue(currPlayer, cost) == true){}
+				else{
+					msg = "No enough money to pay rent/taxes";
+
+				}
 				monopolyBank.withdrawl(railRoad.getOwner(), cost);
 			}
 
@@ -100,39 +146,36 @@ public class Model {
 		else{
 			
 		}
-		
-		
-		iterator++;
-		
-		
-		curPlayer = allPlayers[iterator%counter];
-
-		if (view != null)    {
-		      //view.update();
-		}
-		
-		
+		*/
+		// Tell the view to update itself since the state of the model has changed!
 	}
 	
-	void addPlayerThroughButton(Player p){
-		
-		allPlayers[counter] = p;
-		counter ++;
+	public void endTurn(){
+		iterator++;
+		currPlayer = players[iterator%counter];
+		msg="It is now: "+currPlayer.getName()+" turn.";
+		view.update();
+	}
+	
+	public void addPlayerThroughButton(String name){
+		// Add player to game
+		Player p = new Player(counter,name,allTokens[counter]);
+		players[counter] = p;
+		counter++;
 		
 		monopolyBank.addClientANDAccount(p);
 		
-		if (view != null)    {
-		      //view.update();
+		if (view != null){
+			msg = "Added Player";
+			view.update();
 		}
-		
-		
 	}
 	
-	// In this method, deed is a utility, railroad, deed
-	//Pay attention on choose deed
 	void sellDeedThroughButton(Square d){
+		// In this method, deed is a utility, railroad, deed
+		//Pay attention on choose deed
 		//removeDeeds()
-		curPlayer.removeDeeds(d);
+		currPlayer.removeDeed(d);
 		
 		
 		if(d instanceof Utility){
@@ -140,8 +183,6 @@ public class Model {
 			d =  (Utility)d;
 
 			int cost = utility.getCost();
-			
-			monopolyBank.payDue(curPlayer, cost);
 			monopolyBank.withdrawl(utility.getOwner(), cost);
 			
 			
@@ -151,8 +192,6 @@ public class Model {
 			d =  (Deed)d;
 
 			int cost = deed.getCost();
-			
-			monopolyBank.payDue(curPlayer, cost);
 			monopolyBank.withdrawl(deed.getOwner(), cost);
 			
 		}
@@ -161,8 +200,6 @@ public class Model {
 			d =  (RailRoad)d;
 
 			int cost = railRoad.getCost();
-
-			monopolyBank.payDue(curPlayer, cost);
 			monopolyBank.withdrawl(railRoad.getOwner(), cost);
 
 
@@ -173,23 +210,13 @@ public class Model {
 		//may go wrong because of the type
 		d.setOwner(null);
 		
-		
 		if (view != null)    {
 		      //view.update();
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	void buyDeedThroughButton(){
-		Square cursqr = curPlayer.getToken().getLoc();
+		Square cursqr = currPlayer.getToken().getLoc();
 		Square sqrCopy = cursqr;
 		int cost = 0;
 
@@ -221,61 +248,41 @@ public class Model {
 	
 			}
 			else{}
-			
-			monopolyBank.payDue(curPlayer, cost);
+			 
+			if(monopolyBank.payDue(currPlayer, cost) == false){
+				msg = "No enough money to pay price";
+
+			}
 			monopolyBank.withdrawl(cursqr.getOwner(), cost);
 			
-			curPlayer.addDeed(sqrCopy);
-			cursqr.setOwner(curPlayer);
-}
+			currPlayer.addDeed(sqrCopy);
+			cursqr.setOwner(currPlayer);
+		}
 		if (view != null)    {
-		      //view.update();
+		      view.update();
 		}
 	}
-	
-	
-	
-	
-	
 	
 	//get status aka give status to view/others
 	
 	 public Player[] getPlayers(){
 
-		 return allPlayers;
+		 return players;
 	 }
-	 public HashSet<Token> getTokens(){
+	 public Token[] getTokens(){
 		 return allTokens;
 	 }
-	 
+
 	 public HashSet<Square> getDeeds(){
-		 return curPlayer.getMyDeeds();
+		 return currPlayer.getMyDeeds();
 	 }
 	 
 	 public Board getBoard(){
 		 return board;
 	 }
 	 
-/*
-private void startup() throws IOException{
-	Player player1 = new Player();
-	Player player2 = new Player();
-
-	Board theBoard = new Board();
-	
-	Square startSqr = theBoard.createBoard();
-	
-	player1.setSqr(startSqr);
-	player2.setSqr(startSqr);
-
-	
-
-	
-
-
-	
-	
-}*/
-
+	 public String getMsg(){
+		 return msg;
+	 }
 
 }
