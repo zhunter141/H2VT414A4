@@ -9,6 +9,7 @@ public class Account {
 	Account(Player p){
 
 		setOwner(p);
+		setDefaultBalance();
 	}
 	public void setOwner(Player p ){
 		curOwner = p;
@@ -16,7 +17,7 @@ public class Account {
 	}
 			
 	public void setDefaultBalance(){
-		curBalance = 0;
+		curBalance = 1500;
 	}
 	
 	//-
