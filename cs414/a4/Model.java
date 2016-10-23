@@ -8,7 +8,7 @@ import java.util.Set;
 public class Model {
 	
 	private Player[] allPlayers = new Player[4];
-	private HashSet<Token> allTokens;
+	private Token[] allTokens = new Token[4];
 	private Board board;
 	private Bank monopolyBank;
 	private Dice dice;
@@ -26,8 +26,17 @@ public class Model {
 		dice = new Dice();
 		board.initialize();
 		msg = "";
+
+		createTokens();
 	}
-	
+	private void createTokens(){
+		Token t1 =new Token("A",board.getStart());
+		Token t2 =new Token("B",board.getStart());
+		Token t3 =new Token("C",board.getStart());
+		Token t4 =new Token("D",board.getStart());
+		allTokens[0] = t1;		allTokens[1] = t2;
+		allTokens[2] = t3;		allTokens[3] = t4;
+	}
 	
 	
 	//Our "View" class
@@ -64,7 +73,8 @@ public class Model {
 				//pay rent
 				else{
 					int cost = utility.getRentCost();
-					monopolyBank.payDue(curPlayer, cost);
+					if(monopolyBank.payDue(curPlayer, cost) == true){}
+					else{}
 					monopolyBank.withdrawl(utility.getOwner(), cost);
 				}
 
@@ -80,7 +90,8 @@ public class Model {
 				//pay rent
 				else{
 					int cost = deed.getRentCost();
-					monopolyBank.payDue(curPlayer, cost);
+					if(monopolyBank.payDue(curPlayer, cost) == true){}
+					else{}
 					monopolyBank.withdrawl(deed.getOwner(), cost);
 				}
 
@@ -95,7 +106,8 @@ public class Model {
 			//pay rent
 			else{
 				int cost = railRoad.getRentCost();
-				monopolyBank.payDue(curPlayer, cost);
+				if(monopolyBank.payDue(curPlayer, cost) == true){}
+				else{}
 				monopolyBank.withdrawl(railRoad.getOwner(), cost);
 			}
 
@@ -119,8 +131,7 @@ public class Model {
 	}
 	
 	void addPlayerThroughButton(String name){
-		Token t = new Token("");
-		Player p = new Player(counter,name,t);
+		Player p = new Player(counter,name,allTokens[counter]);
 		allPlayers[counter] = p;
 		counter ++;
 		
@@ -146,8 +157,6 @@ public class Model {
 			d =  (Utility)d;
 
 			int cost = utility.getCost();
-			
-			monopolyBank.payDue(curPlayer, cost);
 			monopolyBank.withdrawl(utility.getOwner(), cost);
 			
 			
@@ -157,8 +166,6 @@ public class Model {
 			d =  (Deed)d;
 
 			int cost = deed.getCost();
-			
-			monopolyBank.payDue(curPlayer, cost);
 			monopolyBank.withdrawl(deed.getOwner(), cost);
 			
 		}
@@ -167,8 +174,6 @@ public class Model {
 			d =  (RailRoad)d;
 
 			int cost = railRoad.getCost();
-
-			monopolyBank.payDue(curPlayer, cost);
 			monopolyBank.withdrawl(railRoad.getOwner(), cost);
 
 
@@ -217,7 +222,7 @@ public class Model {
 	
 			}
 			else{}
-			
+			 
 			monopolyBank.payDue(curPlayer, cost);
 			monopolyBank.withdrawl(cursqr.getOwner(), cost);
 			
@@ -225,7 +230,7 @@ public class Model {
 			cursqr.setOwner(curPlayer);
 		}
 		if (view != null)    {
-		      //view.update();
+		      view.update();
 		}
 	}
 	
@@ -235,7 +240,7 @@ public class Model {
 
 		 return allPlayers;
 	 }
-	 public HashSet<Token> getTokens(){
+	 public Token[] getTokens(){
 		 return allTokens;
 	 }
 
