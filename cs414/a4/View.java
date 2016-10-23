@@ -3,6 +3,7 @@ package cs414.a4;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -41,7 +42,7 @@ public class View extends JFrame{
 		startMenu();
 		addButtonPanel();
 		addMsgPanel();
-		//setupBoard();
+		setupBoard();
 	}
 	private void addButtonPanel(){
 		// setup button panel
@@ -86,6 +87,7 @@ public class View extends JFrame{
 		add(gameMsgPanel, BorderLayout.EAST);
 		
 	}
+	
 	private void startMenu(){
 		int fn;
 		//Ensure the user enter the correct amount of players
@@ -113,78 +115,101 @@ public class View extends JFrame{
 		this.ctrl = ctrl;
 	}
 	
-	
 	private void setupBoard(){
 		Board myBoard = model.getBoard();
 		Square curr = myBoard.getStart();
 		
 		boardPanel = new JPanel();
-		boardPanel.setBackground(Color.ORANGE);
+		boardPanel.setBackground(Color.BLACK);
 		boardPanel.setLayout(new GridLayout(3,0));
 		boardPanel.setSize(10,10);
 		
+		// Set up r1
 		JPanel r1 = new JPanel();
+		r1.setBackground(Color.red);
+		r1.setLayout(new GridLayout(0,10));
 		
 		for(int i=0;i<10;i++){
-			JButton b1 = new JButton(""+curr.getName());
-			r1.add(b1);
+			//JPanel square = new JPanel();
+			//square.add(new JLabel(""+curr.getName()));
+			JPanel square = new JPanel();//(""+curr.getName());
+			square.setLayout(new GridBagLayout());
+			square.setBackground(Color.BLUE);
+			square.setBorder(BorderFactory.createLineBorder(Color.black));
+			//square.setSize(20, 50);
+			JLabel l1 = new JLabel(""+curr.getName());
+			square.add(l1);
+			r1.add(square);
 			curr = curr.getNext();
 		}
 		
+		// Set up r2
 		JPanel r2 = new JPanel();
 		r2.setLayout(new GridLayout(0,3));
 		
+		// Set up r2c1
 		JPanel r2c1 = new JPanel();
-		r2c1.setBackground(Color.PINK);
 		r2c1.setLayout(new GridLayout(10,0));
 		
 		for(int i=0;i<10;i++){
-			JButton b1 = new JButton(""+curr.getName());
-			r2c1.add(b1);
+			JPanel square = new JPanel();
+			square.setLayout(new GridBagLayout());
+			square.setBackground(Color.BLUE);
+			square.setBorder(BorderFactory.createLineBorder(Color.black));
+			JLabel l1 = new JLabel(""+curr.getName());
+			square.add(l1);
+			r2c1.add(square);
 			curr = curr.getNext();
 		}
 		
 		JPanel r2c2 = new JPanel();
 		r2.setBackground(Color.yellow);
 		
-		JPanel r3 = new JPanel();
-		
-		for(int i=0;i<10;i++){
-			JButton b1 = new JButton(""+curr.getName());
-			r3.add(b1);
-			curr = curr.getNext();
-		}
-	
 		JPanel r2c3 = new JPanel();
 		r2.setBackground(Color.blue);
 		r2c3.setLayout(new GridLayout(10,0));
 		
 		for(int i=0;i<10;i++){
-			JButton b1 = new JButton(""+curr.getName());
-			r2c3.add(b1);
+			JPanel square = new JPanel();
+			square.setLayout(new GridBagLayout());
+			square.setBackground(Color.BLUE);
+			square.setBorder(BorderFactory.createLineBorder(Color.black));
+			JLabel l1 = new JLabel(""+curr.getName());
+			square.add(l1);
+			r2c3.add(square);
 			curr = curr.getNext();
 		}
 		// add cols to r2
 		r2.add(r2c3);
 		r2.add(r2c2);
-		r2.add(r2c1);
-
-		/*
+		r2.add(r2c1);	
+		
+		// Set up r3
 		JPanel r3 = new JPanel();
+		r3.setBackground(Color.red);
+		r3.setLayout(new GridLayout(0,10));
 		
 		for(int i=0;i<10;i++){
-			JButton b1 = new JButton(""+i);
-			r3.add(b1);
+			//JPanel square = new JPanel();
+			//square.add(new JLabel(""+curr.getName()));
+			JPanel square = new JPanel();//(""+curr.getName());
+			square.setLayout(new GridBagLayout());
+			square.setBackground(Color.BLUE);
+			square.setBorder(BorderFactory.createLineBorder(Color.black));
+			//square.setSize(20, 50);
+			JLabel l1 = new JLabel(""+curr.getName());
+			square.add(l1);
+			r3.add(square);
+			curr = curr.getNext();
 		}
-		*/
-		
+			
 		// add all rows to boardPanel
 		boardPanel.add(r1);
 		boardPanel.add(r2);
 		boardPanel.add(r3);
 		
 		// add boardPanel to JFrame
-		add(boardPanel,BorderLayout.WEST);
+		add(boardPanel);
 	}
 	
 	public static Square chooseDeeds(HashSet<Square> myDeeds){

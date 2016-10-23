@@ -56,8 +56,11 @@ public class Model {
 	
 	public void startGame(){
 		// Start the game by setting the current player
+		msg = "Welcome to Monopoly Game!\n";
+		msg += "Turn: ";
 		currPlayer = players[0];
-		msg = currPlayer.getName();
+		msg += currPlayer.getName()+", Location: " + currPlayer.getToken().getLoc().getName();
+		view.update();
 	}
 	
 	public void rollDice(){
@@ -73,9 +76,9 @@ public class Model {
 		// Tell the board to Move the player's token 
 			board.move(steps,currPlayer.getToken());
 			Square currLoc = currPlayer.getToken().getLoc();
-			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName()
-			+'\n'+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
-			+"My money: "+ monopolyBank.getBalance(currPlayer);
+			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName();
+			//+'\n'+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
+			//+"My money: "+ monopolyBank.getBalance(currPlayer);
 			view.update();
 		/*
 		//Refactor later maybe
@@ -155,8 +158,7 @@ public class Model {
 	public void endTurn(){
 		iterator++;
 		currPlayer = players[iterator%counter];
-		System.out.println(iterator+" "+counter);
-		msg="It is now: "+currPlayer.getName()+" turn.";
+		msg="Turn: "+currPlayer.getName()+" Location: "+currPlayer.getToken().getLoc().getName();
 		view.update();
 	}
 	
@@ -165,12 +167,7 @@ public class Model {
 		Player p = new Player(counter,name,allTokens[counter]);
 		players[counter] = p;
 		counter++;
-		monopolyBank.addClientANDAccount(p);
-		
-		if (view != null){
-			msg = "Added Player";
-			view.update();
-		}
+		//monopolyBank.addClientANDAccount(p);
 	}
 	
 	void sellDeedThroughButton(Square d){
