@@ -163,7 +163,8 @@ public class View extends JFrame{
 	
 	public void update(){
 		String msg = model.getMsg();
-		msgTextArea.append(msg+"\n");
+		msgTextArea.setText(msg+"\n");
+
 	}
 	
 	public static void main(String[] args){

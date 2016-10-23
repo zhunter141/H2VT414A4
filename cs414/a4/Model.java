@@ -81,8 +81,11 @@ public class Model {
 				//pay rent
 				else{
 					int cost = utility.getRentCost();
+
 					if(monopolyBank.payDue(currPlayer, cost) == true){}
-					else{}
+					else{
+						msg = "No enough money to pay rent/taxes";
+					}
 					monopolyBank.withdrawl(utility.getOwner(), cost);
 				}
 
@@ -98,8 +101,12 @@ public class Model {
 				//pay rent
 				else{
 					int cost = deed.getRentCost();
+
 					if(monopolyBank.payDue(currPlayer, cost) == true){}
-					else{}
+					else{
+						msg = "No enough money to pay rent/taxes";
+
+					}
 					monopolyBank.withdrawl(deed.getOwner(), cost);
 				}
 
@@ -114,8 +121,12 @@ public class Model {
 			//pay rent
 			else{
 				int cost = railRoad.getRentCost();
+				
 				if(monopolyBank.payDue(currPlayer, cost) == true){}
-				else{}
+				else{
+					msg = "No enough money to pay rent/taxes";
+
+				}
 				monopolyBank.withdrawl(railRoad.getOwner(), cost);
 			}
 
@@ -230,7 +241,10 @@ public class Model {
 			}
 			else{}
 			 
-			monopolyBank.payDue(currPlayer, cost);
+			if(monopolyBank.payDue(currPlayer, cost) == false){
+				msg = "No enough money to pay price";
+
+			}
 			monopolyBank.withdrawl(cursqr.getOwner(), cost);
 			
 			currPlayer.addDeed(sqrCopy);
