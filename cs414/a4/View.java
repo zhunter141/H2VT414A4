@@ -14,8 +14,8 @@ public class View extends JFrame{
 	public static final int DEFAULT_HEIGHT = 200;
 	
 	// Window objects
-	//private JButton buyButton;
-	//private JButton sellButton;
+	private JButton buyButton;
+	private JButton sellButton;
 	private JButton endTurnButton;
 	private JButton rollButton;
 	//private JButton payButton;
@@ -48,16 +48,17 @@ public class View extends JFrame{
 				buttonPanel.setLayout(new GridLayout(2,2));
 				
 				// Buttons initialization
-				//buyButton = ctrl.getBuyButton();//new JButton("Buy");
-				//sellButton = ctrl.getnew JButton("Sell");
-				rollButton   = ctrl.getRollDiceButton();//new JButton("rollDice");
-				//payButton = new JButton("payDues");
+				buyButton = ctrl.getBuyButton();
+				sellButton = ctrl.getSellButton();
+				rollButton   = ctrl.getRollDiceButton();
+				endTurnButton = ctrl.getEndTurnButton();
+				
 				
 				// Add buttons to buttonPanel
-				//buttonPanel.add(buyButton);
-				//buttonPanel.add(sellButton);
+				buttonPanel.add(buyButton);
+				buttonPanel.add(sellButton);
 				buttonPanel.add(rollButton);
-				//buttonPanel.add(payButton);
+				buttonPanel.add(endTurnButton);
 				
 				// Add button panel to JFrame
 				add(buttonPanel,BorderLayout.SOUTH);
@@ -67,16 +68,13 @@ public class View extends JFrame{
 		// initialization
 		gameMsgPanel = new JPanel();
 		gameMsgPanel.setBackground(Color.cyan);
-		gameMsgPanel.setLayout(new GridLayout(2,0));
+		gameMsgPanel.setLayout(new GridLayout(3,0));
 		
 		// msgTextFiled initialization 
-		msgTextArea = new JTextArea(20,20);
+		msgTextArea = new JTextArea(10,20);
 		JPanel container = new JPanel();
-		container.setSize(20, 20);
+		//container.setSize(20, 20);
 		container.setBackground(Color.ORANGE);
-		
-		endTurnButton = new JButton("End Turn");
-		container.add(endTurnButton);
 		
 		// Add a textfield to the gameMsgPanel
 		gameMsgPanel.add(msgTextArea);
@@ -157,16 +155,17 @@ public class View extends JFrame{
 		add(boardPanel,BorderLayout.WEST);
 	}
 	
-	public static void chooseDeeds(HashSet<Square> myDeeds){
+	public static Square chooseDeeds(HashSet<Square> myDeeds){
 		System.out.println("Player Must choose a deed to sell.");
-		
+		Square deedToSell = null;
+		return deedToSell;
 	}
 	
 	public void update(){
-		
 		String msg = model.getMsg();
 		msgTextArea.append(msg+"\n");
 	}
+	
 	public static void main(String[] args){
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
@@ -192,8 +191,11 @@ public class View extends JFrame{
 				
 				view.setVisible(true);
 				
+				// Pseudo Menu Screen
 				model.addPlayerThroughButton("TJ");
 				model.addPlayerThroughButton("HZ");
+				model.startGame();
+				
 			}
 		});
 	}
