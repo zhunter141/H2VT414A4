@@ -10,54 +10,67 @@ public class Controller {
 	private Model model;
 	private View view;
 
-	public void addModel(Model m)
-	  {model = m;}
+	public void addModel(Model m){
+		model = m;
+	}
 	 
-	public void addView(View v)
-	  {view = v;}
+	public void addView(View v){
+		view = v;
+	}
 	
-	//Build/Return a Buy button: it calls the buyDeedThroughButton method in model
+	// Buttons and Action Listeners
 	JButton getBuyButton(){
-		  JButton a = new JButton();
+		  JButton buyButton = new JButton("Buy");
 		  
-		  a.addActionListener(new ActionListener() {
-			  public void actionPerformed(ActionEvent e)
-			  {
-				  System.out.println("Debug-Controller: " + "Buy button pressed");
-				  model.buyDeedThroughButton();} 
-		  });
-		  
-		  return a;
-	}
-	/*
-	JButton getSellButton(){
-		  HashSet<Square> temp = model.getDeeds();//deeds = property
-		  //Hand view class deeds for player to select which deed to sell
-		  Deed d = View.chooseDeeds(temp);
-		  JButton b = new JButton();
-		  
-		  b.addActionListener(new ActionListener() {
-			  public void actionPerformed(ActionEvent e)
-			  {
-				  System.out.println("Debug-Controller: " + "Sell button pressed");
-				  model.sellDeedThroughButton(d);} 
-		  });
-		  
-		  return b;
-	}
-	*/
-	JButton getRollDiceButton(){
-		  JButton c = new JButton("Roll");
-		  
-		  c.addActionListener(new ActionListener() {
+		  buyButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e){
-				  System.out.println("Debug-Controller: " + "Roll Dice button pressed");
-				  model.rollDiceThroughButton();
+				  System.out.println("Debug-Controller: " + "Buy button pressed");
+				  //model.buyDeedThroughButton();
 				  } 
 		  });
 		  
-		  return c;
+		  return buyButton;
 	}
-	 
+	
+	JButton getSellButton(){
+		  //Hand view class deeds for player to select which deed to sell
+		  JButton sellButton = new JButton("Sell");
+		  
+		  sellButton.addActionListener(new ActionListener(){
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  System.out.println("Debug-Controller: " + "Sell button pressed");
+				  //HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
+				  // Square deedToSell = View.chooseDeeds(playerDeeds);
+				  //model.sellDeedThroughButton(d);
+			  } 
+		  });
+		  
+		  return sellButton;
+	}
+	
+	JButton getRollDiceButton(){
+		  JButton rollButton = new JButton("Roll");
+		  
+		  rollButton.addActionListener(new ActionListener() {
+			  public void actionPerformed(ActionEvent e){
+				  System.out.println("Debug-Controller: " + "Roll Dice button pressed");
+				  //model.rollDiceThroughButton();
+				  } 
+		  });
+		  
+		  return rollButton;
+	}
+	
+	JButton getEndTurnButton(){
+		JButton endTurnButton = new JButton("End Turn");
+		
+		endTurnButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("Debug-Controller: "+ "End turn button pressed");
+			}
+		});
+		return endTurnButton;
+	}
 }
 

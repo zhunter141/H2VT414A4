@@ -7,19 +7,17 @@ import java.util.Set;
 
 public class Model {
 	
-	private Player[] allPlayers = new Player[4];
-	private Token[] allTokens = new Token[4];
+	private Player[] players;
+	private Token[] allTokens;
 	private Board board;
 	private Bank monopolyBank;
 	private Dice dice;
-	private int counter = 0;
-	private int iterator = 0;
-	private Player curPlayer;
+	private int counter;
+	private int iterator;
+	private Player currPlayer;
 	private String msg;
-
+	private View view;
 	
-	private View view; 
-	//Constructor
 	public Model(){
 		// initialize game objects
 		board = new Board();
@@ -27,7 +25,10 @@ public class Model {
 		monopolyBank = new Bank();
 		board.initialize();
 		msg = "";
-
+		players = new Player[4];
+		allTokens = new Token[4];
+		iterator = 0;
+		counter = 0;
 		createTokens();
 	}
 	private void createTokens(){
@@ -39,29 +40,35 @@ public class Model {
 		allTokens[2] = t3;		allTokens[3] = t4;
 	}
 	
-	
 	//Our "View" class
-	public void addView(View v)
-	  {view = v;}
+	public void addView(View v){
+		view = v;
+	}
 
 	
-	Player getCurPlayer(){
-		return curPlayer;
+	Player getCurrPlayer(){
+		return currPlayer;
 	}
 	
-	void rollDiceThroughButton(){
+	// Respond to Controller button presses
+	
+	public void startGame(){
+		// Start the game by setting the current player
+		currPlayer = players[0];
+	}
+	public void rollDiceThroughButton(){
 		int steps = dice.roll();
 		msg = ""+steps;
 		
-		curPlayer = allPlayers[iterator%counter];
+		currPlayer = players[iterator%counter];
 
-		board.move(steps,curPlayer.getToken());
+		board.move(steps,currPlayer.getToken());
 
 		
 		//Refactor later maybe
 		//Do nothing because the player can click the button"Buy a deed"
 
-		Square newSqr = curPlayer.getToken().getLoc();
+		Square newSqr = currPlayer.getToken().getLoc();
 
 
 		if(newSqr instanceof Utility){
@@ -74,7 +81,8 @@ public class Model {
 				//pay rent
 				else{
 					int cost = utility.getRentCost();
-					if(monopolyBank.payDue(curPlayer, cost) == true){}
+
+					if(monopolyBank.payDue(currPlayer, cost) == true){}
 					else{
 						msg = "No enough money to pay rent/taxes";
 					}
@@ -93,7 +101,8 @@ public class Model {
 				//pay rent
 				else{
 					int cost = deed.getRentCost();
-					if(monopolyBank.payDue(curPlayer, cost) == true){}
+
+					if(monopolyBank.payDue(currPlayer, cost) == true){}
 					else{
 						msg = "No enough money to pay rent/taxes";
 
@@ -112,7 +121,8 @@ public class Model {
 			//pay rent
 			else{
 				int cost = railRoad.getRentCost();
-				if(monopolyBank.payDue(curPlayer, cost) == true){}
+				
+				if(monopolyBank.payDue(currPlayer, cost) == true){}
 				else{
 					msg = "No enough money to pay rent/taxes";
 
@@ -130,7 +140,7 @@ public class Model {
 		iterator++;
 		
 		
-		curPlayer = allPlayers[iterator%counter];
+		currPlayer = players[iterator%counter];
 
 		if (view != null)    {
 		      view.update();
@@ -140,26 +150,24 @@ public class Model {
 	}
 	
 	void addPlayerThroughButton(String name){
+		// Add player to game
 		Player p = new Player(counter,name,allTokens[counter]);
-		allPlayers[counter] = p;
-		counter ++;
+		players[counter] = p;
+		counter++;
 		
-	
 		monopolyBank.addClientANDAccount(p);
 		
 		if (view != null){
 			msg = "Added Player";
 			view.update();
 		}
-		
-		
 	}
 	
-	// In this method, deed is a utility, railroad, deed
-	//Pay attention on choose deed
 	void sellDeedThroughButton(Square d){
+		// In this method, deed is a utility, railroad, deed
+		//Pay attention on choose deed
 		//removeDeeds()
-		curPlayer.removeDeed(d);
+		currPlayer.removeDeed(d);
 		
 		
 		if(d instanceof Utility){
@@ -200,7 +208,7 @@ public class Model {
 	}
 	
 	void buyDeedThroughButton(){
-		Square cursqr = curPlayer.getToken().getLoc();
+		Square cursqr = currPlayer.getToken().getLoc();
 		Square sqrCopy = cursqr;
 		int cost = 0;
 
@@ -233,14 +241,14 @@ public class Model {
 			}
 			else{}
 			 
-			if(monopolyBank.payDue(curPlayer, cost) == false){
+			if(monopolyBank.payDue(currPlayer, cost) == false){
 				msg = "No enough money to pay price";
 
 			}
 			monopolyBank.withdrawl(cursqr.getOwner(), cost);
 			
-			curPlayer.addDeed(sqrCopy);
-			cursqr.setOwner(curPlayer);
+			currPlayer.addDeed(sqrCopy);
+			cursqr.setOwner(currPlayer);
 		}
 		if (view != null)    {
 		      view.update();
@@ -251,14 +259,14 @@ public class Model {
 	
 	 public Player[] getPlayers(){
 
-		 return allPlayers;
+		 return players;
 	 }
 	 public Token[] getTokens(){
 		 return allTokens;
 	 }
 
 	 public HashSet<Square> getDeeds(){
-		 return curPlayer.getMyDeeds();
+		 return currPlayer.getMyDeeds();
 	 }
 	 
 	 public Board getBoard(){
