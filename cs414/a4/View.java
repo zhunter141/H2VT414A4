@@ -119,32 +119,44 @@ public class View extends JFrame{
 		r2c1.setLayout(new GridLayout(10,0));
 		
 		for(int i=0;i<10;i++){
-			JButton b1 = new JButton("Avenue "+i);
+			JButton b1 = new JButton(""+curr.getName());
 			r2c1.add(b1);
+			curr = curr.getNext();
 		}
 		
 		JPanel r2c2 = new JPanel();
 		r2.setBackground(Color.yellow);
+		
+		JPanel r3 = new JPanel();
+		
+		for(int i=0;i<10;i++){
+			JButton b1 = new JButton(""+curr.getName());
+			r3.add(b1);
+			curr = curr.getNext();
+		}
 	
 		JPanel r2c3 = new JPanel();
 		r2.setBackground(Color.blue);
 		r2c3.setLayout(new GridLayout(10,0));
 		
 		for(int i=0;i<10;i++){
-			JButton b1 = new JButton(""+i);
+			JButton b1 = new JButton(""+curr.getName());
 			r2c3.add(b1);
+			curr = curr.getNext();
 		}
 		// add cols to r2
-		r2.add(r2c1);
-		r2.add(r2c2);
 		r2.add(r2c3);
-		
+		r2.add(r2c2);
+		r2.add(r2c1);
+
+		/*
 		JPanel r3 = new JPanel();
 		
 		for(int i=0;i<10;i++){
 			JButton b1 = new JButton(""+i);
 			r3.add(b1);
 		}
+		*/
 		
 		// add all rows to boardPanel
 		boardPanel.add(r1);
