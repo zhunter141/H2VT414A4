@@ -40,9 +40,9 @@ public class Player {
 	}
 	@Override
 	public String toString(){
-		String listOfDeeds = null; 
+		String listOfDeeds = ""; 
 		for(Square s: myDeeds){
-			listOfDeeds= s.getName();
+			listOfDeeds= listOfDeeds+s.getName();
 		}
 		return listOfDeeds;
 		
