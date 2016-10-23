@@ -17,15 +17,15 @@ public class Board {
 		  
 		// First 10 squares creation
 		start = new Square("GREY","GO");
-		Deed   kr = new Deed("BROWN","OLD KENT ROAD",60,50,50,50);
+		Deed kr = new Deed("BROWN","OLD KENT ROAD",60,50,50,50);
 		Square cc1 = new Square("GRAY","COMMUNITY CHEST");
-		Deed   wr = new Deed("BROWN","WHITECHAPEL ROAD",60,50,50,50);
+		Deed wr = new Deed("BROWN","WHITECHAPEL ROAD",60,50,50,50);
 		Square it = new Square("GRAY","INCOME TAX");
 		RailRoad kc = new RailRoad("GRAY","KINGS CROSS STATION",200,50);
 		Deed ai = new Deed("TEAL","THE ANGEL ISLINGTON",100,50,50,50);
 		Square ch1 = new Square("GRAY","CHANCE");
-		Deed er    = new Deed("TEAL","EUSTON ROAD",100,50,50,50);
-		Deed pr    = new Deed("TEAL","PENTONVILLE ROAD",120,50,50,50);
+		Deed er = new Deed("TEAL","EUSTON ROAD",100,50,50,50);
+		Deed pr = new Deed("TEAL","PENTONVILLE ROAD",120,50,50,50);
 		
 		// Connection of first 10 squares
 		start.setNext(kr);
