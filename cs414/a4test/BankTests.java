@@ -27,6 +27,7 @@ public class BankTests {
 	@Test
 	public void testaddClientANDAccountWithDefault() {
 		HashMap bankAccounts = myBank.getAccountListForTest();
+		Account a1 = new Account(p1);
 		assertEquals(1500,bankAccounts.get(p1));
 		
 		
@@ -41,8 +42,10 @@ public class BankTests {
 		
 		myBank.withdrawl(p2, 99);
 		
-		total =bankAccounts.get(p1);
-		assertEquals(3010,);
+		//total = (int) bankAccounts.get(p2)+;
+		assertEquals(3010,bankAccounts.get(p2));
+		assertEquals(1500,bankAccounts.get(p1));
+
 
 		
 	}
