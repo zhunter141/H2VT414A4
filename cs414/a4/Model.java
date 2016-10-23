@@ -137,10 +137,7 @@ public class Model {
 		}
 		
 		
-		iterator++;
 		
-		
-		currPlayer = players[iterator%counter];
 
 		if (view != null)    {
 		      view.update();
@@ -148,7 +145,10 @@ public class Model {
 		
 		
 	}
-	
+	void endTurn(){
+		iterator++;
+		currPlayer = players[iterator%counter];
+	}
 	void addPlayerThroughButton(String name){
 		// Add player to game
 		Player p = new Player(counter,name,allTokens[counter]);
