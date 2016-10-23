@@ -55,7 +55,7 @@ public class Controller {
 		  rollButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e){
 				  System.out.println("Debug-Controller: " + "Roll Dice button pressed");
-				  //model.rollDiceThroughButton();
+				  model.rollDice();
 				  } 
 		  });
 		  

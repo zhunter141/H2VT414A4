@@ -59,15 +59,23 @@ public class Model {
 		currPlayer = players[0];
 		msg = currPlayer.getName();
 	}
-	public void rollDiceThroughButton(){
-		int steps = dice.roll();
-		msg = ""+steps;
-		
+	
+	public void rollDice(){
+		// Determine who is the current Player
 		currPlayer = players[iterator%counter];
-
-		board.move(steps,currPlayer.getToken());
-
-		
+		int steps = dice.roll();
+		msg = ""+currPlayer.getName()+" rolled: "+steps;
+		view.update();
+		move(steps);
+	}
+	
+	private void move(int steps){
+		// Tell the board to Move the player's token 
+			board.move(steps,currPlayer.getToken());
+			Square currLoc = currPlayer.getToken().getLoc();
+			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName();
+			view.update();
+		/*
 		//Refactor later maybe
 		//Do nothing because the player can click the button"Buy a deed"
 
@@ -138,21 +146,18 @@ public class Model {
 		else{
 			
 		}
-		
-		
-		
-
-		if (view != null)    {
-		      view.update();
-		}
-		
-		
+		*/
+		// Tell the view to update itself since the state of the model has changed!
 	}
-	void endTurn(){
+	
+	public void endTurn(){
 		iterator++;
 		currPlayer = players[iterator%counter];
+		msg="It is now: "+currPlayer.getName()+" turn.";
+		view.update();
 	}
-	void addPlayerThroughButton(String name){
+	
+	public void addPlayerThroughButton(String name){
 		// Add player to game
 		Player p = new Player(counter,name,allTokens[counter]);
 		players[counter] = p;
