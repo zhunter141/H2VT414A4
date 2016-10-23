@@ -7,7 +7,7 @@ public class Account {
 			
 			
 	Account(Player p){
-		
+
 		setOwner(p);
 	}
 	public void setOwner(Player p ){
