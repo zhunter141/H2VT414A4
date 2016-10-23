@@ -100,6 +100,8 @@ public class View extends JFrame{
 	    String[] players = new String [fn];
 	    for(int i = 0; i < fn; i++){
 			players[i] = JOptionPane.showInputDialog("Enter the owner of Token" + (i+1));
+			//Send model the name of each player 
+			model.addPlayerThroughButton(players[i]);
 	    }
 	    //final ImageIcon icon = new ImageIcon("/Users/TJ/Downloads/IMG_6062.jpg");
 	    
@@ -249,8 +251,8 @@ public class View extends JFrame{
 				view.setVisible(true);
 				
 				// Pseudo Menu Screen
-				model.addPlayerThroughButton("TJ");
-				model.addPlayerThroughButton("HZ");
+				//model.addPlayerThroughButton("TJ");
+				//model.addPlayerThroughButton("HZ");
 				model.startGame();
 				
 			}
