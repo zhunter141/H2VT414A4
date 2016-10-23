@@ -42,7 +42,7 @@ public class View extends JFrame {
 	}
 
 	public void setUpGUI() {
-		startMenu();
+		//startMenu();
 		addButtonPanel();
 		addMsgPanel();
 		setupBoard();
@@ -169,31 +169,16 @@ public class View extends JFrame {
 		JPanel r2c2 = new JPanel();
 		r2.setBackground(Color.yellow);
 
-		/*
-		 * JPanel r3 = new JPanel(); r3.setLayout( new
-		 * FlowLayout(FlowLayout.RIGHT) );
-		 * r3.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		 * 
-		 * for(int i=0;i<10;i++){ JButton b1 = new JButton(""+curr.getName());
-		 * r3.add(b1); curr = curr.getNext(); }
-		 */
-
 		// Set up r3
 		JPanel r3 = new JPanel();
-		// r3.setLayout( new FlowLayout(FlowLayout.RIGHT) );
 		r3.setLayout(new GridLayout(0, 10));
 		r3.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		// r3.setBackground(Color.red);
-		// r3.setLayout(new GridLayout(0,10));
 
 		for (int i = 0; i < 10; i++) {
-			// JPanel square = new JPanel();
-			// square.add(new JLabel(""+curr.getName()));
-			JPanel square = new JPanel();// (""+curr.getName());
+			JPanel square = new JPanel();
 			square.setLayout(new GridBagLayout());
 			square.setBackground(Color.BLUE);
 			square.setBorder(BorderFactory.createLineBorder(Color.black));
-			// square.setSize(20, 50);
 			JLabel l1 = new JLabel("" + curr.getName());
 			square.add(l1);
 			r3.add(square);
@@ -203,6 +188,8 @@ public class View extends JFrame {
 		JPanel r2c3 = new JPanel();
 		r2.setBackground(Color.blue);
 		r2c3.setLayout(new GridLayout(10, 0));
+		//r3.setComponentOrientation(ComponentOrientation.);
+
 
 		for (int i = 0; i < 10; i++) {
 			JPanel square = new JPanel();
