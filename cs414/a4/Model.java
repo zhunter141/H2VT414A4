@@ -73,7 +73,9 @@ public class Model {
 		// Tell the board to Move the player's token 
 			board.move(steps,currPlayer.getToken());
 			Square currLoc = currPlayer.getToken().getLoc();
-			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName();
+			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName()
+			+'\n'+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
+			+"My money: "+ monopolyBank.getBalance(currPlayer);
 			view.update();
 		/*
 		//Refactor later maybe
@@ -153,6 +155,7 @@ public class Model {
 	public void endTurn(){
 		iterator++;
 		currPlayer = players[iterator%counter];
+		System.out.println(iterator+" "+counter);
 		msg="It is now: "+currPlayer.getName()+" turn.";
 		view.update();
 	}
@@ -162,13 +165,7 @@ public class Model {
 		Player p = new Player(counter,name,allTokens[counter]);
 		players[counter] = p;
 		counter++;
-		
 		monopolyBank.addClientANDAccount(p);
-		
-		
-		msg = ""+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
-				+"My money: "+ monopolyBank.getBalance(currPlayer);
-		
 		
 		if (view != null){
 			msg = "Added Player";
@@ -182,20 +179,16 @@ public class Model {
 		//removeDeeds()
 		currPlayer.removeDeed(d);
 		
-		
 		if(d instanceof Utility){
 			Utility utility =  (Utility)d;
 			d =  (Utility)d;
-
 			int cost = utility.getCost();
 			monopolyBank.withdrawl(utility.getOwner(), cost);
-			
-			
+
 		}
 		else if(d instanceof Deed){
 			Deed deed =  (Deed)d;
 			d =  (Deed)d;
-
 			int cost = deed.getCost();
 			monopolyBank.withdrawl(deed.getOwner(), cost);
 			
@@ -203,15 +196,10 @@ public class Model {
 		else if(d instanceof RailRoad){
 			RailRoad railRoad =  (RailRoad)d;
 			d =  (RailRoad)d;
-
 			int cost = railRoad.getCost();
 			monopolyBank.withdrawl(railRoad.getOwner(), cost);
-
-
 		}
 		else{}
-		
-
 		//may go wrong because of the type
 		d.setOwner(null);
 		
@@ -219,7 +207,7 @@ public class Model {
 				+"My money: "+ monopolyBank.getBalance(currPlayer);
 		
 		if (view != null)    {
-		      //view.update();
+		      view.update();
 		}
 	}
 	
@@ -233,26 +221,19 @@ public class Model {
 			if(cursqr instanceof Utility){
 				Utility utility =  (Utility)cursqr;
 				cursqr =  (Utility)cursqr;
-	
 				cost = utility.getCost();
-				
-			
-				
+	
 			}
 			else if(cursqr instanceof Deed){
 				Deed deed =  (Deed)cursqr;
 				cursqr =  (Deed)cursqr;
-	
 				cost = deed.getCost();
 				
 			}
 			else if(cursqr instanceof RailRoad){
 				RailRoad railRoad =  (RailRoad)cursqr;
 				cursqr =  (RailRoad)cursqr;
-	
 				cost = railRoad.getCost();
-	
-	
 	
 			}
 			else{}
