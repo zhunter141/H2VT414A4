@@ -14,7 +14,7 @@ public class RailRoad extends Square{
 		return cost;
 	}
 	
-	public int rentCost(){
+	public int getRentCost(){
 		return rentCost;
 	}
 }
