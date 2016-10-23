@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.util.Arrays;
 import java.util.HashSet;
 
 import javax.swing.*; 
@@ -37,6 +38,7 @@ public class View extends JFrame{
 	}
 	
 	public void setUpGUI(){
+		startMenu();
 		addButtonPanel();
 		addMsgPanel();
 		//setupBoard();
@@ -83,6 +85,24 @@ public class View extends JFrame{
 		// add gameMsgPanel to MonopolyGameFrame
 		add(gameMsgPanel, BorderLayout.EAST);
 		
+	}
+	private void startMenu(){
+		int fn;
+		//Ensure the user enter the correct amount of players
+		do{
+			String str1 = JOptionPane.showInputDialog("Enter number of players (2 to 4)");  
+			fn = Integer.parseInt(str1);
+
+		}while((fn < 2) || (fn > 4));
+	 
+	    String[] players = new String [fn];
+	    for(int i = 0; i < fn; i++){
+			players[i] = JOptionPane.showInputDialog("Enter the owner of Token" + (i+1));
+	    }
+	    //final ImageIcon icon = new ImageIcon("/Users/TJ/Downloads/IMG_6062.jpg");
+	    
+	    JOptionPane.showMessageDialog( null, "Total of " + fn + " players! \n "+
+	    Arrays.toString(players),"Welcome to Monopoly Game 1.0.0", JOptionPane.INFORMATION_MESSAGE);//,icon);
 	}
 	
 	public void addModel(Model model){
