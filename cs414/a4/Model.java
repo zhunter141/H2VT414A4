@@ -8,23 +8,25 @@ import java.util.Set;
 public class Model {
 	
 	private Player[] allPlayers = new Player[4];
-	
 	private Token[] allTokens = new Token[4];
-
 	private Board board;
 	private Bank monopolyBank;
 	private Dice dice;
 	private int counter = 0;
 	private int iterator = 0;
-
 	private Player curPlayer;
+	private String msg;
 
 	
 	private View view; 
 	//Constructor
 	public Model(){
+		// initialize game objects
 		board = new Board();
+		dice = new Dice();
 		board.initialize();
+		msg = "";
+
 		createTokens();
 	}
 	private void createTokens(){
@@ -34,8 +36,6 @@ public class Model {
 		Token t4 =new Token("D",board.getStart());
 		allTokens[0] = t1;		allTokens[1] = t2;
 		allTokens[2] = t3;		allTokens[3] = t4;
-
-
 	}
 	
 	
@@ -50,6 +50,8 @@ public class Model {
 	
 	void rollDiceThroughButton(){
 		int steps = dice.roll();
+		msg = ""+steps;
+		
 		curPlayer = allPlayers[iterator%counter];
 
 		board.move(steps,curPlayer.getToken());
@@ -122,7 +124,7 @@ public class Model {
 		curPlayer = allPlayers[iterator%counter];
 
 		if (view != null)    {
-		      //view.update();
+		      view.update();
 		}
 		
 		
@@ -135,9 +137,9 @@ public class Model {
 		
 		monopolyBank.addClientANDAccount(p);
 		
-		
-		if (view != null)    {
-		      //view.update();
+		if (view != null){
+			msg = "Added Player";
+			view.update();
 		}
 		
 		
@@ -147,7 +149,7 @@ public class Model {
 	//Pay attention on choose deed
 	void sellDeedThroughButton(Square d){
 		//removeDeeds()
-		curPlayer.removeDeeds(d);
+		curPlayer.removeDeed(d);
 		
 		
 		if(d instanceof Utility){
@@ -182,20 +184,10 @@ public class Model {
 		//may go wrong because of the type
 		d.setOwner(null);
 		
-		
 		if (view != null)    {
 		      //view.update();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	void buyDeedThroughButton(){
 		Square cursqr = curPlayer.getToken().getLoc();
@@ -236,16 +228,11 @@ public class Model {
 			
 			curPlayer.addDeed(sqrCopy);
 			cursqr.setOwner(curPlayer);
-}
+		}
 		if (view != null)    {
-		      //view.update();
+		      view.update();
 		}
 	}
-	
-	
-	
-	
-	
 	
 	//get status aka give status to view/others
 	
@@ -253,10 +240,10 @@ public class Model {
 
 		 return allPlayers;
 	 }
-	 public HashSet<Token> getTokens(){
+	 public Token[] getTokens(){
 		 return allTokens;
 	 }
-	 
+
 	 public HashSet<Square> getDeeds(){
 		 return curPlayer.getMyDeeds();
 	 }
@@ -265,26 +252,8 @@ public class Model {
 		 return board;
 	 }
 	 
-/*
-private void startup() throws IOException{
-	Player player1 = new Player();
-	Player player2 = new Player();
-
-	Board theBoard = new Board();
-	
-	Square startSqr = theBoard.createBoard();
-	
-	player1.setSqr(startSqr);
-	player2.setSqr(startSqr);
-
-	
-
-	
-
-
-	
-	
-}*/
-
+	 public String getMsg(){
+		 return msg;
+	 }
 
 }

@@ -14,8 +14,8 @@ public class View extends JFrame{
 	public static final int DEFAULT_HEIGHT = 200;
 	
 	// Window objects
-	private JButton buyButton;
-	private JButton sellButton;
+	//private JButton buyButton;
+	//private JButton sellButton;
 	private JButton endTurnButton;
 	private JButton rollButton;
 	//private JButton payButton;
@@ -28,18 +28,19 @@ public class View extends JFrame{
 	
 	//Game objects
 	private Model model;
-	//private Controller ctrl;
+	private Controller ctrl;
 	
 	
 	public View(){
 		setTitle("Monopoly Game");
 		setSize(DEFAULT_WIDTH,DEFAULT_HEIGHT);
-		
-		addButtonPanel();
-		
-		addMsgPanel();
 	}
 	
+	public void setUpGUI(){
+		addButtonPanel();
+		addMsgPanel();
+		setupBoard();
+	}
 	private void addButtonPanel(){
 		// setup button panel
 				buttonPanel = new JPanel();
@@ -47,14 +48,14 @@ public class View extends JFrame{
 				buttonPanel.setLayout(new GridLayout(2,2));
 				
 				// Buttons initialization
-				buyButton = new JButton("Buy");
-				sellButton = new JButton("Sell");
-				rollButton   = new JButton("rollDice");
+				//buyButton = ctrl.getBuyButton();//new JButton("Buy");
+				//sellButton = ctrl.getnew JButton("Sell");
+				rollButton   = ctrl.getRollDiceButton();//new JButton("rollDice");
 				//payButton = new JButton("payDues");
 				
 				// Add buttons to buttonPanel
-				buttonPanel.add(buyButton);
-				buttonPanel.add(sellButton);
+				//buttonPanel.add(buyButton);
+				//buttonPanel.add(sellButton);
 				buttonPanel.add(rollButton);
 				//buttonPanel.add(payButton);
 				
@@ -90,13 +91,12 @@ public class View extends JFrame{
 		this.model = model;
 	}
 	
-	/*
 	public void addController(Controller ctrl){
 		this.ctrl = ctrl;
 	}
-	*/
 	
-	public void setupBoard(){
+	
+	private void setupBoard(){
 		Board myBoard = model.getBoard();
 		Square curr = myBoard.getStart();
 		
@@ -157,28 +157,40 @@ public class View extends JFrame{
 		add(boardPanel,BorderLayout.WEST);
 	}
 	
-	public void chooseDeeds(HashSet<Square> myDeeds){
+	public static void chooseDeeds(HashSet<Square> myDeeds){
 		System.out.println("Player Must choose a deed to sell.");
+		
 	}
 	
+	public void update(){
+		String msg = model.getMsg();
+		msgTextArea.append(msg+"\n");
+	}
 	public static void main(String[] args){
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
+				Controller ctrl = new Controller();
+				Model model = new Model();
 				View view = new View();
+				
 				view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				view.setLocationByPlatform(true);
 				view.setSize(800, 600);
-				//view.pack();
-				
-				
-				//Controller ctrl = new Controller();
-				Model model = new Model();
-				
+			
 				// link everything
 				view.addModel(model);
-				view.setupBoard();
+				view.addController(ctrl);
+				
+				ctrl.addModel(model);
+				ctrl.addView(view);
+				
+				// initialize view
+				view.setUpGUI();
 				
 				view.setVisible(true);
+				
+				model.addPlayerThroughButton("TJ");
+				model.addPlayerThroughButton("HZ");
 			}
 		});
 	}
