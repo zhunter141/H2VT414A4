@@ -12,12 +12,16 @@ public class Account {
 		setDefaultBalance();
 	}
 	public void setOwner(Player p ){
+		if(p.equals(null)){}
+		else{
 		curOwner = p;
-		
+		}		
 	}
 			
 	public void setDefaultBalance(){
-		curBalance = 1500;
+		if(curOwner.equals(null)){}
+		else{
+		curBalance = 1500;}
 	}
 	
 	//-

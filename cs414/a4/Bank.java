@@ -57,5 +57,10 @@ public class Bank {
 		return accountMap;
 	}
 	
+	public int getBalance(Player p){
+		Account a =(Account) accountMap.get(p);
+		return a.getBalance();
+	}
+	
 	
 }

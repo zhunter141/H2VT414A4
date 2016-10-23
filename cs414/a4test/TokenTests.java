@@ -1,7 +1,7 @@
 package cs414.a4test;
 
 import static org.junit.Assert.*;
-
+import cs414.a4.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +25,6 @@ public class TokenTests {
     public void testMove(){
 		t1.move(3);
 		assertEquals(t1.currLoc, b1.square.getLoc());//both return color blue location 3
-		
 		
 	}
 
