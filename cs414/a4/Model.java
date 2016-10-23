@@ -36,8 +36,10 @@ public class Model {
 		Token t2 =new Token("B",board.getStart());
 		Token t3 =new Token("C",board.getStart());
 		Token t4 =new Token("D",board.getStart());
-		allTokens[0] = t1;		allTokens[1] = t2;
-		allTokens[2] = t3;		allTokens[3] = t4;
+		allTokens[0] = t1;		
+		allTokens[1] = t2;
+		allTokens[2] = t3;
+		allTokens[3] = t4;
 	}
 	
 	//Our "View" class

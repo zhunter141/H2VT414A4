@@ -39,7 +39,7 @@ public class View extends JFrame{
 	public void setUpGUI(){
 		addButtonPanel();
 		addMsgPanel();
-		setupBoard();
+		//setupBoard();
 	}
 	private void addButtonPanel(){
 		// setup button panel
@@ -72,13 +72,13 @@ public class View extends JFrame{
 		
 		// msgTextFiled initialization 
 		msgTextArea = new JTextArea(10,20);
-		JPanel container = new JPanel();
+		//JPanel container = new JPanel();
 		//container.setSize(20, 20);
-		container.setBackground(Color.ORANGE);
+		//container.setBackground(Color.ORANGE);
 		
 		// Add a textfield to the gameMsgPanel
 		gameMsgPanel.add(msgTextArea);
-		gameMsgPanel.add(container);
+		//gameMsgPanel.add(container);
 		
 		// add gameMsgPanel to MonopolyGameFrame
 		add(gameMsgPanel, BorderLayout.EAST);
