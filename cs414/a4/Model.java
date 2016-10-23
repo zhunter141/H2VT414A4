@@ -155,7 +155,6 @@ public class Model {
 	public void endTurn(){
 		iterator++;
 		currPlayer = players[iterator%counter];
-		System.out.println(iterator+" "+counter);
 		msg="It is now: "+currPlayer.getName()+" turn.";
 		view.update();
 	}
