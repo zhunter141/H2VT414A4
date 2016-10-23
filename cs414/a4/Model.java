@@ -57,6 +57,7 @@ public class Model {
 	public void startGame(){
 		// Start the game by setting the current player
 		currPlayer = players[0];
+		msg = currPlayer.getName();
 	}
 	public void rollDiceThroughButton(){
 		int steps = dice.roll();
@@ -139,10 +140,7 @@ public class Model {
 		}
 		
 		
-		iterator++;
 		
-		
-		currPlayer = players[iterator%counter];
 
 		if (view != null)    {
 		      view.update();
@@ -150,7 +148,10 @@ public class Model {
 		
 		
 	}
-	
+	void endTurn(){
+		iterator++;
+		currPlayer = players[iterator%counter];
+	}
 	void addPlayerThroughButton(String name){
 		// Add player to game
 		Player p = new Player(counter,name,allTokens[counter]);

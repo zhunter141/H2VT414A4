@@ -6,7 +6,7 @@ public class Account {
 	private Player curOwner ; 
 			
 			
-	Account(Player p){
+	public Account(Player p){
 
 		setOwner(p);
 		setDefaultBalance();
