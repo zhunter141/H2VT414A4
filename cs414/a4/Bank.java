@@ -12,7 +12,10 @@ public class Bank {
 	
 	//Test add correctly or not
 	public void addClientANDAccount(Player p){
+		System.out.println("sdfvghnjmkxdcf");
+
 		Account newAccount = new Account(p);
+		System.out.println(p.getName());
 		accountMap.put(p, newAccount);
 		playerTotal++;
 	}

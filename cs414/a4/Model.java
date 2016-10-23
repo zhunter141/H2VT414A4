@@ -24,6 +24,7 @@ public class Model {
 		// initialize game objects
 		board = new Board();
 		dice = new Dice();
+		monopolyBank = new Bank();
 		board.initialize();
 		msg = "";
 
@@ -135,6 +136,7 @@ public class Model {
 		allPlayers[counter] = p;
 		counter ++;
 		
+	
 		monopolyBank.addClientANDAccount(p);
 		
 		if (view != null){
