@@ -7,7 +7,9 @@ public class Bank {
 	private HashMap accountMap = new HashMap();
 
 	private int playerTotal = 0;
-	
+	public Bank(){
+		
+	}
 	
 	
 	//Test add correctly or not
@@ -31,9 +33,6 @@ public class Bank {
 		}
 		
 		
-		
-		
-		
 	}
 	
 	//this due is positive
@@ -45,7 +44,7 @@ public class Bank {
 
 	private boolean willBroken(Account curAccount,int d) {
 		int curBalance = curAccount.getBalance();
-		if(curBalance-d < 0.0 ){
+		if(curBalance-d < 0 ){
 			return true;
 		}
 		else{
@@ -54,11 +53,12 @@ public class Bank {
 	}
 	
 	public HashMap getAccountListForTest(){
-		return accountMap;
+		return this.accountMap;
 	}
 	
 	public int getBalance(Player p){
 		Account a =(Account) accountMap.get(p);
+
 		return a.getBalance();
 	}
 	

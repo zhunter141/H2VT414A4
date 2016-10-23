@@ -12,28 +12,28 @@ public class Account {
 		setDefaultBalance();
 	}
 	public void setOwner(Player p ){		
-		curOwner = p;
+		this.curOwner = p;
 	
 	}
 			
 	public void setDefaultBalance(){
-		curBalance = 1500;
+		this.curBalance = 1500;
 	}
 	
 	//-
 	public void takeOutBalance(int due){
-		curBalance = curBalance-due;
+		this.curBalance = curBalance-due;
 	}
 	//+
 	public void addInBalance(int due){
-		curBalance = curBalance+due;
+		this.curBalance = curBalance+due;
 	}
 	public int getBalance(){
-		return curBalance;
+		return this.curBalance;
 	}
 	
 	public Player getOwnerOfTheAccount(){
-		return curOwner;
+		return this.curOwner;
 	}
 
 }

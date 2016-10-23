@@ -70,15 +70,16 @@ public class Model {
 		msg = ""+currPlayer.getName()+" rolled: "+steps;
 		view.update();
 		move(steps);
+
 	}
 	
 	private void move(int steps){
 		// Tell the board to Move the player's token 
 			board.move(steps,currPlayer.getToken());
 			Square currLoc = currPlayer.getToken().getLoc();
-			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName();
-			//+'\n'+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
-			//+"My money: "+ monopolyBank.getBalance(currPlayer);
+			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName()
+			+'\n'+"My properties: "+ currPlayer.+'\n'
+			+"My money: "+ "balance...";
 			view.update();
 		/*
 		//Refactor later maybe
