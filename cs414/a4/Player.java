@@ -1,7 +1,6 @@
 package cs414.a4;
 
 import java.util.HashSet;
-import java.util.Set;
 
 public class Player {
 	private int id;
@@ -13,6 +12,7 @@ public class Player {
 		this.id = id;
 		this.name = name;
 		this.token = token;
+		myDeeds = new HashSet<Square>();
 	}
 	
 	public int getId(){
