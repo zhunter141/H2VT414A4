@@ -56,8 +56,11 @@ public class Model {
 	
 	public void startGame(){
 		// Start the game by setting the current player
+		msg = "Welcome to Monopoly Game!\n";
+		msg += "Turn: ";
 		currPlayer = players[0];
-		msg = currPlayer.getName();
+		msg += currPlayer.getName()+", Location: " + currPlayer.getToken().getLoc().getName();
+		view.update();
 	}
 	
 	public void rollDice(){
@@ -153,7 +156,7 @@ public class Model {
 	public void endTurn(){
 		iterator++;
 		currPlayer = players[iterator%counter];
-		msg="It is now: "+currPlayer.getName()+" turn.";
+		msg="Turn: "+currPlayer.getName()+" Location: "+currPlayer.getToken().getLoc().getName();
 		view.update();
 	}
 	
@@ -163,12 +166,7 @@ public class Model {
 		players[counter] = p;
 		counter++;
 		
-		monopolyBank.addClientANDAccount(p);
-		
-		if (view != null){
-			msg = "Added Player";
-			view.update();
-		}
+		//monopolyBank.addClientANDAccount(p);
 	}
 	
 	void sellDeedThroughButton(Square d){
