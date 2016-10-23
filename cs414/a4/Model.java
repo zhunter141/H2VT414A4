@@ -59,7 +59,9 @@ public class Model {
 	}
 	public void rollDiceThroughButton(){
 		int steps = dice.roll();
-		msg = ""+steps;
+		msg = ""+steps +'\n'
+			+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
+			+"My money: "+ monopolyBank.getBalance(currPlayer);
 		
 		currPlayer = players[iterator%counter];
 
@@ -158,6 +160,11 @@ public class Model {
 		
 		monopolyBank.addClientANDAccount(p);
 		
+		
+		msg = ""+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
+				+"My money: "+ monopolyBank.getBalance(currPlayer);
+		
+		
 		if (view != null){
 			msg = "Added Player";
 			view.update();
@@ -202,6 +209,9 @@ public class Model {
 
 		//may go wrong because of the type
 		d.setOwner(null);
+		
+		msg = ""+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
+				+"My money: "+ monopolyBank.getBalance(currPlayer);
 		
 		if (view != null)    {
 		      //view.update();
@@ -251,6 +261,9 @@ public class Model {
 			currPlayer.addDeed(sqrCopy);
 			cursqr.setOwner(currPlayer);
 		}
+		
+		msg = ""+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
+				+"My money: "+ monopolyBank.getBalance(currPlayer);
 		if (view != null)    {
 		      view.update();
 		}
