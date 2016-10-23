@@ -13,7 +13,7 @@ public class Bank {
 	//Test add correctly or not
 	public void addClientANDAccount(Player p){
 		Account newAccount = new Account(p);
-		accountMap.put(p, newAccount.getBalance());
+		accountMap.put(p, newAccount);
 		playerTotal++;
 	}
 	
