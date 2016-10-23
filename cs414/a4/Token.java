@@ -4,8 +4,9 @@ public class Token {
 	private String description;
 	private Square currLoc;
 	
-	public Token(String description){
+	public Token(String description,Square loc){
 		this.description = description;
+		this.currLoc = loc;
 	}
 	
 	public String getDescription(){
