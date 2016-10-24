@@ -60,6 +60,7 @@ public class Model {
 		msg += "Turn: ";
 		currPlayer = players[0];
 		msg += currPlayer.getName()+", Location: " + currPlayer.getToken().getLoc().getName();
+		msg += "\n Account: $"+monopolyBank.getBalance(currPlayer);
 		view.update();
 	}
 	
@@ -167,7 +168,7 @@ public class Model {
 		Player p = new Player(counter,name,allTokens[counter]);
 		players[counter] = p;
 		counter++;
-		//monopolyBank.addClientANDAccount(p);
+		monopolyBank.addClient(p);
 	}
 	
 	void sellDeedThroughButton(Square d){
@@ -208,48 +209,61 @@ public class Model {
 		}
 	}
 	
-	void buyDeedThroughButton(){
-		Square cursqr = currPlayer.getToken().getLoc();
-		Square sqrCopy = cursqr;
-		int cost = 0;
-
-		if(cursqr.isPurchasable() != true){}
+	void buyDeed(){
+		Square myLoc = currPlayer.getToken().getLoc();
+		int costOfDeed;
+		
+		// Check myLoc is purchasable
+		if(myLoc.isPurchasable() != true){
+			//System.out.println("You cannot purchase: "+myLoc.getName());
+			msg = "You cannot purchase: "+myLoc.getName();
+		}
+		// The square is purchasable because it is not own by anyone
+		// determine the cost of the square
 		else{
-			if(cursqr instanceof Utility){
-				Utility utility =  (Utility)cursqr;
-				cursqr =  (Utility)cursqr;
-				cost = utility.getCost();
+			if(myLoc instanceof Utility){
+				Utility util =  (Utility)myLoc;
+				costOfDeed = util.getCost();
 	
 			}
-			else if(cursqr instanceof Deed){
-				Deed deed =  (Deed)cursqr;
-				cursqr =  (Deed)cursqr;
-				cost = deed.getCost();
-				
+			else if(myLoc instanceof Deed){
+				Deed deed =  (Deed)myLoc;
+				costOfDeed = deed.getCost();
 			}
-			else if(cursqr instanceof RailRoad){
-				RailRoad railRoad =  (RailRoad)cursqr;
-				cursqr =  (RailRoad)cursqr;
-				cost = railRoad.getCost();
-	
+			// Square MUST be RailRoad
+			else{
+				RailRoad railRoad =  (RailRoad)myLoc;
+				costOfDeed = railRoad.getCost();
 			}
-			else{}
-			 
-			if(monopolyBank.payDue(currPlayer, cost) == false){
-				msg = "No enough money to pay price";
+			// CHECK THE PLAYER CAN AFFORD TO PURCHASE DEED
+			msg = "This is the price of "+myLoc.getName()+" $"+costOfDeed;
+			
+			if(monopolyBank.payDue(currPlayer, costOfDeed) == false){
+				msg = "Bank: "+currPlayer.getName()+" does not have enough money!";
 
 			}
-			monopolyBank.withdrawl(cursqr.getOwner(), cost);
+			else{
+				msg = "Successfull purchased: "+myLoc.getName()+"! \nIt has been added your list of deeds.";
+				msg += "\nAccount: $"+monopolyBank.getBalance(currPlayer);
+			}
 			
-			currPlayer.addDeed(sqrCopy);
-			cursqr.setOwner(currPlayer);
+
 		}
 		
+		/*monopolyBank.withdrawl(myLoc.getOwner(), cost);
+		
+		currPlayer.addDeed(sqrCopy);
+		myLoc.setOwner(currPlayer);
+		/*
 		msg = ""+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
 				+"My money: "+ monopolyBank.getBalance(currPlayer);
-		if (view != null)    {
+		// UPDATE THE VIEW
+		 * 
+		 */
+		if (view != null){
 		      view.update();
 		}
+		
 	}
 	
 	//get status aka give status to view/others
