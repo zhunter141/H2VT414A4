@@ -158,6 +158,9 @@ public class Model {
 		// Tell the view to update itself since the state of the model has changed!
 	}
 	
+	public void buildHouse
+	
+	
 	public void endTurn(){
 		iterator++;
 		currPlayer = players[iterator%counter];
@@ -179,28 +182,26 @@ public class Model {
 		//Pay attention on choose deed
 		//removeDeeds()
 		currPlayer.removeDeed(d);
-		
+		int cost = 0;
 		if(d instanceof Utility){
 			Utility utility =  (Utility)d;
 			d =  (Utility)d;
-			int cost = utility.getCost();
-			monopolyBank.withdrawl(utility.getOwner(), cost);
-
+			cost = utility.getCost();
 		}
 		else if(d instanceof Deed){
 			Deed deed =  (Deed)d;
 			d =  (Deed)d;
-			int cost = deed.getCost();
-			monopolyBank.withdrawl(deed.getOwner(), cost);
-			
+			cost = deed.getCost();			
 		}
 		else if(d instanceof RailRoad){
 			RailRoad railRoad =  (RailRoad)d;
 			d =  (RailRoad)d;
-			int cost = railRoad.getCost();
-			monopolyBank.withdrawl(railRoad.getOwner(), cost);
+			cost = railRoad.getCost();
 		}
 		else{}
+		
+		monopolyBank.withdrawl(currPlayer, cost);
+
 		//may go wrong because of the type
 		d.setOwner(null);
 		

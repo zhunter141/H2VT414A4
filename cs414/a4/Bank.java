@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bank {
+
 	private HashMap<Integer, Account> accounts;
 	public Bank(){
 		accounts = new HashMap<Integer,Account>();
@@ -19,12 +20,14 @@ public class Bank {
 	public boolean payDue(Player p, int amount){
 		Account curAccount =  (Account) accounts.get(p.getId());
 		//box in view maybe, how we convert it
+
 		if(willBroken(curAccount,amount) == true){
 		return false;
 		}
 		else{
 			curAccount.takeOutBalance(amount);
 			return true;
+
 		}	
 	}
 	
@@ -32,11 +35,12 @@ public class Bank {
 	public void withdrawl(Player p,int d){
 		Account curAccount =  (Account) accounts.get(p);
 		curAccount.addInBalance(d);
+
 	}
 
 	private boolean willBroken(Account curAccount,int d) {
 		int curBalance = curAccount.getBalance();
-		if(curBalance-d < 0 ){
+		if(curBalance-d < 0.0 ){
 			return true;
 		}
 		else{
@@ -44,12 +48,14 @@ public class Bank {
 		}		
 	}
 	
+
 	public HashMap getAccountListForTest(){
 		return accounts;
 	}
 	
 	public int getBalance(Player p){
 		return accounts.get(p.getId()).getBalance();
+
 	}
 	
 	
