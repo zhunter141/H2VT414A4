@@ -38,4 +38,13 @@ public class Player {
 	public void removeDeed(Square d){
 		myDeeds.remove(d);
 	}
+	@Override
+	public String toString(){
+		String listOfDeeds = ""; 
+		for(Square s: myDeeds){
+			listOfDeeds= listOfDeeds+s.getName();
+		}
+		return listOfDeeds;
+		
+	}
 }

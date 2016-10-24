@@ -18,7 +18,7 @@ public class BankTests {
 	private Player p2 = new Player(2,"Tom",token2);
 	private Account a1 ;
 	private Account a2 ;
-	private HashMap bankAccounts ;
+	private HashMap<Player, Account> bankAccounts ;
 
 	
 	@Before
@@ -31,13 +31,14 @@ public class BankTests {
 	}
 	@Test
 	public void testaddClientANDAccountWithDefault() {
-		HashMap bankAccounts = myBank.getAccountListForTest();
+		HashMap<Player, Account> bankAccounts = myBank.getAccountListForTest();
 		a1 = (Account) bankAccounts.get(p1);
 		assertEquals(1500,a1.getBalance());
 		
 		
 
 	}
+	
 	@Test
 	public void testaddClientANDAccount(){
 		int total =0;
@@ -67,6 +68,12 @@ public class BankTests {
 	public void testWithdrawl(){
 		myBank.withdrawl(p1, 99);
 		assertEquals(1599,a1.getBalance());
+
+	}
+	@Test
+	public void testGetBalance(){
+		myBank.withdrawl(p1, 99);
+		assertEquals(1599,myBank.getBalance(p1));
 
 	}
 	

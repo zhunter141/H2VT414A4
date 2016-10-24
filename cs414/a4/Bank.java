@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class Bank {
 	private HashMap<Integer, Account> accounts;
-	
 	public Bank(){
 		accounts = new HashMap<Integer,Account>();
 	}
@@ -33,12 +32,11 @@ public class Bank {
 	public void withdrawl(Player p,int d){
 		Account curAccount =  (Account) accounts.get(p);
 		curAccount.addInBalance(d);
-
 	}
 
 	private boolean willBroken(Account curAccount,int d) {
 		int curBalance = curAccount.getBalance();
-		if(curBalance-d < 0.0 ){
+		if(curBalance-d < 0 ){
 			return true;
 		}
 		else{

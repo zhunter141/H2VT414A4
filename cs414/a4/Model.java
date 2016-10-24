@@ -15,6 +15,7 @@ public class Model {
 	private int counter;
 	private int iterator;
 	private Player currPlayer;
+	private Account currAccount;
 	private String msg;
 	private View view;
 	
@@ -71,15 +72,16 @@ public class Model {
 		msg = ""+currPlayer.getName()+" rolled: "+steps;
 		view.update();
 		move(steps);
+
 	}
 	
 	private void move(int steps){
 		// Tell the board to Move the player's token 
 			board.move(steps,currPlayer.getToken());
 			Square currLoc = currPlayer.getToken().getLoc();
-			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName();
-			//+'\n'+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
-			//+"My money: "+ monopolyBank.getBalance(currPlayer);
+			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName()
+			+'\n'+"My properties: "+ currPlayer.toString()+'\n'
+			+"My money: "+ monopolyBank.getBalance(currPlayer);
 			view.update();
 		/*
 		//Refactor later maybe
@@ -159,6 +161,7 @@ public class Model {
 	public void endTurn(){
 		iterator++;
 		currPlayer = players[iterator%counter];
+
 		msg="Turn: "+currPlayer.getName()+" Location: "+currPlayer.getToken().getLoc().getName();
 		view.update();
 	}
@@ -201,7 +204,7 @@ public class Model {
 		//may go wrong because of the type
 		d.setOwner(null);
 		
-		msg = ""+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
+		msg = ""+"My properties: "+ currPlayer.toString()+'\n'
 				+"My money: "+ monopolyBank.getBalance(currPlayer);
 		
 		if (view != null)    {
@@ -250,16 +253,10 @@ public class Model {
 
 		}
 		
-		/*monopolyBank.withdrawl(myLoc.getOwner(), cost);
-		
-		currPlayer.addDeed(sqrCopy);
-		myLoc.setOwner(currPlayer);
-		/*
-		msg = ""+"My properties: "+ currPlayer.getMyDeeds().toString()+'\n'
+		msg = ""+"My properties: "+ currPlayer.toString()+'\n'
+
 				+"My money: "+ monopolyBank.getBalance(currPlayer);
 		// UPDATE THE VIEW
-		 * 
-		 */
 		if (view != null){
 		      view.update();
 		}
