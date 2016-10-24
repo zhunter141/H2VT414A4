@@ -1,41 +1,36 @@
 package cs414.a4;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Bank {
-	//<Player,Account>
-	private HashMap<Integer, Account> accountMap = new HashMap<Integer, Account>();
-
-	private int playerTotal = 0;
+	private HashMap<Integer, Account> accounts;
 	public Bank(){
-		
+		accounts = new HashMap<Integer,Account>();
 	}
-	
-	
 	//Test add correctly or not
-	public void addClientANDAccount(Player p){
-		Account newAccount = new Account(p);
-		accountMap.put(p.getId(), newAccount);
-		playerTotal++;
+	public void addClient(Player p){
+		Account account = new Account(p);
+		accounts.put(p.getId(), account);
 	}
 	
 	//Does the account match
 	//Create class Due, because the bank can't hold all data.
-	public boolean payDue(Player p, int d){
-		Account curAccount =  (Account) accountMap.get(p);
+	public boolean payDue(Player p, int amount){
+		Account curAccount =  (Account) accounts.get(p.getId());
 		//box in view maybe, how we convert it
-		if(willBroken(curAccount,d) == true){
-			return false;
+		if(willBroken(curAccount,amount) == true){
+		return false;
 		}
 		else{
-			curAccount.takeOutBalance(d);
+			curAccount.takeOutBalance(amount);
 			return true;
-		}
+		}	
 	}
 	
 	//this due is positive
 	public void withdrawl(Player p,int d){
-		Account curAccount =  (Account) accountMap.get(p);
+		Account curAccount =  (Account) accounts.get(p);
 		curAccount.addInBalance(d);
 	}
 
@@ -49,14 +44,12 @@ public class Bank {
 		}		
 	}
 	
-	public HashMap<Integer, Account> getAccountListForTest(){
-		return this.accountMap;
+	public HashMap getAccountListForTest(){
+		return accounts;
 	}
 	
 	public int getBalance(Player p){
-		Account a =(Account) accountMap.get(p.getId());
-		System.out.println(((Account) accountMap.get(p.getId())).getBalance());
-		return a.getBalance();
+		return accounts.get(p.getId()).getBalance();
 	}
 	
 	

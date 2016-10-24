@@ -8,6 +8,7 @@ public class RailRoad extends Square{
 		super(color, name);
 		this.cost = cost;
 		this.rentCost = rentCost;
+		this.setPurchasable(true);
 	}
 	
 	public int getCost(){

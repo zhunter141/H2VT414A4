@@ -4,9 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.EventQueue;
-
-import java.awt.FlowLayout;
-
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.Arrays;
@@ -40,8 +37,8 @@ public class View extends JFrame {
 		setTitle("Monopoly Game");
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
-
-	public void setUpGUI() {
+	
+	public void setUpGUI(){
 		startMenu();
 		addButtonPanel();
 		addMsgPanel();
@@ -74,18 +71,14 @@ public class View extends JFrame {
 		// initialization
 		gameMsgPanel = new JPanel();
 		gameMsgPanel.setBackground(Color.cyan);
-		gameMsgPanel.setLayout(new GridLayout(3, 0));
 
-		// msgTextFiled initialization
-		msgTextArea = new JTextArea(10, 20);
-		// JPanel container = new JPanel();
-		// container.setSize(20, 20);
-		// container.setBackground(Color.ORANGE);
-
+		// msgTextFiled initialization 
+		msgTextArea = new JTextArea(30,20);
+		JScrollPane scroll = new JScrollPane (msgTextArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
 		// Add a textfield to the gameMsgPanel
-		gameMsgPanel.add(msgTextArea);
-		// gameMsgPanel.add(container);
-
+		gameMsgPanel.add(scroll);
+	
 		// add gameMsgPanel to MonopolyGameFrame
 		add(gameMsgPanel, BorderLayout.EAST);
 
