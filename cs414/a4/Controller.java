@@ -19,20 +19,20 @@ public class Controller {
 	}
 	
 	// Buttons and Action Listeners
-	JButton getBuyButton(){
+	public JButton getBuyButton(){
 		  JButton buyButton = new JButton("Buy");
 		  
 		  buyButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e){
 				  System.out.println("Debug-Controller: " + "Buy button pressed");
-				  //model.buyDeedThroughButton();
+				  model.buyDeed();
 				  } 
 		  });
 		  
 		  return buyButton;
 	}
 	
-	JButton getSellButton(){
+	public JButton getSellButton(){
 		  //Hand view class deeds for player to select which deed to sell
 		  JButton sellButton = new JButton("Sell");
 		  
@@ -49,7 +49,7 @@ public class Controller {
 		  return sellButton;
 	}
 	
-	JButton getRollDiceButton(){
+	public JButton getRollDiceButton(){
 		  JButton rollButton = new JButton("Roll");
 		  
 		  rollButton.addActionListener(new ActionListener() {
@@ -62,7 +62,7 @@ public class Controller {
 		  return rollButton;
 	}
 	
-	JButton getEndTurnButton(){
+	public JButton getEndTurnButton(){
 		JButton endTurnButton = new JButton("End Turn");
 		
 		endTurnButton.addActionListener(new ActionListener(){
