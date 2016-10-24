@@ -39,7 +39,7 @@ public class View extends JFrame {
 	}
 	
 	public void setUpGUI(){
-		//startMenu();
+		startMenu();
 		addButtonPanel();
 		addMsgPanel();
 		setupBoard();

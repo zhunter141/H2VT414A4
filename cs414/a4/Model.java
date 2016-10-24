@@ -218,8 +218,7 @@ public class Model {
 		
 		// Check myLoc is purchasable
 		if(myLoc.isPurchasable() != true){
-			//System.out.println("You cannot purchase: "+myLoc.getName());
-			msg = "You cannot purchase: "+myLoc.getName();
+			msg = "You cannot purchase: "+myLoc.getName()+"\n";
 		}
 		// The square is purchasable because it is not own by anyone
 		// determine the cost of the square
@@ -243,19 +242,22 @@ public class Model {
 			
 			if(monopolyBank.payDue(currPlayer, costOfDeed) == false){
 				msg = "Bank: "+currPlayer.getName()+" does not have enough money!";
-
 			}
 			else{
-				msg = "Successfull purchased: "+myLoc.getName()+"! \nIt has been added your list of deeds.";
-				msg += "\nAccount: $"+monopolyBank.getBalance(currPlayer);
+				currPlayer.addDeed(myLoc);
+				myLoc.setOwner(currPlayer);
+				msg = "Successfull purchased: "+myLoc.getName()+"! \n";
+				msg += "It has been added your list of deeds.\n";
+				
+				//msg += "\nAccount: $"+monopolyBank.getBalance(currPlayer);
 			}
 			
 
 		}
 		
-		msg = ""+"My properties: "+ currPlayer.toString()+'\n'
+		msg += ""+"My properties: "+ currPlayer.toString()+'\n'
 
-				+"My money: "+ monopolyBank.getBalance(currPlayer);
+				+"Account: $"+ monopolyBank.getBalance(currPlayer);
 		// UPDATE THE VIEW
 		if (view != null){
 		      view.update();
