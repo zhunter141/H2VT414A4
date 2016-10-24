@@ -6,15 +6,17 @@ import java.awt.ComponentOrientation;
 import java.awt.EventQueue;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class View extends JFrame {
-	public static final int DEFAULT_WIDTH = 300;
-	public static final int DEFAULT_HEIGHT = 200;
+	public static final int DEFAULT_WIDTH = 900;
+	public static final int DEFAULT_HEIGHT = 900;
 
 	// Window objects
 	private JButton buyButton;
@@ -40,11 +42,33 @@ public class View extends JFrame {
 	
 	public void setUpGUI(){
 		startMenu();
-		addButtonPanel();
 		addMsgPanel();
+		addButtonPanel();
 		setupBoard();
+		// The game can now be started!
+	    model.startGame();
 	}
 
+	private void addMsgPanel() {
+		// initialization
+		gameMsgPanel = new JPanel();
+		gameMsgPanel.setBackground(Color.cyan);
+		gameMsgPanel.setLayout(new GridLayout(2,0));
+
+		// msgTextFiled initialization 
+		msgTextArea = new JTextArea(30,20);
+		msgTextArea.setEditable(false);
+		JScrollPane scroll = new JScrollPane (msgTextArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+		// Add a textfield to the gameMsgPanel
+		gameMsgPanel.add(scroll);
+	
+		// add gameMsgPanel to MonopolyGameFrame
+		add(gameMsgPanel, BorderLayout.EAST);
+
+	}
+
+	
 	private void addButtonPanel() {
 		// setup button panel
 		buttonPanel = new JPanel();
@@ -64,26 +88,8 @@ public class View extends JFrame {
 		buttonPanel.add(endTurnButton);
 
 		// Add button panel to JFrame
-		add(buttonPanel, BorderLayout.SOUTH);
+		gameMsgPanel.add(buttonPanel);
 	}
-
-	private void addMsgPanel() {
-		// initialization
-		gameMsgPanel = new JPanel();
-		gameMsgPanel.setBackground(Color.cyan);
-
-		// msgTextFiled initialization 
-		msgTextArea = new JTextArea(30,20);
-		JScrollPane scroll = new JScrollPane (msgTextArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		
-		// Add a textfield to the gameMsgPanel
-		gameMsgPanel.add(scroll);
-	
-		// add gameMsgPanel to MonopolyGameFrame
-		add(gameMsgPanel, BorderLayout.EAST);
-
-	}
-
 	private void startMenu() {
 		int fn;
 		// Ensure the user enter the correct amount of players
@@ -97,13 +103,12 @@ public class View extends JFrame {
 	    for(int i = 0; i < fn; i++){
 			players[i] = JOptionPane.showInputDialog("Enter the owner of Token" + (i+1));
 			//Send model the name of each player 
-			model.addPlayerThroughButton(players[i]);
+			model.addPlayer(players[i]);
 	    }
 	    //final ImageIcon icon = new ImageIcon("/Users/TJ/Downloads/IMG_6062.jpg");
 	    
 	    JOptionPane.showMessageDialog( null, "Total of " + fn + " players! \n "+
 	    Arrays.toString(players),"Welcome to Monopoly Game 1.0.0", JOptionPane.INFORMATION_MESSAGE);//,icon);
-
 	}
 
 	public void addModel(Model model) {
@@ -115,13 +120,22 @@ public class View extends JFrame {
 	}
 
 	private void setupBoard() {
-		Board myBoard = model.getBoard();
-		Square curr = myBoard.getStart();
-
 		boardPanel = new JPanel();
-		boardPanel.setBackground(Color.BLACK);
-		boardPanel.setLayout(new GridLayout(3, 0));
-		boardPanel.setSize(10, 10);
+		boardPanel.setLayout(new GridLayout(11,11));
+		
+		ArrayList<Square> listOfSquares = model.getBoard().getSquares();
+		
+		for(int i=0;i<listOfSquares.size();i++){
+			Square s = listOfSquares.get(i);
+			SquareView aSquare = new SquareView(s);
+			boardPanel.add(aSquare);
+		}
+		
+		
+		
+		//Square curr = myBoard.getStart();
+		
+		/*
 
 		// Set up r1
 		JPanel r1 = new JPanel();
@@ -129,17 +143,23 @@ public class View extends JFrame {
 		r1.setLayout(new GridLayout(0, 10));
 
 		for (int i = 0; i < 10; i++) {
-			// JPanel square = new JPanel();
-			// square.add(new JLabel(""+curr.getName()));
-			JPanel square = new JPanel();// (""+curr.getName());
-			square.setLayout(new GridBagLayout());
-			square.setBackground(Color.BLUE);
+			JPanel square = new JPanel();
+			square.setLayout(new GridLayout(4,0));
+			square.setBackground(curr.getColor());
 			square.setBorder(BorderFactory.createLineBorder(Color.black));
 			// square.setSize(20, 50);
 			JLabel l1 = new JLabel("" + curr.getName());
 			square.add(l1);
 			r1.add(square);
 			curr = curr.getNext();
+			/*
+			if(i==1){
+				JButton p1 = new JButton("p1");
+				p1.setBackground(Color.red);
+				p1.setOpaque(true);
+				square.add(p1, 1);
+			}
+			
 		}
 
 		// Set up r2
@@ -152,8 +172,8 @@ public class View extends JFrame {
 
 		for (int i = 0; i < 10; i++) {
 			JPanel square = new JPanel();
-			square.setLayout(new GridBagLayout());
-			square.setBackground(Color.BLUE);
+			square.setLayout(new GridLayout(0,3));
+			square.setBackground(curr.getColor());
 			square.setBorder(BorderFactory.createLineBorder(Color.black));
 			JLabel l1 = new JLabel("" + curr.getName());
 			square.add(l1);
@@ -172,7 +192,7 @@ public class View extends JFrame {
 		for (int i = 0; i < 10; i++) {
 			JPanel square = new JPanel();
 			square.setLayout(new GridBagLayout());
-			square.setBackground(Color.BLUE);
+			square.setBackground(curr.getColor());
 			square.setBorder(BorderFactory.createLineBorder(Color.black));
 			JLabel l1 = new JLabel("" + curr.getName());
 			square.add(l1);
@@ -183,13 +203,11 @@ public class View extends JFrame {
 		JPanel r2c3 = new JPanel();
 		r2.setBackground(Color.blue);
 		r2c3.setLayout(new GridLayout(10, 0));
-		//r3.setComponentOrientation(ComponentOrientation.);
-
 
 		for (int i = 0; i < 10; i++) {
 			JPanel square = new JPanel();
 			square.setLayout(new GridBagLayout());
-			square.setBackground(Color.BLUE);
+			square.setBackground(curr.getColor());
 			square.setBorder(BorderFactory.createLineBorder(Color.black));
 			JLabel l1 = new JLabel("" + curr.getName());
 			square.add(l1);
@@ -205,7 +223,7 @@ public class View extends JFrame {
 		boardPanel.add(r1);
 		boardPanel.add(r2);
 		boardPanel.add(r3);
-
+		*/
 		// add boardPanel to JFrame
 		add(boardPanel);
 	}
@@ -217,8 +235,7 @@ public class View extends JFrame {
 	}
 
 	public void update() {
-		String msg = model.getMsg();
-		msgTextArea.append(msg + "\n");
+		msgTextArea.append(model.getMsg());
 	}
 
 	public static void main(String[] args) {
@@ -235,22 +252,13 @@ public class View extends JFrame {
 				// link everything
 				view.addModel(model);
 				view.addController(ctrl);
-
 				ctrl.addModel(model);
 				ctrl.addView(view);
-
 				model.addView(view);
 
 				// initialize view
 				view.setUpGUI();
-
 				view.setVisible(true);
-
-				// Pseudo Menu Screen
-				//model.addPlayerThroughButton("TJ");
-				//model.addPlayerThroughButton("HZ");
-				model.startGame();
-
 			}
 		});
 	}

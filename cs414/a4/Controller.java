@@ -28,7 +28,6 @@ public class Controller {
 				  model.buyDeed();
 				  } 
 		  });
-		  
 		  return buyButton;
 	}
 	
