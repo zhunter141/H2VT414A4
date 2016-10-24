@@ -183,19 +183,28 @@ public class View extends JFrame {
 		JPanel r2c3 = new JPanel();
 		r2.setBackground(Color.blue);
 		r2c3.setLayout(new GridLayout(10, 0));
-		//r3.setComponentOrientation(ComponentOrientation.);
 
-
+		String[] myLabel = new String[10];
 		for (int i = 0; i < 10; i++) {
+			
+			String s1 = curr.getName();
+			System.out.println(s1);
+			curr = curr.getNext();
+			myLabel[i] = s1;
+		}
+				
+		for (int i = myLabel.length; i > 0; i--) {							    
+
 			JPanel square = new JPanel();
 			square.setLayout(new GridBagLayout());
 			square.setBackground(Color.BLUE);
 			square.setBorder(BorderFactory.createLineBorder(Color.black));
-			JLabel l1 = new JLabel("" + curr.getName());
+			JLabel l1 = new JLabel(myLabel[i-1]);
 			square.add(l1);
 			r2c3.add(square);
-			curr = curr.getNext();
+
 		}
+		
 		// add cols to r2
 		r2.add(r2c3);
 		r2.add(r2c2);
