@@ -1,5 +1,6 @@
 package cs414.a4;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
@@ -29,7 +30,6 @@ public class Controller {
 				  model.buyDeed();
 				  } 
 		  });
-		  
 		  return buyButton;
 	}
 	
@@ -42,8 +42,9 @@ public class Controller {
 			  {
 				  System.out.println("Debug-Controller: " + "Sell button pressed");
 				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
-				
+
 				  view.chooseDeeds(playerDeeds);
+
 			  } 
 		  });
 		  
@@ -60,13 +61,15 @@ public class Controller {
 				  System.out.println("Debug-Controller: " + "Sell combo box pressed");
 				  //HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
 				
+
 				  //model.sellDeedThroughButton(View.chooseDeeds(playerDeeds));
 				  JComboBox cb = (JComboBox)e.getSource();
 			      String nameOfDeed = (String) cb.getSelectedItem();
-			      Square temp = new Square("null",nameOfDeed);
+			      Square temp = new Square(Color.black,nameOfDeed);//A bought deed is black
 			     
 			      System.out.println(temp.getName());
-			      model.sellDeedThroughButton(temp);
+			      model.sellDeed(temp);
+
 			  } 
 		  });
 		  

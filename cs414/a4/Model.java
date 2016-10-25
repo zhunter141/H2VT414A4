@@ -18,6 +18,7 @@ public class Model {
 	private Account currAccount;
 	private String msg;
 	private View view;
+	private boolean hasRolled;
 	
 	public Model(){
 		// initialize game objects
@@ -31,12 +32,13 @@ public class Model {
 		iterator = 0;
 		counter = 0;
 		createTokens();
+		hasRolled = false;
 	}
 	private void createTokens(){
-		Token t1 =new Token("A",board.getStart());
-		Token t2 =new Token("B",board.getStart());
-		Token t3 =new Token("C",board.getStart());
-		Token t4 =new Token("D",board.getStart());
+		Token t1 =new Token("Horse");
+		Token t2 =new Token("Car");
+		Token t3 =new Token("Mouse");
+		Token t4 =new Token("Hat");
 		allTokens[0] = t1;		
 		allTokens[1] = t2;
 		allTokens[2] = t3;
@@ -60,19 +62,27 @@ public class Model {
 		msg = "Welcome to Monopoly Game!\n";
 		msg += "Turn: ";
 		currPlayer = players[0];
-		msg += currPlayer.getName()+", Location: " + currPlayer.getToken().getLoc().getName();
-		msg += "\n Account: $"+monopolyBank.getBalance(currPlayer);
+		msg += currPlayer.getName()+", Location: " + currPlayer.getToken().getLoc().getName()+"\n";
+		msg += "Account: $"+monopolyBank.getBalance(currPlayer)+"\n";
 		view.update();
 	}
 	
 	public void rollDice(){
-		// Determine who is the current Player
-		currPlayer = players[iterator%counter];
-		int steps = dice.roll();
-		msg = ""+currPlayer.getName()+" rolled: "+steps;
+		if(hasRolled == true){
+			msg = "You cannot roll more than once per turn!\n";
+		}
+		else{
+			// A player can roll
+			// Determine who is the current Player
+			currPlayer = players[iterator%counter];
+			int steps = dice.roll();
+			msg = ""+currPlayer.getName()+" rolled: "+steps+"\n";
+			move(steps);
+			hasRolled = true;
+			// The player has rolled disable the roll button!
+			view.disableRoll();
+		}
 		view.update();
-		move(steps);
-		
 	}
 	
 	private void move(int steps){
@@ -81,14 +91,11 @@ public class Model {
 			Square currLoc = currPlayer.getToken().getLoc();
 			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName()
 			+'\n'+"My properties: "+ currPlayer.toString()+'\n'
-			+"My money: "+ monopolyBank.getBalance(currPlayer);
+			+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
 			view.update();
-		
-		//Refactor later maybe
-		//Do nothing because the player can click the button"Buy a deed"
-
+			view.updateBoard();
+			
 		Square newSqr = currPlayer.getToken().getLoc();
-
 
 		if(newSqr instanceof Utility){
 			    Utility utility = (Utility)newSqr;
@@ -113,10 +120,7 @@ public class Model {
 						view.update();
 					}
 					//monopolyBank.withdrawl(utility.getOwner(), cost);
-				}
-			    
-
-			
+				}	
 		}
 		else if(newSqr instanceof Deed){
 				Deed deed = (Deed)newSqr;
@@ -242,20 +246,22 @@ public class Model {
 	public void endTurn(){
 		iterator++;
 		currPlayer = players[iterator%counter];
-
-		msg="Turn: "+currPlayer.getName()+" Location: "+currPlayer.getToken().getLoc().getName();
+		msg="Turn: "+currPlayer.getName()+" Location: "+currPlayer.getToken().getLoc().getName()+"\n";
+		hasRolled = false;
+		view.enableRoll();
 		view.update();
 	}
 	
-	public void addPlayerThroughButton(String name){
+	public void addPlayer(String name){
 		// Add player to game
 		Player p = new Player(counter,name,allTokens[counter]);
+		allTokens[counter].setLoc(board.getStart());
 		players[counter] = p;
 		counter++;
 		monopolyBank.addClient(p);
 	}
 	
-	void sellDeedThroughButton(Square d){
+	void sellDeed(Square d){
 		// In this method, deed is a utility, railroad, deed
 		//Pay attention on choose deed
 		//removeDeeds()
@@ -307,7 +313,7 @@ public class Model {
 		d.setOwner(null);
 		
 		msg = ""+"My properties: "+ currPlayer.toString()+'\n'
-				+"My money: "+ monopolyBank.getBalance(currPlayer);
+				+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
 		
 		if (view != null)    {
 		      view.update();
@@ -340,10 +346,10 @@ public class Model {
 				costOfDeed = railRoad.getCost();
 			}
 			// CHECK THE PLAYER CAN AFFORD TO PURCHASE DEED
-			msg = "This is the price of "+myLoc.getName()+" $"+costOfDeed;
+			msg = "This is the price of "+myLoc.getName()+" $"+costOfDeed+"\n";
 			
 			if(monopolyBank.payDue(currPlayer, costOfDeed) == false){
-				msg = "Bank: "+currPlayer.getName()+" does not have enough money!";
+				msg = "Bank: "+currPlayer.getName()+" does not have enough money!\n";
 			}
 			else{
 				currPlayer.addDeed(myLoc);

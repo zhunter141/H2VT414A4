@@ -3,20 +3,25 @@
  */
 package cs414.a4;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
 public class Square {
-	private String color;
+	private Color color;
 	private String name;
 	private boolean isPurchasable;
 	private Square next;
+	private ArrayList<Token> myTokens;
 	
-	public Square(String color,String name){
-		this.color = color.toUpperCase();
+	public Square(Color color,String name){
+		this.color = color;
 		this.name = name.toUpperCase();
 		setPurchasable(false);
 		next = null;
+		myTokens = new ArrayList<Token>();
 	}
 	// Getters
-	public String getColor(){
+	public Color getColor(){
 		return color;
 	}
 	
@@ -58,5 +63,17 @@ public class Square {
 	
 	public void setPurchasable(boolean isPurchasable) {
 		this.isPurchasable = isPurchasable;
+	}
+	
+	public void addToken(Token t){
+		myTokens.add(t);
+	}
+	
+	public void removeToken(Token t){
+		myTokens.remove(t);
+	}
+	
+	public ArrayList<Token> getTokens(){
+		return myTokens;
 	}
 }
