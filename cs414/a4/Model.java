@@ -164,6 +164,24 @@ public class Model {
 
 
 		}
+		//Two more case for Luxury and income tax squares
+		
+		
+		
+		
+		
+		
+		else if(newSqr.getName().equals("GO TO JAIL")){
+			//May breakup here
+			monopolyBank.payDue(currPlayer, 200);
+			//move to jail
+			goToJail();
+			endTurn();
+			
+			
+		}
+		
+		
 		else{
 			
 		}
@@ -171,11 +189,22 @@ public class Model {
 		// Tell the view to update itself since the state of the model has changed!
 	}
 	
-	public void buildHouse(){
-		Square myLoc = currPlayer.getToken().getLoc();
+	
+	public void goToJail(){
+		//move to jail -> may be refactor later
+		board.move(20,currPlayer.getToken());
+		Square currLoc = currPlayer.getToken().getLoc();
+		msg=""+currPlayer.getName()+" is now on: "+currLoc.getName()
+		+'\n'+"My properties: "+ currPlayer.toString()+'\n'
+		+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
+		view.update();
+		view.updateBoard();
+		
+	}
+	public void buildHouse(Square s){
 
-		if(myLoc instanceof Deed ){
-			Deed currDeed = (Deed)myLoc;
+		if(s instanceof Deed ){
+			Deed currDeed = (Deed)s;
 			if(currDeed.hasBuilding() == true){
 				msg += "No more buildings." ;
 			}
@@ -200,11 +229,11 @@ public class Model {
 		
 	}
 	
-	public void buildHotel(){
-		Square myLoc = currPlayer.getToken().getLoc();
+	public void buildHotel(Square s){
 
-		if(myLoc instanceof Deed ){
-			Deed currDeed = (Deed)myLoc;
+
+		if(s instanceof Deed ){
+			Deed currDeed = (Deed)s;
 			if(currDeed.hasBuilding() == true){
 				msg += "No more buildings." ;
 			}
@@ -273,16 +302,17 @@ public class Model {
 			
 			if(deed.hasBuilding() == true){
 				deed.setExistanceOfHouseHotel(false);
+				deed.setExistanceOfHotel(false);
+				deed.setExistanceOfHouse(false);
+
 				if(deed.hasHotel() == true){
-					cost = deed.getHotelCost();
+					cost += deed.getHotelCost();
 				}
 				else{
-					cost = deed.getHouseCost();
+					cost += deed.getHouseCost();
 				}
+				
 			}
-			
-			
-			
 			
 
 		}
@@ -343,7 +373,7 @@ public class Model {
 			else{
 				currPlayer.addDeed(myLoc);
 				myLoc.setOwner(currPlayer);
-
+				myLoc.setPurchasable(false);
 				msg = "Successfull purchased: "+myLoc.getName()+"! \n";
 				msg += "It has been added your list of deeds.\n";
 				
@@ -364,6 +394,23 @@ public class Model {
 	}
 	
 	//get status aka give status to view/others
+	
+	
+	public String EndTheGame(){
+		String s = "";
+		String p = "";
+		for(Player i :players){
+			p = "Player: "+i.getName()+ "Balance: "+ monopolyBank.getBalance(i);
+			s = s + p;
+		}
+		
+		return s;
+		
+	}
+	
+	
+	
+	
 	
 	 public Player[] getPlayers(){
 
