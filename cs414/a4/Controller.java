@@ -43,7 +43,6 @@ public class Controller {
 			  {
 				  System.out.println("Debug-Controller: " + "Sell button pressed");
 				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
-
 				  view.chooseDeeds(playerDeeds);
 
 			  } 

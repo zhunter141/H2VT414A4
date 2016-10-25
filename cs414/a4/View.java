@@ -2,19 +2,15 @@ package cs414.a4;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.EventQueue;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class View extends JFrame {
@@ -26,7 +22,6 @@ public class View extends JFrame {
 	private JButton sellButton;
 	private JButton endTurnButton;
 	private JButton rollButton;
-	private JComboBox sellCombo;
 	private JButton buildButton;
 	private JButton endGameButton;
 
@@ -38,7 +33,7 @@ public class View extends JFrame {
 	
 	private Timer timer;
 	private long startTime = -1;
-	private long duration = 30000;//5000*120;//10 min
+	private static final long DURATION = 5000*120;//10 min
 	private JLabel countDown;
 	
 	// Game objects
@@ -140,15 +135,15 @@ public class View extends JFrame {
 				}
 				long now = System.currentTimeMillis();
 				long clockTime = now - startTime;
-				if(clockTime >= duration){
-					clockTime = duration;
+				if(clockTime >= DURATION){
+					clockTime = DURATION;
 					timer.stop();
 					JOptionPane.showMessageDialog(null, model.endGame());
 					dispose();
 				}
 				SimpleDateFormat df = new SimpleDateFormat("mm:ss");
 				//System.out.println(df.format(duration - clockTime));
-				countDown.setText((df.format(duration - clockTime)));
+				countDown.setText((df.format(DURATION - clockTime)));
 			}
 		});
 		timer.start();
