@@ -48,8 +48,7 @@ public class View extends JFrame {
 		addMsgPanel();
 		addButtonPanel();
 		setupBoard();
-		// The game can now be started!
-	    model.startGame();
+		model.startGame();
 	}
 
 	private void addMsgPanel() {
@@ -99,23 +98,28 @@ public class View extends JFrame {
 		gameMsgPanel.add(buttonPanel);
 	}
 	private void startMenu(){
-		int fn;
+		int numPlayers = 0;
 		// Ensure the user enter the correct amount of players
 		do {
 			String str1 = JOptionPane.showInputDialog("Enter number of players (2 to 4)");
-			fn = Integer.parseInt(str1);
-
-		}while((fn < 2) || (fn > 4));
-	 
-	    String[] players = new String [fn];
-	    for(int i = 0; i < fn; i++){
-			players[i] = JOptionPane.showInputDialog("Enter the owner of Token" + (i+1));
+			try{
+				numPlayers = Integer.parseInt(str1);				
+			}catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null, "Please enter an integer value.");
+			}
+		}while((numPlayers < 2) || (numPlayers > 4));
+		
+		Token[] allTokens = model.getTokens();
+	    String[] players = new String [numPlayers];
+	    
+	    for(int i = 0; i < numPlayers; i++){
+			players[i] = JOptionPane.showInputDialog("Enter the owner of "+allTokens[i].getDescription());
 			//Send model the name of each player 
 			model.addPlayer(players[i]);
 	    }
 	    //final ImageIcon icon = new ImageIcon("/Users/TJ/Downloads/IMG_6062.jpg");
 	    
-	    JOptionPane.showMessageDialog( null, "Total of " + fn + " players! \n "+
+	    JOptionPane.showMessageDialog( null, "Total of " + numPlayers + " players! \n "+
 	    Arrays.toString(players),"Welcome to Monopoly Game 1.0.0", JOptionPane.INFORMATION_MESSAGE);//,icon);
 	}
 

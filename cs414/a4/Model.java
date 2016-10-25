@@ -44,7 +44,7 @@ public class Model {
 		allTokens[2] = t3;
 		allTokens[3] = t4;
 	}
-	
+
 	//Our "View" class
 	public void addView(View v){
 		view = v;
