@@ -89,10 +89,9 @@ public class Model {
 		// Tell the board to Move the player's token 
 			board.move(steps,currPlayer.getToken());
 			Square currLoc = currPlayer.getToken().getLoc();
-			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName()
+			msg+=""+currPlayer.getName()+" is now on: "+currLoc.getName()
 			+'\n'+"My properties: "+ currPlayer.toString()+'\n'
 			+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
-			view.update();
 			view.updateBoard();
 			
 		Square newSqr = currPlayer.getToken().getLoc();
@@ -111,13 +110,10 @@ public class Model {
 					if(monopolyBank.payDue(currPlayer, cost) == true){
 						
 						monopolyBank.withdrawl(utility.getOwner(), cost);
-						msg = ""+currPlayer.getName()+" paid rent $"+cost+ " to "+ 
-						utility.getOwner();
-						view.update();
+						msg += ""+currPlayer.getName()+" paid rent $"+cost+ " to "+utility.getOwner()+"\n";
 					}
 					else{
-						msg = "No enough money to pay rent/taxes";
-						view.update();
+						msg += "Not enough money to pay rent/taxes\n";
 					}
 					//monopolyBank.withdrawl(utility.getOwner(), cost);
 				}	
@@ -135,19 +131,12 @@ public class Model {
 
 					if(monopolyBank.payDue(currPlayer, cost) == true){
 						monopolyBank.withdrawl(deed.getOwner(), cost);
-						msg = ""+currPlayer.getName()+" paid rent $"+cost+ " to "+ 
-						deed.getOwner().getName();
-						
-						view.update();
+						msg = ""+currPlayer.getName()+" paid rent $"+cost+ " to "+ deed.getOwner().getName()+"\n";
 					}
 					else{
-						msg = "No enough money to pay rent/taxes";
-
+						msg += "No enough money to pay rent/taxes\n";
 					}
-
-					//monopolyBank.withdrawl(deed.getOwner(), cost);
 				}
-
 		}
 		else if(newSqr instanceof RailRoad){
 			RailRoad railRoad = (RailRoad)newSqr;
