@@ -184,7 +184,7 @@ public class Model {
 	}
 	
 	
-	public void goToJail(){
+	private void goToJail(){
 		//move to jail -> may be refactor later
 		board.move(20,currPlayer.getToken());
 		Square currLoc = currPlayer.getToken().getLoc();
@@ -293,11 +293,8 @@ public class Model {
 				}
 				else{
 					cost += deed.getHouseCost();
-				}
-				
+				}	
 			}
-			
-
 		}
 		else if(d instanceof RailRoad){
 			RailRoad railRoad =  (RailRoad)d;
@@ -391,7 +388,24 @@ public class Model {
 	}
 	
 	
-	
+	public void mortgage(Square s){
+		if(s instanceof Deed ){
+			Deed deed =  (Deed)s;
+			s =  (Deed)s;
+			if(deed.hasBuilding() == false){
+				monopolyBank.withdrawl(currPlayer, (int) (0.5*deed.getCost()));
+			}
+			else{
+				msg += "You can't mortgage it, because there is a building."; 
+
+			}
+			
+
+		}
+		else{
+			msg += "You can't mortgage it, it is not a deed!"; 
+		}
+	}
 	
 	
 	 public Player[] getPlayers(){
