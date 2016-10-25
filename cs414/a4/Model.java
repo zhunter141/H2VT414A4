@@ -18,6 +18,7 @@ public class Model {
 	private Account currAccount;
 	private String msg;
 	private View view;
+	private boolean hasRolled;
 	
 	public Model(){
 		// initialize game objects
@@ -31,6 +32,7 @@ public class Model {
 		iterator = 0;
 		counter = 0;
 		createTokens();
+		hasRolled = false;
 	}
 	private void createTokens(){
 		Token t1 =new Token("Horse");
@@ -66,12 +68,18 @@ public class Model {
 	}
 	
 	public void rollDice(){
-		// Determine who is the current Player
-		currPlayer = players[iterator%counter];
-		int steps = dice.roll();
-		msg = ""+currPlayer.getName()+" rolled: "+steps+"\n";
+		if(hasRolled == true){
+			msg = "You cannot roll more than once per turn!\n";
+		}
+		else{
+			// Determine who is the current Player
+			currPlayer = players[iterator%counter];
+			int steps = dice.roll();
+			msg = ""+currPlayer.getName()+" rolled: "+steps+"\n";
+			move(steps);
+			hasRolled = true;
+		}
 		view.update();
-		move(steps);
 	}
 	
 	private void move(int steps){
@@ -82,6 +90,7 @@ public class Model {
 			+'\n'+"My properties: "+ currPlayer.toString()+'\n'
 			+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
 			view.update();
+			view.updateBoard();
 		/*
 		//Refactor later maybe
 		//Do nothing because the player can click the button"Buy a deed"
@@ -161,6 +170,7 @@ public class Model {
 		iterator++;
 		currPlayer = players[iterator%counter];
 		msg="Turn: "+currPlayer.getName()+" Location: "+currPlayer.getToken().getLoc().getName()+"\n";
+		hasRolled = false;
 		view.update();
 	}
 	
