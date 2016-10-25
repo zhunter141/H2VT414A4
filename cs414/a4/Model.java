@@ -51,7 +51,7 @@ public class Model {
 	}
 
 	
-	Player getCurrPlayer(){
+	public Player getCurrPlayer(){
 		return currPlayer;
 	}
 	
