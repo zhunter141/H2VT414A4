@@ -1,7 +1,6 @@
 package cs414.a4;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Bank {
 
@@ -48,8 +47,7 @@ public class Bank {
 		}		
 	}
 	
-
-	public HashMap getAccountListForTest(){
+	public HashMap<Integer,Account> getAccountListForTest(){
 		return accounts;
 	}
 	
