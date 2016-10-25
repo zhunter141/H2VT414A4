@@ -99,7 +99,6 @@ public class Model {
 		if(newSqr instanceof Utility){
 			    Utility utility = (Utility)newSqr;
 			
-			
 			    if(newSqr.getOwner() == null){
 				//Do nothing because the player can click the button"Buy a deed"	
 				}
@@ -121,7 +120,6 @@ public class Model {
 		else if(newSqr instanceof Deed){
 				Deed deed = (Deed)newSqr;
 				
-				
 			    if(deed.getOwner() == null){
 				//Do nothing because the player can click the button"Buy a deed"	
 				}
@@ -141,7 +139,6 @@ public class Model {
 		else if(newSqr instanceof RailRoad){
 			RailRoad railRoad = (RailRoad)newSqr;
 			
-			
 		    if(railRoad.getOwner() == null){
 			//Do nothing because the player can click the button"Buy a deed"	
 			}
@@ -159,28 +156,27 @@ public class Model {
 					msg = "No enough money to pay rent/taxes";
 
 				}
-				//monopolyBank.withdrawl(railRoad.getOwner(), cost);
 			}
 
 
 		}
 		//Two more case for Luxury and income tax squares
-		
-		
-		
-		
-		
-		
+		else if(newSqr.getName().equals("INCOME TAX")){
+			monopolyBank.payDue(currPlayer, 200);
+
+		}
+		else if(newSqr.getName().equals("LUXURY TAX")){
+			monopolyBank.payDue(currPlayer, 300);
+
+		}
 		else if(newSqr.getName().equals("GO TO JAIL")){
 			//May breakup here
 			monopolyBank.payDue(currPlayer, 200);
 			//move to jail
 			goToJail();
 			endTurn();
-			
-			
+				
 		}
-		
 		
 		else{
 			

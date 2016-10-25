@@ -1,7 +1,7 @@
 package cs414.a4test;
 
 import static org.junit.Assert.*;
-
+import java.awt.Color;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ public class PlayerTests {
 	private Token myToken;
 	private Player p1;
 	private Square mySquare;
-	private final static String COLOR = "BROWN";
+	private final static Color COLOR = Color.yellow;
 	private final static String NAME = "BALTIC AVENUE";
 	private final static int COST = 60;
 	private final static int HOUSECOST = 100;
@@ -22,15 +22,9 @@ public class PlayerTests {
 	@Before
 	public void setUp(){
 		p1 = new Player(1,"Tim",myToken);
-		myDeed = new Deed(COLOR,NAME,COST,HOUSECOST,HOTELCOST);
-		//p1.addDeed(myDeed);
-		
+		myDeed = new Deed(COLOR,NAME,COST,HOUSECOST,HOTELCOST,10);
+		p1.addDeed(myDeed);		
 	}
-	//@After
-	//public void tearDown() throws Exception {
-	//	p1 = null;
-	//}
-	
 	
 	@Test
 	public void testGetID() {
@@ -41,12 +35,16 @@ public class PlayerTests {
 	public void testGetName(){
 		assertEquals("Tim",p1.getName());
 	}
-	/*
+	
 	@Test
-	public void testGetMyDeeds(){
-		assertEquals("railraod",p1.getMyDeeds());
-
+	public void testDemoveDeeds(){
+		p1.removeDeed(myDeed);
+		assertEquals("",p1.toString());
+		//System.out.println(p1.toString());
 	}
-	*/
+	
+	
+	
+	
 
 }
