@@ -41,7 +41,7 @@ public class Deed extends Square {
 		owner = o;
 		if (o == null){
 			this.setPurchasable(true);
-		}
+		} 
 		else{
 			this.setPurchasable(false);
 			}
