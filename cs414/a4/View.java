@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import javax.swing.*;
@@ -147,35 +148,35 @@ public class View extends JFrame {
 
 	// The function below is edited by tj
 	public void chooseDeeds(HashSet<Square> myDeeds) {
-
+		HashMap <String,Square> myMap = new HashMap<String, Square>();
 		String labels[] = new String[myDeeds.size()];
 		int i = 0;
 		for(Square s: myDeeds){
 			labels[i] = s.getName();
+			myMap.put(labels[i], s);
 			i++;
 		}
-	    /*JFrame frame = new JFrame("Sell Mode");
-	    JLabel j1 = new JLabel("Player must choose a deed to sell ");
-	    JComboBox comboBox1 = ctrl.getSellComboBox(labels);
-        Container contentpane = frame.getContentPane();
-
-	    comboBox1.setMaximumRowCount(5);
-        comboBox1.setEditable(true);  
-	    contentpane.add(j1,BorderLayout.CENTER);
-	    contentpane.add(comboBox1, BorderLayout.AFTER_LAST_LINE);
-	    frame.setSize(300, 200);
-	    frame.setVisible(true);
-		*/
 		String input = (String) JOptionPane.showInputDialog(null, "Choose a deed to sell",
-		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+		        "Shop Smart", JOptionPane.QUESTION_MESSAGE, null, // Use
 		                                                                        // default
 		                                                                        // icon
 		        labels, // Array of choices
 		        labels[0]); // Initial choice
-		    System.out.println("Selling deed: "+input);
-		    Square temp = new Square(Color.black,input);//A bought deed is black
-		     
-		    model.sellDeed(temp);
+		    System.out.println("Selling deed: "+input);	     
+		    //model.sellDeed(myMap.get(input));
+		    modifyDeed(myMap.get(input));
+	}
+	
+	public void modifyDeed(Square myDeed){
+		String options[] = {"Sell","Build House","Build Hotel","Mortgage"};
+		String decision = (String) JOptionPane.showInputDialog(null, "What would you like to do with your property?",
+		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+		                                                                        // default
+		                                                                        // icon
+		        options, // Array of choices
+		        options[0]); // Initial choice
+		    System.out.println("Selling deed: "+decision);	
+		
 	}
 
 	public void update() {
