@@ -1,11 +1,13 @@
 package cs414.a4;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 public class Controller {
 	private Model model;
@@ -41,24 +43,34 @@ public class Controller {
 			  {
 				  System.out.println("Debug-Controller: " + "Sell button pressed");
 				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
-				
-				  //model.sellDeed(View.chooseDeeds(playerDeeds));
+
+				  view.chooseDeeds(playerDeeds);
+
 			  } 
 		  });
 		  
 		  return sellButton;
 	}
-	public JComboBox getSellComboBox(){
+	public JComboBox getSellComboBox(String[] label){
 		  //Hand view class deeds for player to select which deed to sell
-		  JComboBox sellCombo = new JComboBox();
+		
+		  JComboBox sellCombo = new JComboBox(label);
 		  
 		  sellCombo.addActionListener(new ActionListener(){
 			  public void actionPerformed(ActionEvent e)
 			  {
 				  System.out.println("Debug-Controller: " + "Sell combo box pressed");
-				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
+				  //HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
 				
-				  //model.sellDeed(View.chooseDeeds(playerDeeds));
+
+				  //model.sellDeedThroughButton(View.chooseDeeds(playerDeeds));
+				  JComboBox cb = (JComboBox)e.getSource();
+			      String nameOfDeed = (String) cb.getSelectedItem();
+			      Square temp = new Square(Color.black,nameOfDeed);//A bought deed is black
+			     
+			      System.out.println(temp.getName());
+			      model.sellDeed(temp);
+
 			  } 
 		  });
 		  
@@ -88,5 +100,27 @@ public class Controller {
 			}
 		});
 		return endTurnButton;
+	}
+	
+	public JButton getBuildButton(){
+		JButton buildButton = new JButton("Build");
+		buildButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("Build button pressed!");
+			}
+		});
+		return buildButton;
+	}
+	
+	public JButton getEndGameButton(){
+		JButton endGameButton = new JButton("End Game");
+		endGameButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("End Game button pressed!");
+				JOptionPane.showMessageDialog(null, model.endGame());
+				view.dispose();
+			}
+		});
+		return endGameButton;
 	}
 }

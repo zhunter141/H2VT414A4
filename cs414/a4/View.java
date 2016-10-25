@@ -25,7 +25,9 @@ public class View extends JFrame {
 	private JButton endTurnButton;
 	private JButton rollButton;
 	private JComboBox sellCombo;
-	// private JButton payButton;
+	private JButton buildButton;
+	private JButton endGameButton;
+
 
 	private JPanel buttonPanel;
 	private JPanel gameMsgPanel;
@@ -47,8 +49,7 @@ public class View extends JFrame {
 		addMsgPanel();
 		addButtonPanel();
 		setupBoard();
-		// The game can now be started!
-	    model.startGame();
+		model.startGame();
 	}
 
 	private void addMsgPanel() {
@@ -67,7 +68,6 @@ public class View extends JFrame {
 	
 		// add gameMsgPanel to MonopolyGameFrame
 		add(gameMsgPanel, BorderLayout.EAST);
-
 	}
 
 	
@@ -75,42 +75,51 @@ public class View extends JFrame {
 		// setup button panel
 		buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.blue);
-		buttonPanel.setLayout(new GridLayout(2, 2));
+		buttonPanel.setLayout(new GridLayout(3, 3));
 
 		// Buttons initialization
 		buyButton = ctrl.getBuyButton();
 		sellButton = ctrl.getSellButton();
 		rollButton = ctrl.getRollDiceButton();
 		endTurnButton = ctrl.getEndTurnButton();
-		sellCombo = ctrl.getSellComboBox();
 
+		buildButton = ctrl.getBuildButton();
+		endGameButton = ctrl.getEndGameButton();
+		
 		// Add buttons to buttonPanel
 		buttonPanel.add(buyButton);
 		buttonPanel.add(sellButton);
 		buttonPanel.add(rollButton);
 		buttonPanel.add(endTurnButton);
+		buttonPanel.add(buildButton);
+		buttonPanel.add(endGameButton);
 
-		// Add button panel to JFrame
+		// Add button panel to gameMsgPanel
 		gameMsgPanel.add(buttonPanel);
 	}
 	private void startMenu(){
-		int fn;
+		int numPlayers = 0;
 		// Ensure the user enter the correct amount of players
 		do {
 			String str1 = JOptionPane.showInputDialog("Enter number of players (2 to 4)");
-			fn = Integer.parseInt(str1);
-
-		}while((fn < 2) || (fn > 4));
-	 
-	    String[] players = new String [fn];
-	    for(int i = 0; i < fn; i++){
-			players[i] = JOptionPane.showInputDialog("Enter the owner of Token" + (i+1));
+			try{
+				numPlayers = Integer.parseInt(str1);				
+			}catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null, "Please enter an integer value.");
+			}
+		}while((numPlayers < 2) || (numPlayers > 4));
+		
+		Token[] allTokens = model.getTokens();
+	    String[] players = new String [numPlayers];
+	    
+	    for(int i = 0; i < numPlayers; i++){
+			players[i] = JOptionPane.showInputDialog("Enter the owner of "+allTokens[i].getDescription());
 			//Send model the name of each player 
 			model.addPlayer(players[i]);
 	    }
 	    //final ImageIcon icon = new ImageIcon("/Users/TJ/Downloads/IMG_6062.jpg");
 	    
-	    JOptionPane.showMessageDialog( null, "Total of " + fn + " players! \n "+
+	    JOptionPane.showMessageDialog( null, "Total of " + numPlayers + " players! \n "+
 	    Arrays.toString(players),"Welcome to Monopoly Game 1.0.0", JOptionPane.INFORMATION_MESSAGE);//,icon);
 	}
 
@@ -136,8 +145,10 @@ public class View extends JFrame {
 		// add boardPanel to JFrame
 		add(boardPanel);
 	}
-	/*
-	public static Square chooseDeeds(HashSet<Square> myDeeds) {
+
+	// The function below is edited by tj
+	public void chooseDeeds(HashSet<Square> myDeeds) {
+
 		String labels[] = new String[myDeeds.size()];
 		int i = 0;
 		for(Square s: myDeeds){
@@ -146,27 +157,19 @@ public class View extends JFrame {
 		}
 	    JFrame frame = new JFrame("Sell Mode");
 	    JLabel j1 = new JLabel("Player must choose a deed to sell ");
-	    JButton sellButton = new JButton("OK");  
-	    JComboBox comboBox1 = new JComboBox(labels);
-  
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    Container contentpane = frame.getContentPane();
+	    JComboBox comboBox1 = ctrl.getSellComboBox(labels);
+        Container contentpane = frame.getContentPane();
 
 	    comboBox1.setMaximumRowCount(5);
         comboBox1.setEditable(true);  
 	    contentpane.add(j1,BorderLayout.NORTH);
 	    contentpane.add(comboBox1, BorderLayout.AFTER_LAST_LINE);
-	    contentpane.add(sellButton,BorderLayout.AFTER_LINE_ENDS);
- 
 	    frame.setSize(300, 200);
 	    frame.setVisible(true);
-	    String selected = (String) comboBox1.getSelectedItem();
-	    //Square deed = new Square("null",selected);
-		System.out.println(selected);
-		return deed;
+
 		
 	}
-*/
+
 	public void update() {
 		msgTextArea.append(model.getMsg());
 	}
@@ -184,6 +187,10 @@ public class View extends JFrame {
 	
 	public void enableRoll(){
 		rollButton.setEnabled(true);
+	}
+	
+	public void dispose(){
+		System.exit(0);
 	}
 	
 	public static void main(String[] args) {

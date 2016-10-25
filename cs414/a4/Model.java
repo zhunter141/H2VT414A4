@@ -44,7 +44,7 @@ public class Model {
 		allTokens[2] = t3;
 		allTokens[3] = t4;
 	}
-	
+
 	//Our "View" class
 	public void addView(View v){
 		view = v;
@@ -89,10 +89,9 @@ public class Model {
 		// Tell the board to Move the player's token 
 			board.move(steps,currPlayer.getToken());
 			Square currLoc = currPlayer.getToken().getLoc();
-			msg=""+currPlayer.getName()+" is now on: "+currLoc.getName()
+			msg+=""+currPlayer.getName()+" is now on: "+currLoc.getName()
 			+'\n'+"My properties: "+ currPlayer.toString()+'\n'
 			+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
-			view.update();
 			view.updateBoard();
 			
 		Square newSqr = currPlayer.getToken().getLoc();
@@ -110,13 +109,10 @@ public class Model {
 					if(monopolyBank.payDue(currPlayer, cost) == true){
 						
 						monopolyBank.withdrawl(utility.getOwner(), cost);
-						msg = ""+currPlayer.getName()+" paid rent $"+cost+ " to "+ 
-						utility.getOwner();
-						view.update();
+						msg += ""+currPlayer.getName()+" paid rent $"+cost+ " to "+utility.getOwner()+"\n";
 					}
 					else{
-						msg = "No enough money to pay rent/taxes";
-						view.update();
+						msg += "Not enough money to pay rent/taxes\n";
 					}
 					//monopolyBank.withdrawl(utility.getOwner(), cost);
 				}	
@@ -133,19 +129,12 @@ public class Model {
 
 					if(monopolyBank.payDue(currPlayer, cost) == true){
 						monopolyBank.withdrawl(deed.getOwner(), cost);
-						msg = ""+currPlayer.getName()+" paid rent $"+cost+ " to "+ 
-						deed.getOwner().getName();
-						
-						view.update();
+						msg = ""+currPlayer.getName()+" paid rent $"+cost+ " to "+ deed.getOwner().getName()+"\n";
 					}
 					else{
-						msg = "No enough money to pay rent/taxes";
-
+						msg += "No enough money to pay rent/taxes\n";
 					}
-
-					//monopolyBank.withdrawl(deed.getOwner(), cost);
 				}
-
 		}
 		else if(newSqr instanceof RailRoad){
 			RailRoad railRoad = (RailRoad)newSqr;
@@ -424,5 +413,15 @@ public class Model {
 	 public String getMsg(){
 		 return msg;
 	 }
-
+	 
+	 public String endGame(){
+		 System.out.println("Calculating player that has most amount of money.");
+		 Player winner = players[0];
+		 for(int i=1;i<counter;i++){
+			 if(monopolyBank.getBalance(winner) < monopolyBank.getBalance(players[i])){
+				 winner = players[i];
+			 }
+		 }
+		 return winner.getName()+" is the winner! Final amount: $"+monopolyBank.getBalance(winner);
+	 }
 }
