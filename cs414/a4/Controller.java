@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 public class Controller {
 	private Model model;
@@ -105,6 +106,8 @@ public class Controller {
 		endGameButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				System.out.println("End Game button pressed!");
+				JOptionPane.showMessageDialog(null, model.endGame());
+				view.dispose();
 			}
 		});
 		return endGameButton;

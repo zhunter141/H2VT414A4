@@ -67,7 +67,6 @@ public class View extends JFrame {
 	
 		// add gameMsgPanel to MonopolyGameFrame
 		add(gameMsgPanel, BorderLayout.EAST);
-
 	}
 
 	
@@ -94,7 +93,7 @@ public class View extends JFrame {
 		buttonPanel.add(buildButton);
 		buttonPanel.add(endGameButton);
 
-		// Add button panel to JFrame
+		// Add button panel to gameMsgPanel
 		gameMsgPanel.add(buttonPanel);
 	}
 	private void startMenu(){
@@ -193,6 +192,10 @@ public class View extends JFrame {
 	
 	public void enableRoll(){
 		rollButton.setEnabled(true);
+	}
+	
+	public void dispose(){
+		System.exit(0);
 	}
 	
 	public static void main(String[] args) {

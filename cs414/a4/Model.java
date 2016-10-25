@@ -384,5 +384,15 @@ public class Model {
 	 public String getMsg(){
 		 return msg;
 	 }
-
+	 
+	 public String endGame(){
+		 System.out.println("Calculating player that has most amount of money.");
+		 Player winner = players[0];
+		 for(int i=1;i<counter;i++){
+			 if(monopolyBank.getBalance(winner) < monopolyBank.getBalance(players[i])){
+				 winner = players[i];
+			 }
+		 }
+		 return winner.getName()+" is the winner! Final amount: $"+monopolyBank.getBalance(winner);
+	 }
 }
