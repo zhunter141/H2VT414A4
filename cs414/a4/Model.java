@@ -51,7 +51,7 @@ public class Model {
 	}
 
 	
-	Player getCurrPlayer(){
+	public Player getCurrPlayer(){
 		return currPlayer;
 	}
 	
@@ -163,11 +163,9 @@ public class Model {
 		//Two more case for Luxury and income tax squares
 		else if(newSqr.getName().equals("INCOME TAX")){
 			monopolyBank.payDue(currPlayer, 200);
-
 		}
 		else if(newSqr.getName().equals("LUXURY TAX")){
 			monopolyBank.payDue(currPlayer, 300);
-
 		}
 		else if(newSqr.getName().equals("GO TO JAIL")){
 			//May breakup here
@@ -186,7 +184,7 @@ public class Model {
 	}
 	
 	
-	public void goToJail(){
+	private void goToJail(){
 		//move to jail -> may be refactor later
 		board.move(20,currPlayer.getToken());
 		Square currLoc = currPlayer.getToken().getLoc();
@@ -198,7 +196,6 @@ public class Model {
 		
 	}
 	public void buildHouse(Square s){
-
 		if(s instanceof Deed ){
 			Deed currDeed = (Deed)s;
 			if(currDeed.hasBuilding() == true){
@@ -214,9 +211,6 @@ public class Model {
 					currDeed.setExistanceOfHouseHotel(true);
 					currDeed.setExistanceOfHotel(true);
 				}
-				
-				
-				
 			}
 		}
 		else{
@@ -224,10 +218,7 @@ public class Model {
 		}
 		
 	}
-	
 	public void buildHotel(Square s){
-
-
 		if(s instanceof Deed ){
 			Deed currDeed = (Deed)s;
 			if(currDeed.hasBuilding() == true){
@@ -255,8 +246,6 @@ public class Model {
 		
 		
 	}
-	
-	
 	public void endTurn(){
 		iterator++;
 		currPlayer = players[iterator%counter];
@@ -265,7 +254,6 @@ public class Model {
 		view.enableRoll();
 		view.update();
 	}
-	
 	public void addPlayer(String name){
 		// Add player to game
 		Player p = new Player(counter,name,allTokens[counter]);
@@ -274,7 +262,6 @@ public class Model {
 		counter++;
 		monopolyBank.addClient(p);
 	}
-	
 	void sellDeed(Square d){
 		// In this method, deed is a utility, railroad, deed
 		//Pay attention on choose deed
@@ -306,11 +293,8 @@ public class Model {
 				}
 				else{
 					cost += deed.getHouseCost();
-				}
-				
+				}	
 			}
-			
-
 		}
 		else if(d instanceof RailRoad){
 			RailRoad railRoad =  (RailRoad)d;
@@ -334,7 +318,6 @@ public class Model {
 		      view.update();
 		}
 	}
-	
 	void buyDeed(){
 		Square myLoc = currPlayer.getToken().getLoc();
 		int costOfDeed;
@@ -405,8 +388,45 @@ public class Model {
 	}
 	
 	
+	public void mortgage(Square s){
+		if(s instanceof Deed ){
+			Deed deed =  (Deed)s;
+			s =  (Deed)s;
+			if(deed.hasBuilding() == false && deed.isMortgagable() == false){
+				monopolyBank.withdrawl(currPlayer, (int) (0.5*deed.getCost()));
+				deed.setMortgage(true);
+			}
+			else{
+				msg += "You can't mortgage it, because there is a building."; 
+
+			}
+		
+		}
+		else{
+			msg += "You can't mortgage it, it is not a deed!"; 
+		}
+	}
 	
-	
+	public void umMortgage(Square s){
+		if(!(s instanceof Deed)){
+			msg += "Can not be mortgaged."; 
+		}
+		else{
+			Deed deed =  (Deed)s;
+			
+			if(deed.isMortgagable() == true){
+				if(monopolyBank.payDue(currPlayer, (int)(1.1*deed.getCost())) == true){
+					deed.setMortgage(false);
+				}
+				else{
+					msg += "Failure to mortgage because not enough money.";
+				}
+			}
+			else{
+				msg += "It is not mortgaged yet."; 
+			}
+		}
+	}
 	
 	 public Player[] getPlayers(){
 
