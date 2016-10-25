@@ -182,11 +182,10 @@ public class Model {
 		// Tell the view to update itself since the state of the model has changed!
 	}
 	
-	public void buildHouse(){
-		Square myLoc = currPlayer.getToken().getLoc();
+	public void buildHouse(Square s){
 
-		if(myLoc instanceof Deed ){
-			Deed currDeed = (Deed)myLoc;
+		if(s instanceof Deed ){
+			Deed currDeed = (Deed)s;
 			if(currDeed.hasBuilding() == true){
 				msg += "No more buildings." ;
 			}
@@ -211,11 +210,11 @@ public class Model {
 		
 	}
 	
-	public void buildHotel(){
-		Square myLoc = currPlayer.getToken().getLoc();
+	public void buildHotel(Square s){
 
-		if(myLoc instanceof Deed ){
-			Deed currDeed = (Deed)myLoc;
+
+		if(s instanceof Deed ){
+			Deed currDeed = (Deed)s;
 			if(currDeed.hasBuilding() == true){
 				msg += "No more buildings." ;
 			}
