@@ -2,6 +2,8 @@ package cs414.a4test;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,14 +13,15 @@ import cs414.a4.*;
 public class UtilityTest {
 	
 	private Utility myUtil;
-	private final static String COLOR = "RED";
+	private final static Color COLOR = Color.YELLOW;
 	private final static String NAME = "XCEL";
-	private int cost = 20;
+	private int cost = 80;
+	private int rent = 15;
 	private Token myToken;
 	
 	@Before
 	public void setUp(){
-		myUtil = new Utility(COLOR,NAME,cost);
+		myUtil = new Utility(COLOR,NAME,cost,rent);
 		myToken = new Token("boot");
 		Player bank = new Player(101,"bank",myToken);
 	}
@@ -29,7 +32,11 @@ public class UtilityTest {
 	
 	@Test
 	public void testConstructorColor() {
-		assertEquals("RED",myUtil.getColor());	
+		assertEquals(Color.YELLOW, myUtil.getColor());	
+	}
+	@Test
+	public void testConstructorColorF() {
+		assertNotEquals(Color.RED, myUtil.getColor());	
 	}
 	
 	@Test
@@ -38,13 +45,28 @@ public class UtilityTest {
 	}
 	
 	@Test
+	public void testConstructorNmF() {
+		assertNotEquals("Massive Soft",myUtil.getName());	
+	}
+	
+	@Test
 	public void testConstructorCost() {
-		assertEquals(20, myUtil.getCost());	
+		assertEquals(80, myUtil.getCost());	
+	}
+	
+	@Test
+	public void testConstructorCostF() {
+		assertNotEquals(10, myUtil.getCost());	
 	}
 	
 	@Test
 	public void testConstructorCost2() {
-		assertNotEquals(50, myUtil.getCost());	
+		assertEquals(15, myUtil.getRentCost());	
+	}
+	
+	@Test
+	public void testConstructorCost2F() {
+		assertNotEquals(16, myUtil.getRentCost());	
 	}
 
 }
