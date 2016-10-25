@@ -81,7 +81,7 @@ public class View extends JFrame {
 
 		// Buttons initialization
 		buyButton = ctrl.getBuyButton();
-		sellButton = ctrl.getSellButton();
+		sellButton = ctrl.getmyDeedsButton();
 		rollButton = ctrl.getRollDiceButton();
 		endTurnButton = ctrl.getEndTurnButton();
 
@@ -192,8 +192,6 @@ public class View extends JFrame {
 	    contentpane.add(comboBox1, BorderLayout.AFTER_LAST_LINE);
 	    frame.setSize(300, 200);
 	    frame.setVisible(true);
-
-		
 	}
 
 	public void update() {

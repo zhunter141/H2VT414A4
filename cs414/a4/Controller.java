@@ -34,21 +34,20 @@ public class Controller {
 		  return buyButton;
 	}
 	
-	public JButton getSellButton(){
+	public JButton getmyDeedsButton(){
 		  //Hand view class deeds for player to select which deed to sell
-		  JButton sellButton = new JButton("Sell");
+		  JButton myDeedsButton = new JButton("Sell");
 		  
-		  sellButton.addActionListener(new ActionListener(){
+		  myDeedsButton.addActionListener(new ActionListener(){
 			  public void actionPerformed(ActionEvent e)
 			  {
 				  System.out.println("Debug-Controller: " + "Sell button pressed");
-				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
+				  HashSet<Square> playerDeeds = model.getDeeds();
 				  view.chooseDeeds(playerDeeds);
-
 			  } 
 		  });
 		  
-		  return sellButton;
+		  return myDeedsButton;
 	}
 	public JComboBox getSellComboBox(String[] label){
 		  //Hand view class deeds for player to select which deed to sell
