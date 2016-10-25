@@ -25,7 +25,8 @@ public class View extends JFrame {
 	private JButton endTurnButton;
 	private JButton rollButton;
 	private JComboBox sellCombo;
-	// private JButton payButton;
+	private JButton buildButton;
+	private JButton endGameButton;
 
 	private JPanel buttonPanel;
 	private JPanel gameMsgPanel;
@@ -75,7 +76,7 @@ public class View extends JFrame {
 		// setup button panel
 		buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.blue);
-		buttonPanel.setLayout(new GridLayout(2, 2));
+		buttonPanel.setLayout(new GridLayout(3, 3));
 
 		// Buttons initialization
 		buyButton = ctrl.getBuyButton();
@@ -83,12 +84,16 @@ public class View extends JFrame {
 		rollButton = ctrl.getRollDiceButton();
 		endTurnButton = ctrl.getEndTurnButton();
 		sellCombo = ctrl.getSellComboBox();
-
+		buildButton = ctrl.getBuildButton();
+		endGameButton = ctrl.getEndGameButton();
+		
 		// Add buttons to buttonPanel
 		buttonPanel.add(buyButton);
 		buttonPanel.add(sellButton);
 		buttonPanel.add(rollButton);
 		buttonPanel.add(endTurnButton);
+		buttonPanel.add(buildButton);
+		buttonPanel.add(endGameButton);
 
 		// Add button panel to JFrame
 		gameMsgPanel.add(buttonPanel);
