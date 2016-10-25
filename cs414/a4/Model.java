@@ -175,6 +175,24 @@ public class Model {
 
 
 		}
+		//Two more case for Luxury and income tax squares
+		
+		
+		
+		
+		
+		
+		else if(newSqr.getName().equals("GO TO JAIL")){
+			//May breakup here
+			monopolyBank.payDue(currPlayer, 200);
+			//move to jail
+			goToJail();
+			endTurn();
+			
+			
+		}
+		
+		
 		else{
 			
 		}
@@ -182,6 +200,18 @@ public class Model {
 		// Tell the view to update itself since the state of the model has changed!
 	}
 	
+	
+	public void goToJail(){
+		//move to jail -> may be refactor later
+		board.move(20,currPlayer.getToken());
+		Square currLoc = currPlayer.getToken().getLoc();
+		msg=""+currPlayer.getName()+" is now on: "+currLoc.getName()
+		+'\n'+"My properties: "+ currPlayer.toString()+'\n'
+		+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
+		view.update();
+		view.updateBoard();
+		
+	}
 	public void buildHouse(Square s){
 
 		if(s instanceof Deed ){
