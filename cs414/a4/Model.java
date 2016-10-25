@@ -399,8 +399,7 @@ public class Model {
 				msg += "You can't mortgage it, because there is a building."; 
 
 			}
-			
-
+		
 		}
 		else{
 			msg += "You can't mortgage it, it is not a deed!"; 
