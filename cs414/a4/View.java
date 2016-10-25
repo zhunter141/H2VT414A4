@@ -24,9 +24,9 @@ public class View extends JFrame {
 	private JButton sellButton;
 	private JButton endTurnButton;
 	private JButton rollButton;
-	private JComboBox sellCombo;
 	private JButton buildButton;
 	private JButton endGameButton;
+
 
 	private JPanel buttonPanel;
 	private JPanel gameMsgPanel;
@@ -81,7 +81,7 @@ public class View extends JFrame {
 		sellButton = ctrl.getSellButton();
 		rollButton = ctrl.getRollDiceButton();
 		endTurnButton = ctrl.getEndTurnButton();
-		sellCombo = ctrl.getSellComboBox();
+
 		buildButton = ctrl.getBuildButton();
 		endGameButton = ctrl.getEndGameButton();
 		
@@ -144,37 +144,40 @@ public class View extends JFrame {
 		// add boardPanel to JFrame
 		add(boardPanel);
 	}
-	/*
-	public static Square chooseDeeds(HashSet<Square> myDeeds) {
+
+	// The function below is edited by tj
+	public void chooseDeeds(HashSet<Square> myDeeds) {
+
 		String labels[] = new String[myDeeds.size()];
 		int i = 0;
 		for(Square s: myDeeds){
 			labels[i] = s.getName();
 			i++;
 		}
-	    JFrame frame = new JFrame("Sell Mode");
+	    /*JFrame frame = new JFrame("Sell Mode");
 	    JLabel j1 = new JLabel("Player must choose a deed to sell ");
-	    JButton sellButton = new JButton("OK");  
-	    JComboBox comboBox1 = new JComboBox(labels);
-  
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    Container contentpane = frame.getContentPane();
+	    JComboBox comboBox1 = ctrl.getSellComboBox(labels);
+        Container contentpane = frame.getContentPane();
 
 	    comboBox1.setMaximumRowCount(5);
         comboBox1.setEditable(true);  
-	    contentpane.add(j1,BorderLayout.NORTH);
+	    contentpane.add(j1,BorderLayout.CENTER);
 	    contentpane.add(comboBox1, BorderLayout.AFTER_LAST_LINE);
-	    contentpane.add(sellButton,BorderLayout.AFTER_LINE_ENDS);
- 
 	    frame.setSize(300, 200);
 	    frame.setVisible(true);
-	    String selected = (String) comboBox1.getSelectedItem();
-	    //Square deed = new Square("null",selected);
-		System.out.println(selected);
-		return deed;
-		
+		*/
+		String input = (String) JOptionPane.showInputDialog(null, "Choose a deed to sell",
+		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+		                                                                        // default
+		                                                                        // icon
+		        labels, // Array of choices
+		        labels[0]); // Initial choice
+		    System.out.println("Selling deed: "+input);
+		    Square temp = new Square(Color.black,input);//A bought deed is black
+		     
+		    model.sellDeed(temp);
 	}
-*/
+
 	public void update() {
 		msgTextArea.append(model.getMsg());
 	}
