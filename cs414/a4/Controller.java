@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class Controller {
 	private Model model;
@@ -39,13 +40,29 @@ public class Controller {
 			  public void actionPerformed(ActionEvent e)
 			  {
 				  System.out.println("Debug-Controller: " + "Sell button pressed");
-				  //HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
-				  // Square deedToSell = View.chooseDeeds(playerDeeds);
-				  //model.sellDeedThroughButton(d);
+				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
+				
+				  //model.sellDeed(View.chooseDeeds(playerDeeds));
 			  } 
 		  });
 		  
 		  return sellButton;
+	}
+	public JComboBox getSellComboBox(){
+		  //Hand view class deeds for player to select which deed to sell
+		  JComboBox sellCombo = new JComboBox();
+		  
+		  sellCombo.addActionListener(new ActionListener(){
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  System.out.println("Debug-Controller: " + "Sell combo box pressed");
+				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
+				
+				  //model.sellDeed(View.chooseDeeds(playerDeeds));
+			  } 
+		  });
+		  
+		  return sellCombo;
 	}
 	
 	public JButton getRollDiceButton(){
