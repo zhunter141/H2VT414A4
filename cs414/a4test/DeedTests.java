@@ -1,9 +1,6 @@
 package cs414.a4test;
 
 import static org.junit.Assert.*;
-
-import java.awt.Color;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,17 +11,16 @@ public class DeedTests {
 	private Token myToken;
 	private Player p1;
 	private Square mySquare;
-	private final static Color COLOR = Color.BLUE;
+	private final static String COLOR = "BROWN";
 	private final static String NAME = "BALTIC AVENUE";
-	private final static int COST = 100;
-	private final static int RENT = 40;
+	private final static int COST = 60;
 	private final static int HOUSECOST = 100;
 	private final static int HOTELCOST = 150;
 	
 	@Before
 	public void setUp() throws Exception {
-		myDeed = new Deed(COLOR,NAME,COST,RENT,HOUSECOST,HOTELCOST);
-		//myToken = new Token("boot");
+		myDeed = new Deed(COLOR,NAME,COST,HOUSECOST,HOTELCOST);
+		myToken = new Token("boot");
 		p1 = new Player(101,"p1",myToken);
 	}
 
@@ -36,27 +32,13 @@ public class DeedTests {
 	@Test
 	public void testConstructor1() {
 		// test correct color has been set
-		assertEquals(Color.BLUE,myDeed.getColor());
+		assertEquals(COLOR,myDeed.getColor());
 	}
-	
-	@Test
-	public void testConstructor1F() {
-		// test correct color has been set
-		assertNotEquals(Color.YELLOW, myDeed.getColor());
-	}
-	
 	@Test
 	public void testConstructor2(){
 		// test to see that the name of the square has been correctly set.
 		assertEquals("BALTIC AVENUE",myDeed.getName());
 	}
-	
-	@Test
-	public void testConstructor2F(){
-		// test to see that the name of the square has been correctly set.
-		assertNotEquals("Silent Hill",myDeed.getName());
-	}
-	
 	@Test
 	public void testIsPurchaseable(){
 		// a deed is purchasable after creation because
@@ -73,7 +55,7 @@ public class DeedTests {
 		// check correct square is returned 
 		// note equals method overridden for Square class so that two 
 		// Squares are equal if the have the same name. 
-		Square nextSquare = new Square(Color.GRAY,"GO TO JAIL");
+		Square nextSquare = new Square("BLUE","GO TO JAIL");
 		myDeed.setNext(nextSquare);
 		assertEquals(nextSquare, myDeed.getNext());
 	}
@@ -81,12 +63,6 @@ public class DeedTests {
 	public void testGetOwner1(){
 		// a default square has no owner, this method should return a null reference
 		assertEquals(null,myDeed.getOwner());
-	}
-	
-	@Test
-	public void testGetOwner1F(){
-		// a default square has no owner, this method should return a null reference
-		assertNotEquals(p1,myDeed.getOwner());
 	}
 	
 	@Test

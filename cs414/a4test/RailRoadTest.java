@@ -2,8 +2,6 @@ package cs414.a4test;
 
 import static org.junit.Assert.*;
 
-import java.awt.Color;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,15 +11,14 @@ import cs414.a4.*;
 public class RailRoadTest {
 
 	private Utility myRR;
-	private final static Color COLOR = Color.RED;
+	private final static String COLOR = "BLUE";
 	private final static String NAME = "RTD";
-	private int cost = 50;
-	private int rent = 10;
+	private int cost = 15;
 	private Token myToken;
 	
 	@Before
 	public void setUp(){
-		myRR = new Utility(Color.RED, NAME, cost, rent);
+		myRR = new Utility(COLOR,NAME,cost);
 		myToken = new Token("boot");
 		Player bank = new Player(101,"bank",myToken);
 	}
@@ -32,12 +29,7 @@ public class RailRoadTest {
 	
 	@Test
 	public void testConstructorColor() {
-		assertEquals(Color.RED, myRR.getColor());	
-	}
-	
-	@Test
-	public void testConstructorColorF() {
-		assertNotEquals(Color.BLUE, myRR.getColor());	
+		assertEquals("BLUE",myRR.getColor());	
 	}
 	
 	@Test
@@ -46,28 +38,8 @@ public class RailRoadTest {
 	}
 	
 	@Test
-	public void testConstructorNmF() {
-		assertNotEquals("METRO",myRR.getName());	
-	}
-	
-	@Test
 	public void testConstructorCost() {
-		assertEquals(50, myRR.getCost());	
-	}
-	
-	@Test
-	public void testConstructorCostF() {
-		assertNotEquals(250, myRR.getCost());	
-	}
-	
-	@Test
-	public void testConstructorRent() {
-		assertEquals(10, myRR.getRentCost());	
-	}
-	
-	@Test
-	public void testConstructorRentF() {
-		assertNotEquals(81, myRR.getRentCost());	
+		assertEquals(15, myRR.getCost());	
 	}
 
 }

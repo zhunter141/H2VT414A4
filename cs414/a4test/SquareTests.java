@@ -1,8 +1,6 @@
 package cs414.a4test;
 
 import static org.junit.Assert.*;
-
-import java.awt.Color;
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
@@ -10,7 +8,7 @@ import cs414.a4.*;
 
 public class SquareTests {
 	private Square mySquare;
-	private final static Color COLOR = Color.GREEN;
+	private final static String COLOR = "RED";
 	private final static String NAME = "GO";
 	private Token myToken;
 	
@@ -27,7 +25,7 @@ public class SquareTests {
 	@Test
 	public void testConstructor1() {
 		// test to see correct color has been set for this square.
-		assertEquals(Color.GREEN,mySquare.getColor());
+		assertEquals("RED",mySquare.getColor());
 	}
 	@Test
 	public void testConstructor2(){
@@ -50,7 +48,7 @@ public class SquareTests {
 		// check correct square is returned 
 		// note equals method overridden for Square class so that two 
 		// Squares are equal if the have the same name. 
-		Square nextSquare = new Square(Color.GRAY,"GO TO JAIL");
+		Square nextSquare = new Square("BLUE","GO TO JAIL");
 		mySquare.setNext(nextSquare);
 		assertEquals(nextSquare, mySquare.getNext());
 	}
