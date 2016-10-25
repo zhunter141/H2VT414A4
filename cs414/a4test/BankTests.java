@@ -23,16 +23,16 @@ public class BankTests {
 	
 	@Before
 	public void setUp(){
-		myBank.addClientANDAccount(p1);
-		myBank.addClientANDAccount(p2);
+		myBank.addClient(p1);
+		myBank.addClient(p2);
 		bankAccounts = myBank.getAccountListForTest();
-		a1 = (Account) bankAccounts.get(p1);
-		a2 = (Account) bankAccounts.get(p2);
+		a1 = (Account) bankAccounts.get(p1.getId());
+		a2 = (Account) bankAccounts.get(p2.getId());
 	}
 	@Test
 	public void testaddClientANDAccountWithDefault() {
 		HashMap bankAccounts = myBank.getAccountListForTest();
-		a1 = (Account) bankAccounts.get(p1);
+		a1 = (Account) bankAccounts.get(p1.getId());
 		assertEquals(1500,a1.getBalance());
 		
 		
