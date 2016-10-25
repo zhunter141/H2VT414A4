@@ -11,6 +11,7 @@ public class Deed extends Square {
 	private boolean hasBuilding;
 	private boolean hasHouse;
 	private boolean hasHotel;
+	private boolean isMortgaged;
 
 
 	
@@ -68,6 +69,9 @@ public class Deed extends Square {
 	public void setExistanceOfHotel(boolean b){
 		hasHotel = b;
 	}
+	public void setMortgage(boolean b){
+		isMortgaged = b;
+	}
 	
 	public boolean hasBuilding(){
 		return hasBuilding;
@@ -79,6 +83,10 @@ public class Deed extends Square {
 
 	public boolean hasHotel(){
 		return hasHotel;
+	}
+
+	public boolean isMortgagable() {
+		return isMortgaged;
 	}
 	
 }
