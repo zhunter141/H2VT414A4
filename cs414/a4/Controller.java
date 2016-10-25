@@ -43,23 +43,30 @@ public class Controller {
 				  System.out.println("Debug-Controller: " + "Sell button pressed");
 				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
 				
-				  model.sellDeedThroughButton(View.chooseDeeds(playerDeeds));
+				  view.chooseDeeds(playerDeeds);
 			  } 
 		  });
 		  
 		  return sellButton;
 	}
-	public JComboBox getSellComboBox(){
+	public JComboBox getSellComboBox(String[] label){
 		  //Hand view class deeds for player to select which deed to sell
-		  JComboBox sellCombo = new JComboBox();
+		
+		  JComboBox sellCombo = new JComboBox(label);
 		  
 		  sellCombo.addActionListener(new ActionListener(){
 			  public void actionPerformed(ActionEvent e)
 			  {
 				  System.out.println("Debug-Controller: " + "Sell combo box pressed");
-				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
+				  //HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
 				
-				  model.sellDeedThroughButton(View.chooseDeeds(playerDeeds));
+				  //model.sellDeedThroughButton(View.chooseDeeds(playerDeeds));
+				  JComboBox cb = (JComboBox)e.getSource();
+			      String nameOfDeed = (String) cb.getSelectedItem();
+			      Square temp = new Square("null",nameOfDeed);
+			     
+			      System.out.println(temp.getName());
+			      model.sellDeedThroughButton(temp);
 			  } 
 		  });
 		  

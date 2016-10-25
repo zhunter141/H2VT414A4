@@ -22,7 +22,7 @@ public class View extends JFrame {
 	private JButton sellButton;
 	private JButton endTurnButton;
 	private JButton rollButton;
-	private JComboBox sellCombo;
+	//private JComboBox sellCombo;
 	// private JButton payButton;
 
 	private JPanel buttonPanel;
@@ -58,7 +58,7 @@ public class View extends JFrame {
 		sellButton = ctrl.getSellButton();
 		rollButton = ctrl.getRollDiceButton();
 		endTurnButton = ctrl.getEndTurnButton();
-		sellCombo = ctrl.getSellComboBox();
+		//sellCombo = ctrl.getSellComboBox();
 
 		// Add buttons to buttonPanel
 		buttonPanel.add(buyButton);
@@ -221,7 +221,7 @@ public class View extends JFrame {
 		add(boardPanel);
 	}
 	// The function below is edited by tj
-	public static Square chooseDeeds(HashSet<Square> myDeeds) {
+	public void chooseDeeds(HashSet<Square> myDeeds) {
 		String labels[] = new String[myDeeds.size()];
 		int i = 0;
 		for(Square s: myDeeds){
@@ -230,24 +230,15 @@ public class View extends JFrame {
 		}
 	    JFrame frame = new JFrame("Sell Mode");
 	    JLabel j1 = new JLabel("Player must choose a deed to sell ");
-	    JButton sellButton = new JButton("OK");  
-	    JComboBox comboBox1 = new JComboBox(labels);
-  
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    Container contentpane = frame.getContentPane();
+	    JComboBox comboBox1 = ctrl.getSellComboBox(labels);
+        Container contentpane = frame.getContentPane();
 
 	    comboBox1.setMaximumRowCount(5);
         comboBox1.setEditable(true);  
 	    contentpane.add(j1,BorderLayout.NORTH);
 	    contentpane.add(comboBox1, BorderLayout.AFTER_LAST_LINE);
-	    contentpane.add(sellButton,BorderLayout.AFTER_LINE_ENDS);
- 
 	    frame.setSize(300, 200);
 	    frame.setVisible(true);
-	    String selected = (String) comboBox1.getSelectedItem();
-	    Square deed = new Square("null",selected);
-		System.out.println(selected);
-		return deed;
 		
 	}
 
