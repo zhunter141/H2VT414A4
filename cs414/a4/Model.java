@@ -286,9 +286,6 @@ public class Model {
 				}
 			}
 			
-			
-			
-			
 
 		}
 		else if(d instanceof RailRoad){
@@ -369,6 +366,23 @@ public class Model {
 	}
 	
 	//get status aka give status to view/others
+	
+	
+	public String EndTheGame(){
+		String s = "";
+		String p = "";
+		for(Player i :players){
+			p = "Player: "+i.getName()+ "Balance: "+ monopolyBank.getBalance(i);
+			s = s + p;
+		}
+		
+		return s;
+		
+	}
+	
+	
+	
+	
 	
 	 public Player[] getPlayers(){
 
