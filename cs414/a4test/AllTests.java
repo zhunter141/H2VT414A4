@@ -9,7 +9,7 @@ import cs414.a4.RailRoad;
 @RunWith(Suite.class)
 @SuiteClasses({ BoardTests.class,SquareTests.class,DeedTests.class,PlayerTests.class,
 	TokenTests.class,BankTests.class,AccountTests.class,TokenTests.class,UtilityTest.class,
-	RailRoadTest.class, DiceTest.class })
+	RailRoadTest.class,DiceTest.class })
 public class AllTests {
 
 }
