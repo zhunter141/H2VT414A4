@@ -188,7 +188,6 @@ public class View extends JFrame {
 		for (int i = 0; i < 10; i++) {
 			
 			String s1 = curr.getName();
-			System.out.println(s1);
 			curr = curr.getNext();
 			myLabel[i] = s1;
 		}
