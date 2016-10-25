@@ -178,7 +178,65 @@ public class Model {
 		// Tell the view to update itself since the state of the model has changed!
 	}
 	
-	public void buildHouse
+	public void buildHouse(){
+		Square myLoc = currPlayer.getToken().getLoc();
+
+		if(myLoc instanceof Deed ){
+			Deed currDeed = (Deed)myLoc;
+			if(currDeed.hasBuilding() == true){
+				msg += "No more buildings." ;
+			}
+			else{
+				
+				if(monopolyBank.payDue(currPlayer, currDeed.getHouseCost()) == false ){
+					msg += "Not enough money to build a house." ;
+				}
+				else{
+					//Build it 
+					currDeed.setExistanceOfHouseHotel(true);
+					currDeed.setExistanceOfHotel(true);
+				}
+				
+				
+				
+			}
+		}
+		else{
+			msg += "Can't build house here." ;
+		}
+		
+	}
+	
+	public void buildHotel(){
+		Square myLoc = currPlayer.getToken().getLoc();
+
+		if(myLoc instanceof Deed ){
+			Deed currDeed = (Deed)myLoc;
+			if(currDeed.hasBuilding() == true){
+				msg += "No more buildings." ;
+			}
+			else{
+				
+				if(monopolyBank.payDue(currPlayer, currDeed.getHotelCost()) == false ){
+					msg += "Not enough money to build a hotel." ;
+				}
+				else{
+					//Build it 
+					currDeed.setExistanceOfHouseHotel(true);
+					currDeed.setExistanceOfHouse(true);
+
+				}
+				
+				
+				
+			}
+		}
+		else{
+			msg += "Can't build hotel here." ;
+		}
+		
+		
+	}
 	
 	
 	public void endTurn(){
@@ -207,16 +265,39 @@ public class Model {
 			Utility utility =  (Utility)d;
 			d =  (Utility)d;
 			cost = utility.getCost();
+			//Just in case
+			utility.setOwner(null);
+
 		}
 		else if(d instanceof Deed){
 			Deed deed =  (Deed)d;
 			d =  (Deed)d;
-			cost = deed.getCost();			
+			cost = deed.getCost();
+			//Just in case
+			deed.setOwner(null);
+			
+			if(deed.hasBuilding() == true){
+				deed.setExistanceOfHouseHotel(false);
+				if(deed.hasHotel() == true){
+					cost = deed.getHotelCost();
+				}
+				else{
+					cost = deed.getHouseCost();
+				}
+			}
+			
+			
+			
+			
+
 		}
 		else if(d instanceof RailRoad){
 			RailRoad railRoad =  (RailRoad)d;
 			d =  (RailRoad)d;
 			cost = railRoad.getCost();
+			//Just in case
+			railRoad.setOwner(null);
+
 		}
 		else{}
 		
