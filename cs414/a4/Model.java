@@ -72,12 +72,15 @@ public class Model {
 			msg = "You cannot roll more than once per turn!\n";
 		}
 		else{
+			// A player can roll
 			// Determine who is the current Player
 			currPlayer = players[iterator%counter];
 			int steps = dice.roll();
 			msg = ""+currPlayer.getName()+" rolled: "+steps+"\n";
 			move(steps);
 			hasRolled = true;
+			// The player has rolled disable the roll button!
+			view.disableRoll();
 		}
 		view.update();
 	}
@@ -171,6 +174,7 @@ public class Model {
 		currPlayer = players[iterator%counter];
 		msg="Turn: "+currPlayer.getName()+" Location: "+currPlayer.getToken().getLoc().getName()+"\n";
 		hasRolled = false;
+		view.enableRoll();
 		view.update();
 	}
 	

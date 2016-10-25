@@ -151,6 +151,15 @@ public class View extends JFrame {
 		setupBoard();
 		boardPanel.setVisible(true);
 	}
+	
+	public void disableRoll(){
+		rollButton.setEnabled(false);
+	}
+	
+	public void enableRoll(){
+		rollButton.setEnabled(true);
+	}
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
