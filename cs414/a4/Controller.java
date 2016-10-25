@@ -29,7 +29,6 @@ public class Controller {
 				  model.buyDeed();
 				  } 
 		  });
-		  
 		  return buyButton;
 	}
 	
@@ -43,7 +42,7 @@ public class Controller {
 				  System.out.println("Debug-Controller: " + "Sell button pressed");
 				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
 				
-				  model.sellDeedThroughButton(View.chooseDeeds(playerDeeds));
+				  //model.sellDeed(View.chooseDeeds(playerDeeds));
 			  } 
 		  });
 		  
@@ -59,7 +58,7 @@ public class Controller {
 				  System.out.println("Debug-Controller: " + "Sell combo box pressed");
 				  HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
 				
-				  model.sellDeedThroughButton(View.chooseDeeds(playerDeeds));
+				  //model.sellDeed(View.chooseDeeds(playerDeeds));
 			  } 
 		  });
 		  
