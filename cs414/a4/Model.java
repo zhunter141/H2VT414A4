@@ -51,7 +51,7 @@ public class Model {
 	}
 
 	
-	Player getCurrPlayer(){
+	public Player getCurrPlayer(){
 		return currPlayer;
 	}
 	
@@ -392,8 +392,9 @@ public class Model {
 		if(s instanceof Deed ){
 			Deed deed =  (Deed)s;
 			s =  (Deed)s;
-			if(deed.hasBuilding() == false){
+			if(deed.hasBuilding() == false && deed.isMortgagable() == false){
 				monopolyBank.withdrawl(currPlayer, (int) (0.5*deed.getCost()));
+				deed.setMortgage(true);
 			}
 			else{
 				msg += "You can't mortgage it, because there is a building."; 
@@ -406,6 +407,26 @@ public class Model {
 		}
 	}
 	
+	public void umMortgage(Square s){
+		if(!(s instanceof Deed)){
+			msg += "Can not be mortgaged."; 
+		}
+		else{
+			Deed deed =  (Deed)s;
+			
+			if(deed.isMortgagable() == true){
+				if(monopolyBank.payDue(currPlayer, (int)(1.1*deed.getCost())) == true){
+					deed.setMortgage(false);
+				}
+				else{
+					msg += "Failure to mortgage because not enough money.";
+				}
+			}
+			else{
+				msg += "It is not mortgaged yet."; 
+			}
+		}
+	}
 	
 	 public Player[] getPlayers(){
 
