@@ -1,5 +1,7 @@
 package cs414.a4;
 
+import java.awt.Color;
+
 public class Deed extends Square {
 	private int cost;
 	private int houseCost;
@@ -12,7 +14,7 @@ public class Deed extends Square {
 
 
 	
-	public Deed(String color, String name,int cost,int houseCost,int hotelCost, int rentCost) {
+	public Deed(Color color, String name,int cost,int houseCost,int hotelCost, int rentCost) {
 		super(color,name);
 		this.cost = cost;
 		this.houseCost = houseCost;
