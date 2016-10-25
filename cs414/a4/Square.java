@@ -8,12 +8,14 @@ public class Square {
 	private String name;
 	private boolean isPurchasable;
 	private Square next;
+	private Player owner;
 	
 	public Square(String color,String name){
 		this.color = color.toUpperCase();
 		this.name = name.toUpperCase();
 		setPurchasable(false);
 		next = null;
+		owner = null;
 	}
 	// Getters
 	public String getColor(){

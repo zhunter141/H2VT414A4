@@ -30,7 +30,7 @@ public class Deed extends Square {
 	}
 	
 	public void setOwner(Player o){
-		owner = o;
+		this.owner = o;
 		this.setPurchasable(false);
 	}
 	

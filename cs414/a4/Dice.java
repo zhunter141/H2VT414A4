@@ -12,10 +12,10 @@ public class Dice {
 	}
 
 	public int roll() {
-		die1FaceValue = (int) (Math.random() * 6 + 1);
-		die2FaceValue = (int) (Math.random() * 6 + 1);
-		totalFaceValue = die1FaceValue + die2FaceValue;
-		return totalFaceValue;
+		//die1FaceValue = (int) (Math.random() * 6 + 1);
+		//die2FaceValue = (int) (Math.random() * 6 + 1);
+		//totalFaceValue = die1FaceValue + die2FaceValue;
+		return 1;//totalFaceValue;
 
 	}
 
