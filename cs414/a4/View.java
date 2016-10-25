@@ -85,7 +85,7 @@ public class View extends JFrame {
 		rollButton = ctrl.getRollDiceButton();
 		endTurnButton = ctrl.getEndTurnButton();
 
-		buildButton = ctrl.getBuildButton();
+		buildButton = ctrl.getMyDeedsButton();
 		endGameButton = ctrl.getEndGameButton();
 		countDown = new JLabel("---");
 		countDown.setOpaque(true);
@@ -175,22 +175,6 @@ public class View extends JFrame {
 	// The function below is edited by tj
 	public void chooseDeeds(HashSet<Square> myDeeds) {
 
-		String labels[] = new String[myDeeds.size()];
-		int i = 0;
-		for(Square s: myDeeds){
-			labels[i] = s.getName();
-			i++;
-		}
-		String input = (String) JOptionPane.showInputDialog(null, "Choose a deed to sell",
-		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
-		                                                                        // default
-		                                                                        // icon
-		        labels, // Array of choices
-		        labels[0]); // Initial choice
-		    System.out.println("Selling deed: "+input);
-		    Square temp = new Square(Color.black,input);//A bought deed is black
-		     
-		    model.sellDeed(temp);
 	}
 
 	public void update() {
