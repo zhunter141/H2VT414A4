@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 public class Controller {
 	private Model model;
@@ -88,5 +89,27 @@ public class Controller {
 			}
 		});
 		return endTurnButton;
+	}
+	
+	public JButton getBuildButton(){
+		JButton buildButton = new JButton("Build");
+		buildButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("Build button pressed!");
+			}
+		});
+		return buildButton;
+	}
+	
+	public JButton getEndGameButton(){
+		JButton endGameButton = new JButton("End Game");
+		endGameButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("End Game button pressed!");
+				JOptionPane.showMessageDialog(null, model.endGame());
+				view.dispose();
+			}
+		});
+		return endGameButton;
 	}
 }
