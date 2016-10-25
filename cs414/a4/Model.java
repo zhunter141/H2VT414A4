@@ -283,12 +283,16 @@ public class Model {
 			
 			if(deed.hasBuilding() == true){
 				deed.setExistanceOfHouseHotel(false);
+				deed.setExistanceOfHotel(false);
+				deed.setExistanceOfHouse(false);
+
 				if(deed.hasHotel() == true){
-					cost = deed.getHotelCost();
+					cost += deed.getHotelCost();
 				}
 				else{
-					cost = deed.getHouseCost();
+					cost += deed.getHouseCost();
 				}
+				
 			}
 			
 
@@ -350,7 +354,7 @@ public class Model {
 			else{
 				currPlayer.addDeed(myLoc);
 				myLoc.setOwner(currPlayer);
-
+				myLoc.setPurchasable(false);
 				msg = "Successfull purchased: "+myLoc.getName()+"! \n";
 				msg += "It has been added your list of deeds.\n";
 				
