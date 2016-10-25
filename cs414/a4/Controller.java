@@ -3,6 +3,7 @@ package cs414.a4;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.HashSet;
 
 import javax.swing.JButton;
@@ -51,7 +52,7 @@ public class Controller {
 		  
 		  return sellButton;
 	}
-	public JComboBox getSellComboBox(String[] label){
+	/*public JComboBox getSellComboBox(String[] label){
 		  //Hand view class deeds for player to select which deed to sell
 		
 		  JComboBox sellCombo = new JComboBox(label);
@@ -60,23 +61,19 @@ public class Controller {
 			  public void actionPerformed(ActionEvent e)
 			  {
 				  System.out.println("Debug-Controller: " + "Sell combo box pressed");
-				  //HashSet<Square> playerDeeds = model.getDeeds();//deeds = property
-				
-
-				  //model.sellDeedThroughButton(View.chooseDeeds(playerDeeds));
 				  JComboBox cb = (JComboBox)e.getSource();
 			      String nameOfDeed = (String) cb.getSelectedItem();
 			      Square temp = new Square(Color.black,nameOfDeed);//A bought deed is black
 			     
 			      System.out.println(temp.getName());
 			      model.sellDeed(temp);
-
+			      
 			  } 
 		  });
 		  
 		  return sellCombo;
 	}
-	
+	*/
 	public JButton getRollDiceButton(){
 		  JButton rollButton = new JButton("Roll");
 		  

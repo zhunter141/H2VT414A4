@@ -24,7 +24,6 @@ public class View extends JFrame {
 	private JButton sellButton;
 	private JButton endTurnButton;
 	private JButton rollButton;
-	private JComboBox sellCombo;
 	private JButton buildButton;
 	private JButton endGameButton;
 
@@ -155,19 +154,28 @@ public class View extends JFrame {
 			labels[i] = s.getName();
 			i++;
 		}
-	    JFrame frame = new JFrame("Sell Mode");
+	    /*JFrame frame = new JFrame("Sell Mode");
 	    JLabel j1 = new JLabel("Player must choose a deed to sell ");
 	    JComboBox comboBox1 = ctrl.getSellComboBox(labels);
         Container contentpane = frame.getContentPane();
 
 	    comboBox1.setMaximumRowCount(5);
         comboBox1.setEditable(true);  
-	    contentpane.add(j1,BorderLayout.NORTH);
+	    contentpane.add(j1,BorderLayout.CENTER);
 	    contentpane.add(comboBox1, BorderLayout.AFTER_LAST_LINE);
 	    frame.setSize(300, 200);
 	    frame.setVisible(true);
-
-		
+		*/
+		String input = (String) JOptionPane.showInputDialog(null, "Choose a deed to sell",
+		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+		                                                                        // default
+		                                                                        // icon
+		        labels, // Array of choices
+		        labels[0]); // Initial choice
+		    System.out.println("Selling deed: "+input);
+		    Square temp = new Square(Color.black,input);//A bought deed is black
+		     
+		    model.sellDeed(temp);
 	}
 
 	public void update() {
