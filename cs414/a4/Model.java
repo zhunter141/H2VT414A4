@@ -404,13 +404,8 @@ public class Model {
 			s = s + p;
 		}
 		
-		return s;
-		
+		return s;	
 	}
-	
-	
-	
-	
 	
 	 public Player[] getPlayers(){
 
