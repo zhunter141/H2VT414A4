@@ -157,15 +157,26 @@ public class View extends JFrame {
 			i++;
 		}
 		String input = (String) JOptionPane.showInputDialog(null, "Choose a deed to sell",
-		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+		        "Shop Smart", JOptionPane.QUESTION_MESSAGE, null, // Use
 		                                                                        // default
 		                                                                        // icon
 		        labels, // Array of choices
 		        labels[0]); // Initial choice
-		    System.out.println("Selling deed: "+input);
-		   
-		     
-		    model.sellDeed(myMap.get(input));
+		    System.out.println("Selling deed: "+input);	     
+		    //model.sellDeed(myMap.get(input));
+		    modifyDeed(myMap.get(input));
+	}
+	
+	public void modifyDeed(Square myDeed){
+		String options[] = {"Sell","Build House","Build Hotel","Mortgage"};
+		String decision = (String) JOptionPane.showInputDialog(null, "What would you like to do with your property?",
+		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+		                                                                        // default
+		                                                                        // icon
+		        options, // Array of choices
+		        options[0]); // Initial choice
+		    System.out.println("Selling deed: "+decision);	
+		
 	}
 
 	public void update() {
