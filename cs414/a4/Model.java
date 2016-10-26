@@ -283,7 +283,9 @@ public class Model {
 		counter++;
 		monopolyBank.addClient(p);
 	}
-	void sellDeed(Square d){
+	
+	public void sellDeed(Square d){
+
 		// In this method, deed is a utility, railroad, deed
 		//Pay attention on choose deed
 		//removeDeeds()
@@ -339,7 +341,10 @@ public class Model {
 		      view.update();
 		}
 	}
-	void buyDeed(){
+
+	
+	public void buyDeed(){
+
 		Square myLoc = currPlayer.getToken().getLoc();
 		int costOfDeed;
 		
