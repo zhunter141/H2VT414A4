@@ -228,7 +228,7 @@ public class Model {
 		else{
 			msg += "Can't build house here.\n" ;
 		}
-		msg=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
+		msg += ""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
 		+'\n'+"My properties: "+ currPlayer.toString()+'\n'
 		+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
 		view.update();
@@ -260,7 +260,7 @@ public class Model {
 		else{
 			msg += "Can't build hotel here.\n" ;
 		}
-		msg=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
+		msg +=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
 				+'\n'+"My properties: "+ currPlayer.toString()+'\n'
 				+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
 		view.update();
@@ -345,7 +345,7 @@ public class Model {
 		
 		// Check myLoc is purchasable
 		if(myLoc.isPurchasable() != true){
-			msg = "You cannot purchase: "+myLoc.getName()+"\n";
+			msg += "You cannot purchase: "+myLoc.getName()+"\n";
 		}
 		// The square is purchasable because it is not own by anyone
 		// determine the cost of the square
@@ -365,7 +365,7 @@ public class Model {
 				costOfDeed = railRoad.getCost();
 			}
 			// CHECK THE PLAYER CAN AFFORD TO PURCHASE DEED
-			msg = "This is the price of "+myLoc.getName()+" $"+costOfDeed+"\n";
+			msg += "This is the price of "+myLoc.getName()+" $"+costOfDeed+"\n";
 			
 			if(monopolyBank.payDue(currPlayer, costOfDeed) == false){
 				msg = "Bank: "+currPlayer.getName()+" does not have enough money!\n";
@@ -374,7 +374,7 @@ public class Model {
 				currPlayer.addDeed(myLoc);
 				myLoc.setOwner(currPlayer);
 				myLoc.setPurchasable(false);
-				msg = "Successfull purchased: "+myLoc.getName()+"! \n";
+				msg += "Successfull purchased: "+myLoc.getName()+"! \n";
 				msg += "It has been added your list of deeds.\n";
 			}
 		}
@@ -421,7 +421,7 @@ public class Model {
 		else{
 			msg += "You can't mortgage it, it is not a deed!\n"; 
 		}
-		msg=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
+		msg +=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
 				+'\n'+"My properties: "+ currPlayer.toString()+'\n'
 				+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
 		view.update();
@@ -448,7 +448,7 @@ public class Model {
 				msg += "It is not mortgaged yet.\n"; 
 			}
 		}
-		msg=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
+		msg +=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
 				+'\n'+"My properties: "+ currPlayer.toString()+'\n'
 				+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
 		view.update();
