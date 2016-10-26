@@ -82,8 +82,9 @@ public class View extends JFrame {
 		buyButton = ctrl.getBuyButton();
 		rollButton = ctrl.getRollDiceButton();
 		endTurnButton = ctrl.getEndTurnButton();
+		endTurnButton.setEnabled(false);
 
-		buildButton = ctrl.getMyDeedsButton();
+		buildButton = ctrl.getMyPropertiesButton();
 		endGameButton = ctrl.getEndGameButton();
 		countDown = new JLabel("---");
 		countDown.setOpaque(true);
@@ -171,9 +172,9 @@ public class View extends JFrame {
 
 	// The function below is edited by tj
 	public void chooseDeeds(HashSet<Square> myDeeds) {
-		if(myDeeds.size()==0){
-			JOptionPane.showMessageDialog( null, "You do not have any deed! \n "
-			,"Welcome to Monopoly Game 1.0.0", JOptionPane.INFORMATION_MESSAGE);
+		if(myDeeds.size()==0){			
+			JOptionPane.showMessageDialog( null, "You do not have any properties! \n "
+			,null, JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
 		HashMap <String,Square> myMap = new HashMap<String, Square>();
@@ -184,19 +185,19 @@ public class View extends JFrame {
 			myMap.put(labels[i], s);
 			i++;
 		}
-		String input = (String) JOptionPane.showInputDialog(null, "Choose a deed to sell",
+		String input = (String) JOptionPane.showInputDialog(null, "Choose property to modify",
 		        "Shop Smart", JOptionPane.QUESTION_MESSAGE, null, // Use
 		                                                                        // default
 		                                                                        // icon
 		        labels, // Array of choices
 		        labels[0]); // Initial choice
-		    System.out.println("Selling deed: "+input);	     
-		    //model.sellDeed(myMap.get(input));
+		if(input != null){	     
 		    modifyDeed(myMap.get(input));
+		}
 	}
 	
 	public void modifyDeed(Square myDeed){
-		String options[] = {"Sell","Build House","Build Hotel","Mortgage"};
+		String options[] = {"Sell","Build House","Build Hotel","Mortgage","Unmortgage"};
 		String decision = (String) JOptionPane.showInputDialog(null, "What would you like to do with your property?",
 		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
 		                                                                        // default
@@ -204,7 +205,7 @@ public class View extends JFrame {
 		        options, // Array of choices
 		        options[0]); // Initial choice
 		    System.out.println("I want to : "+decision);	
-		    
+		 if(decision != null){
 		    switch(decision){
 		    	case "Sell":
 		    		model.sellDeed(myDeed);break;
@@ -214,9 +215,12 @@ public class View extends JFrame {
 		    		model.buildHotel(myDeed);break;
 		    	case "Mortgage":
 		    		model.mortgage(myDeed);break;
+		    	case "Unmortgage":
+		    		model.umMortgage(myDeed);break;
 		    	default:
 		    		throw new IllegalArgumentException("You have to pick one!");
-		    }    
+		    }  
+		 }  
 	}
 
 	public void update() {
@@ -236,6 +240,14 @@ public class View extends JFrame {
 	
 	public void enableRoll(){
 		rollButton.setEnabled(true);
+	}
+	
+	public void enableEndTurn(){
+		endTurnButton.setEnabled(true);
+	}
+	
+	public void disableEndTurn(){
+		endTurnButton.setEnabled(false);
 	}
 	
 	public void dispose(){

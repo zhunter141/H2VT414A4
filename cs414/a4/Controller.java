@@ -55,15 +55,15 @@ public class Controller {
 		return endTurnButton;
 	}
 	
-	public JButton getMyDeedsButton(){
-		JButton myDeedsButton = new JButton("My Deeds");
-		myDeedsButton.addActionListener(new ActionListener(){
+	public JButton getMyPropertiesButton(){
+		JButton myPropertiesButton = new JButton("My properties");
+		myPropertiesButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				System.out.println("My Deeds button pressed!");
 				view.chooseDeeds(model.getDeeds());
 			}
 		});
-		return myDeedsButton;
+		return myPropertiesButton;
 	}
 	
 	public JButton getEndGameButton(){
