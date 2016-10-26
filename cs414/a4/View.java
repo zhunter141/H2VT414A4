@@ -196,7 +196,7 @@ public class View extends JFrame {
 	}
 	
 	public void modifyDeed(Square myDeed){
-		String options[] = {"Sell","Build House","Build Hotel","Mortgage"};
+		String options[] = {"Sell","Build House","Build Hotel","Mortgage","Unmortgage"};
 		String decision = (String) JOptionPane.showInputDialog(null, "What would you like to do with your property?",
 		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
 		                                                                        // default
@@ -214,6 +214,8 @@ public class View extends JFrame {
 		    		model.buildHotel(myDeed);break;
 		    	case "Mortgage":
 		    		model.mortgage(myDeed);break;
+		    	case "Unmortgage":
+		    		model.umMortgage(myDeed);break;
 		    	default:
 		    		throw new IllegalArgumentException("You have to pick one!");
 		    }    
