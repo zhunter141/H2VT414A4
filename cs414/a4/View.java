@@ -198,7 +198,20 @@ public class View extends JFrame {
 		                                                                        // icon
 		        options, // Array of choices
 		        options[0]); // Initial choice
-		    System.out.println("Selling deed: "+decision);
+		    System.out.println("I want to : "+decision);	
+		    
+		    switch(decision){
+		    	case "Sell":
+		    		model.sellDeed(myDeed);break;
+		    	case "Build House":
+		    		model.buildHouse(myDeed);break;
+		    	case "Build Hotel":
+		    		model.buildHotel(myDeed);break;
+		    	case "Mortgage":
+		    		model.mortgage(myDeed);break;
+		    	default:
+		    		throw new IllegalArgumentException("You have to pick one!");
+		    }    
 	}
 
 	public void update() {
