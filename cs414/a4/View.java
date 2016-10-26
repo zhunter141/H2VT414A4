@@ -171,6 +171,11 @@ public class View extends JFrame {
 
 	// The function below is edited by tj
 	public void chooseDeeds(HashSet<Square> myDeeds) {
+		if(myDeeds.size()==0){
+			JOptionPane.showMessageDialog( null, "You do not have any deed! \n "
+			,"Welcome to Monopoly Game 1.0.0", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 		HashMap <String,Square> myMap = new HashMap<String, Square>();
 		String labels[] = new String[myDeeds.size()];
 		int i = 0;
@@ -191,7 +196,7 @@ public class View extends JFrame {
 	}
 	
 	public void modifyDeed(Square myDeed){
-		String options[] = {"Sell","Build House","Build Hotel","Mortgage"};
+		String options[] = {"Sell","Build House","Build Hotel","Mortgage","Unmortgage"};
 		String decision = (String) JOptionPane.showInputDialog(null, "What would you like to do with your property?",
 		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
 		                                                                        // default
@@ -209,6 +214,8 @@ public class View extends JFrame {
 		    		model.buildHotel(myDeed);break;
 		    	case "Mortgage":
 		    		model.mortgage(myDeed);break;
+		    	case "Unmortgage":
+		    		model.umMortgage(myDeed);break;
 		    	default:
 		    		throw new IllegalArgumentException("You have to pick one!");
 		    }    
