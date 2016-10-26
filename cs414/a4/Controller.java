@@ -2,7 +2,6 @@ package cs414.a4;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -56,15 +55,15 @@ public class Controller {
 		return endTurnButton;
 	}
 	
-	public JButton getMyDeedsButton(){
-		JButton myDeedsButton = new JButton("My Deeds");
-		myDeedsButton.addActionListener(new ActionListener(){
+	public JButton getMyPropertiesButton(){
+		JButton myPropertiesButton = new JButton("My properties");
+		myPropertiesButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				System.out.println("My Deeds button pressed!");
 				view.chooseDeeds(model.getDeeds());
 			}
 		});
-		return myDeedsButton;
+		return myPropertiesButton;
 	}
 	
 	public JButton getEndGameButton(){

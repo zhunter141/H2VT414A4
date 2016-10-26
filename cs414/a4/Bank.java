@@ -31,7 +31,7 @@ public class Bank {
 	}
 	
 	//this due is positive
-	public void withdrawl(Player p, int d){
+	public void deposit(Player p, int d){
 		Account curAccount =  (Account) accounts.get(p.getId());
 		curAccount.addInBalance(d);
 

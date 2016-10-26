@@ -3,8 +3,6 @@ package cs414.a4;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-import java.util.HashSet;
-
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
