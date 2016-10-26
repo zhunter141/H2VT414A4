@@ -86,7 +86,6 @@ public class Model {
 			board.move(steps,currPlayer.getToken());
 			Square currLoc = currPlayer.getToken().getLoc();
 			msg+=""+currPlayer.getName()+" is now on: "+currLoc.getName()+"\n";
-			msg+="My properties: "+ currPlayer.toString()+'\n';
 			view.updateBoard();
 			
 		Square newSqr = currPlayer.getToken().getLoc();
@@ -167,7 +166,7 @@ public class Model {
 			}	
 		}
 		// If player was charged wait until now to display there balance
-		msg+=currPlayer.toString()+" Account: $"+monopolyBank.getBalance(currPlayer);
+		msg+=currPlayer.toString()+" Account: $"+monopolyBank.getBalance(currPlayer)+"\n";
 	}
 	
 	
@@ -305,52 +304,47 @@ public class Model {
 		      view.update();
 		}
 	}
-	void buyDeed(){
+	
+	public void buyDeed(){
 		Square myLoc = currPlayer.getToken().getLoc();
 		int costOfDeed;
 		
 		// Check myLoc is purchasable
 		if(myLoc.isPurchasable() != true){
 			msg = "You cannot purchase: "+myLoc.getName()+"\n";
+			view.update();
+			return;
 		}
 		// The square is purchasable because it is not own by anyone
 		// determine the cost of the square
+		// Implied 'else'
+		if(myLoc instanceof Utility){
+			Utility util =  (Utility)myLoc;
+			costOfDeed = util.getCost();
+		}
+		else if(myLoc instanceof Deed){
+			Deed deed =  (Deed)myLoc;
+			costOfDeed = deed.getCost();
+		}
+		// Square MUST be RailRoad
 		else{
-			if(myLoc instanceof Utility){
-				Utility util =  (Utility)myLoc;
-				costOfDeed = util.getCost();
-	
-			}
-			else if(myLoc instanceof Deed){
-				Deed deed =  (Deed)myLoc;
-				costOfDeed = deed.getCost();
-			}
-			// Square MUST be RailRoad
-			else{
-				RailRoad railRoad =  (RailRoad)myLoc;
-				costOfDeed = railRoad.getCost();
-			}
-			// CHECK THE PLAYER CAN AFFORD TO PURCHASE DEED
-			msg = "This is the price of "+myLoc.getName()+" $"+costOfDeed+"\n";
-			
-			if(monopolyBank.payDue(currPlayer, costOfDeed) == false){
-				msg = "Bank: "+currPlayer.getName()+" does not have enough money!\n";
-			}
-			else{
-				currPlayer.addDeed(myLoc);
-				myLoc.setOwner(currPlayer);
-				myLoc.setPurchasable(false);
-				msg = "Successfull purchased: "+myLoc.getName()+"! \n";
-				msg += "It has been added your list of deeds.\n";
-			}
+			RailRoad railRoad =  (RailRoad)myLoc;
+			costOfDeed = railRoad.getCost();
 		}
+		// CHECK THE PLAYER CAN AFFORD TO PURCHASE DEED
+		msg = "This is the price of "+myLoc.getName()+" $"+costOfDeed+"\n";
 		
-		msg +="My properties: "+ currPlayer.toString()+"Account: $"+ monopolyBank.getBalance(currPlayer)+'\n';
-		// UPDATE THE VIEW
-		if (view != null){
-		      view.update();
+		if(monopolyBank.payDue(currPlayer, costOfDeed) == false){
+			msg += "Bank: "+currPlayer.getName()+" does not have enough money!\n";
 		}
-		
+		else{
+			currPlayer.addDeed(myLoc);
+			myLoc.setOwner(currPlayer);
+			myLoc.setPurchasable(false);
+			msg = "Successfull purchased: "+myLoc.getName()+"! \n";
+			msg += "It has been added your list of deeds.\n";
+		}
+		view.update();
 	}
 	
 	//get status aka give status to view/others
