@@ -2,17 +2,15 @@ package cs414.a4;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
 import java.awt.EventQueue;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class View extends JFrame {
@@ -21,7 +19,6 @@ public class View extends JFrame {
 
 	// Window objects
 	private JButton buyButton;
-	private JButton sellButton;
 	private JButton endTurnButton;
 	private JButton rollButton;
 	private JButton buildButton;
@@ -31,9 +28,13 @@ public class View extends JFrame {
 	private JPanel buttonPanel;
 	private JPanel gameMsgPanel;
 	private JPanel boardPanel;
-
 	private JTextArea msgTextArea;
-
+	
+	private Timer timer;
+	private long startTime = -1;
+	private static final long DURATION = 5000*120;//10 min
+	private JLabel countDown;
+	
 	// Game objects
 	private Model model;
 	private Controller ctrl;
@@ -49,6 +50,7 @@ public class View extends JFrame {
 		addButtonPanel();
 		setupBoard();
 		model.startGame();
+		setUpTimer();
 	}
 
 	private void addMsgPanel() {
@@ -74,28 +76,31 @@ public class View extends JFrame {
 		// setup button panel
 		buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.blue);
-		buttonPanel.setLayout(new GridLayout(3, 3));
+		buttonPanel.setLayout(new GridLayout(4,2));
 
 		// Buttons initialization
 		buyButton = ctrl.getBuyButton();
-		sellButton = ctrl.getSellButton();
 		rollButton = ctrl.getRollDiceButton();
 		endTurnButton = ctrl.getEndTurnButton();
 
-		buildButton = ctrl.getBuildButton();
+		buildButton = ctrl.getMyDeedsButton();
 		endGameButton = ctrl.getEndGameButton();
+		countDown = new JLabel("---");
+		countDown.setOpaque(true);
+		countDown.setBackground(Color.WHITE);
 		
 		// Add buttons to buttonPanel
 		buttonPanel.add(buyButton);
-		buttonPanel.add(sellButton);
 		buttonPanel.add(rollButton);
 		buttonPanel.add(endTurnButton);
 		buttonPanel.add(buildButton);
 		buttonPanel.add(endGameButton);
-
+		buttonPanel.add(countDown);
+		
 		// Add button panel to gameMsgPanel
 		gameMsgPanel.add(buttonPanel);
 	}
+	
 	private void startMenu(){
 		int numPlayers = 0;
 		// Ensure the user enter the correct amount of players
@@ -116,12 +121,31 @@ public class View extends JFrame {
 			//Send model the name of each player 
 			model.addPlayer(players[i]);
 	    }
-	    //final ImageIcon icon = new ImageIcon("/Users/TJ/Downloads/IMG_6062.jpg");
-	    
-	    JOptionPane.showMessageDialog( null, "Total of " + numPlayers + " players! \n "+
-	    Arrays.toString(players),"Welcome to Monopoly Game 1.0.0", JOptionPane.INFORMATION_MESSAGE);//,icon);
 	}
-
+	
+	private void setUpTimer(){
+		timer = new Timer(10, new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(startTime < 0){
+					startTime = System.currentTimeMillis();
+				}
+				long now = System.currentTimeMillis();
+				long clockTime = now - startTime;
+				if(clockTime >= DURATION){
+					clockTime = DURATION;
+					timer.stop();
+					JOptionPane.showMessageDialog(null, model.endGame());
+					dispose();
+				}
+				SimpleDateFormat df = new SimpleDateFormat("mm:ss");
+				//System.out.println(df.format(duration - clockTime));
+				countDown.setText((df.format(DURATION - clockTime)));
+			}
+		});
+		timer.start();
+	}
+	
 	public void addModel(Model model) {
 		this.model = model;
 	}
@@ -147,35 +171,54 @@ public class View extends JFrame {
 
 	// The function below is edited by tj
 	public void chooseDeeds(HashSet<Square> myDeeds) {
-
+		if(myDeeds.size()==0){
+			JOptionPane.showMessageDialog( null, "You do not have any deed! \n "
+			,"Welcome to Monopoly Game 1.0.0", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		HashMap <String,Square> myMap = new HashMap<String, Square>();
 		String labels[] = new String[myDeeds.size()];
 		int i = 0;
 		for(Square s: myDeeds){
 			labels[i] = s.getName();
+			myMap.put(labels[i], s);
 			i++;
 		}
-	    /*JFrame frame = new JFrame("Sell Mode");
-	    JLabel j1 = new JLabel("Player must choose a deed to sell ");
-	    JComboBox comboBox1 = ctrl.getSellComboBox(labels);
-        Container contentpane = frame.getContentPane();
-
-	    comboBox1.setMaximumRowCount(5);
-        comboBox1.setEditable(true);  
-	    contentpane.add(j1,BorderLayout.CENTER);
-	    contentpane.add(comboBox1, BorderLayout.AFTER_LAST_LINE);
-	    frame.setSize(300, 200);
-	    frame.setVisible(true);
-		*/
 		String input = (String) JOptionPane.showInputDialog(null, "Choose a deed to sell",
-		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+		        "Shop Smart", JOptionPane.QUESTION_MESSAGE, null, // Use
 		                                                                        // default
 		                                                                        // icon
 		        labels, // Array of choices
 		        labels[0]); // Initial choice
-		    System.out.println("Selling deed: "+input);
-		    Square temp = new Square(Color.black,input);//A bought deed is black
-		     
-		    model.sellDeed(temp);
+		    System.out.println("Selling deed: "+input);	     
+		    //model.sellDeed(myMap.get(input));
+		    modifyDeed(myMap.get(input));
+	}
+	
+	public void modifyDeed(Square myDeed){
+		String options[] = {"Sell","Build House","Build Hotel","Mortgage","Unmortgage"};
+		String decision = (String) JOptionPane.showInputDialog(null, "What would you like to do with your property?",
+		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+		                                                                        // default
+		                                                                        // icon
+		        options, // Array of choices
+		        options[0]); // Initial choice
+		    System.out.println("I want to : "+decision);	
+		    
+		    switch(decision){
+		    	case "Sell":
+		    		model.sellDeed(myDeed);break;
+		    	case "Build House":
+		    		model.buildHouse(myDeed);break;
+		    	case "Build Hotel":
+		    		model.buildHotel(myDeed);break;
+		    	case "Mortgage":
+		    		model.mortgage(myDeed);break;
+		    	case "Unmortgage":
+		    		model.umMortgage(myDeed);break;
+		    	default:
+		    		throw new IllegalArgumentException("You have to pick one!");
+		    }    
 	}
 
 	public void update() {

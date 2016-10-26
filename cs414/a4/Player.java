@@ -42,7 +42,7 @@ public class Player {
 	public String toString(){
 		String listOfDeeds = ""; 
 		for(Square s: myDeeds){
-			listOfDeeds = listOfDeeds+s.getName();
+			listOfDeeds = listOfDeeds+" "+s.getName();
 		}
 		return listOfDeeds;
 		
