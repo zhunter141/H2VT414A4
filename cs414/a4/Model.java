@@ -84,7 +84,7 @@ public class Model {
 	
 	private void move(int steps){
 		// Tell the board to Move the player's token 
-			board.move(1,currPlayer.getToken());
+			board.move(steps,currPlayer.getToken());
 			Square currLoc = currPlayer.getToken().getLoc();
 			msg+=""+currPlayer.getName()+" is now on: "+currLoc.getName()+'\n';
 			msg+="My properties: "+ currPlayer.toString()+'\n';
@@ -173,6 +173,8 @@ public class Model {
 		else if(newSqr.getName().equals("GO TO JAIL")){
 			//May breakup here
 			monopolyBank.payDue(currPlayer, 200);
+			msg += "Oh, no!";
+
 			//move to jail
 			goToJail();
 			endTurn();
