@@ -2,18 +2,15 @@ package cs414.a4;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
 import java.awt.EventQueue;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class View extends JFrame {
@@ -22,7 +19,6 @@ public class View extends JFrame {
 
 	// Window objects
 	private JButton buyButton;
-	private JButton sellButton;
 	private JButton endTurnButton;
 	private JButton rollButton;
 	private JButton buildButton;
@@ -32,9 +28,13 @@ public class View extends JFrame {
 	private JPanel buttonPanel;
 	private JPanel gameMsgPanel;
 	private JPanel boardPanel;
-
 	private JTextArea msgTextArea;
-
+	
+	private Timer timer;
+	private long startTime = -1;
+	private static final long DURATION = 5000*120;//10 min
+	private JLabel countDown;
+	
 	// Game objects
 	private Model model;
 	private Controller ctrl;
@@ -50,6 +50,7 @@ public class View extends JFrame {
 		addButtonPanel();
 		setupBoard();
 		model.startGame();
+		setUpTimer();
 	}
 
 	private void addMsgPanel() {
@@ -75,28 +76,31 @@ public class View extends JFrame {
 		// setup button panel
 		buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.blue);
-		buttonPanel.setLayout(new GridLayout(3, 3));
+		buttonPanel.setLayout(new GridLayout(4,2));
 
 		// Buttons initialization
 		buyButton = ctrl.getBuyButton();
-		sellButton = ctrl.getSellButton();
 		rollButton = ctrl.getRollDiceButton();
 		endTurnButton = ctrl.getEndTurnButton();
 
-		buildButton = ctrl.getBuildButton();
+		buildButton = ctrl.getMyDeedsButton();
 		endGameButton = ctrl.getEndGameButton();
+		countDown = new JLabel("---");
+		countDown.setOpaque(true);
+		countDown.setBackground(Color.WHITE);
 		
 		// Add buttons to buttonPanel
 		buttonPanel.add(buyButton);
-		buttonPanel.add(sellButton);
 		buttonPanel.add(rollButton);
 		buttonPanel.add(endTurnButton);
 		buttonPanel.add(buildButton);
 		buttonPanel.add(endGameButton);
-
+		buttonPanel.add(countDown);
+		
 		// Add button panel to gameMsgPanel
 		gameMsgPanel.add(buttonPanel);
 	}
+	
 	private void startMenu(){
 		int numPlayers = 0;
 		// Ensure the user enter the correct amount of players
@@ -117,12 +121,31 @@ public class View extends JFrame {
 			//Send model the name of each player 
 			model.addPlayer(players[i]);
 	    }
-	    //final ImageIcon icon = new ImageIcon("/Users/TJ/Downloads/IMG_6062.jpg");
-	    
-	    JOptionPane.showMessageDialog( null, "Total of " + numPlayers + " players! \n "+
-	    Arrays.toString(players),"Welcome to Monopoly Game 1.0.0", JOptionPane.INFORMATION_MESSAGE);//,icon);
 	}
-
+	
+	private void setUpTimer(){
+		timer = new Timer(10, new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(startTime < 0){
+					startTime = System.currentTimeMillis();
+				}
+				long now = System.currentTimeMillis();
+				long clockTime = now - startTime;
+				if(clockTime >= DURATION){
+					clockTime = DURATION;
+					timer.stop();
+					JOptionPane.showMessageDialog(null, model.endGame());
+					dispose();
+				}
+				SimpleDateFormat df = new SimpleDateFormat("mm:ss");
+				//System.out.println(df.format(duration - clockTime));
+				countDown.setText((df.format(DURATION - clockTime)));
+			}
+		});
+		timer.start();
+	}
+	
 	public void addModel(Model model) {
 		this.model = model;
 	}
@@ -196,7 +219,6 @@ public class View extends JFrame {
 		    }    
 	}
 
-	
 	public void update() {
 		msgTextArea.append(model.getMsg());
 	}
