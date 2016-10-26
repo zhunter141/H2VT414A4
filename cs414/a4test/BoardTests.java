@@ -5,6 +5,7 @@ package cs414.a4test;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +22,10 @@ public class BoardTests {
 	@Before
 	public void setUp() throws Exception {
 		board = new Board();
+	}
+	@After
+	public void tearDown() throws Exception {
+		board = null;
 	}
 
 	@Test
