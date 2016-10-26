@@ -210,6 +210,8 @@ public class Model {
 					//Build it 
 					currDeed.setExistanceOfHouseHotel(true);
 					currDeed.setExistanceOfHotel(true);
+					msg += "Succesfully build a house." ;
+
 				}
 			}
 		}
@@ -233,7 +235,7 @@ public class Model {
 					//Build it 
 					currDeed.setExistanceOfHouseHotel(true);
 					currDeed.setExistanceOfHouse(true);
-
+					msg += "Succesfully build a house." ;
 				}
 				
 				
@@ -375,7 +377,7 @@ public class Model {
 	//get status aka give status to view/others
 	
 	
-	public String EndTheGame(){
+	 public String EndTheGame(){
 		String s = "";
 		String p = "";
 		for(Player i :players){
@@ -388,26 +390,26 @@ public class Model {
 	}
 	
 	
-	public void mortgage(Square s){
+	 public void mortgage(Square s){
 		if(s instanceof Deed ){
 			Deed deed =  (Deed)s;
 			s =  (Deed)s;
 			if(deed.hasBuilding() == false && deed.isMortgagable() == false){
 				monopolyBank.withdrawl(currPlayer, (int) (0.5*deed.getCost()));
 				deed.setMortgage(true);
+				msg += "Succesfully mortgage it";
 			}
 			else{
 				msg += "You can't mortgage it, because there is a building."; 
 
 			}
-		
 		}
 		else{
 			msg += "You can't mortgage it, it is not a deed!"; 
 		}
 	}
 	
-	public void umMortgage(Square s){
+	 public void umMortgage(Square s){
 		if(!(s instanceof Deed)){
 			msg += "Can not be mortgaged."; 
 		}
@@ -417,6 +419,7 @@ public class Model {
 			if(deed.isMortgagable() == true){
 				if(monopolyBank.payDue(currPlayer, (int)(1.1*deed.getCost())) == true){
 					deed.setMortgage(false);
+					msg += "Succesfully ummortgage it";
 				}
 				else{
 					msg += "Failure to mortgage because not enough money.";
@@ -449,7 +452,6 @@ public class Model {
 	 }
 	 
 	 public String endGame(){
-		 System.out.println("Calculating player that has most amount of money.");
 		 Player winner = players[0];
 		 for(int i=1;i<counter;i++){
 			 if(monopolyBank.getBalance(winner) < monopolyBank.getBalance(players[i])){
