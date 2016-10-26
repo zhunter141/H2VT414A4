@@ -148,6 +148,11 @@ public class View extends JFrame {
 
 	// The function below is edited by tj
 	public void chooseDeeds(HashSet<Square> myDeeds) {
+		if(myDeeds.size()==0){
+			JOptionPane.showMessageDialog( null, "You do not have any deed! \n "
+			,"Welcome to Monopoly Game 1.0.0", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 		HashMap <String,Square> myMap = new HashMap<String, Square>();
 		String labels[] = new String[myDeeds.size()];
 		int i = 0;
