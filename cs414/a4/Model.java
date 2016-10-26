@@ -12,7 +12,6 @@ public class Model {
 	private int counter;
 	private int iterator;
 	private Player currPlayer;
-	private Account currAccount;
 	private String msg;
 	private View view;
 	private boolean hasRolled;
@@ -88,7 +87,6 @@ public class Model {
 			Square currLoc = currPlayer.getToken().getLoc();
 			msg+=""+currPlayer.getName()+" is now on: "+currLoc.getName()+"\n";
 			msg+="My properties: "+ currPlayer.toString()+'\n';
-			msg+="My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
 			view.updateBoard();
 			
 		Square newSqr = currPlayer.getToken().getLoc();
@@ -111,7 +109,6 @@ public class Model {
 					else{
 						msg += "Not enough money to pay rent/taxes\n";
 					}
-					//monopolyBank.withdrawl(utility.getOwner(), cost);
 				}	
 		}
 		else if(newSqr instanceof Deed){
@@ -152,30 +149,25 @@ public class Model {
 					msg = "Not enough money to pay rent/taxes\n";
 				}
 			}
-
-
 		}
-		//Two more case for Luxury and income tax squares
-		else if(newSqr.getName().equals("INCOME TAX")){
-			monopolyBank.payDue(currPlayer, 200);
-		}
-		else if(newSqr.getName().equals("LUXURY TAX")){
-			monopolyBank.payDue(currPlayer, 300);
-		}
-		else if(newSqr.getName().equals("GO TO JAIL")){
-			//May breakup here
-			monopolyBank.payDue(currPlayer, 200);
-			//move to jail
-			goToJail();
-			endTurn();
-				
-		}
-		
 		else{
-			
+			//Two more case for Luxury and income tax squares
+			if(newSqr.getName().equals("INCOME TAX")){
+				monopolyBank.payDue(currPlayer, 200);
+			}
+			else if(newSqr.getName().equals("LUXURY TAX")){
+				monopolyBank.payDue(currPlayer, 300);
+			}
+			else if(newSqr.getName().equals("GO TO JAIL")){
+				//May breakup here
+				monopolyBank.payDue(currPlayer, 200);
+				//move to jail
+				goToJail();
+				endTurn();		
+			}	
 		}
-		
-		// Tell the view to update itself since the state of the model has changed!
+		// If player was charged wait until now to display there balance
+		msg+=currPlayer.toString()+" Account: $"+monopolyBank.getBalance(currPlayer);
 	}
 	
 	
