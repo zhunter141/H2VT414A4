@@ -87,7 +87,7 @@ public class Model {
 	
 	private void move(int steps){
 		// Tell the board to Move the player's token 
-			board.move(steps,currPlayer.getToken());
+			board.move(1,currPlayer.getToken());
 			Square currLoc = currPlayer.getToken().getLoc();
 			msg+=""+currPlayer.getName()+" is now on: "+currLoc.getName()
 			+'\n'+"My properties: "+ currPlayer.toString()+'\n'
@@ -153,7 +153,7 @@ public class Model {
 					view.update();
 				}
 				else{
-					msg = "No enough money to pay rent/taxes";
+					msg += "No enough money to pay rent/taxes";
 
 				}
 			}
@@ -163,9 +163,14 @@ public class Model {
 		//Two more case for Luxury and income tax squares
 		else if(newSqr.getName().equals("INCOME TAX")){
 			monopolyBank.payDue(currPlayer, 200);
+			msg += "Paid INCOME TAX";
+
+		
 		}
 		else if(newSqr.getName().equals("LUXURY TAX")){
 			monopolyBank.payDue(currPlayer, 300);
+			msg += "Paid LUXURY TAX";
+
 		}
 		else if(newSqr.getName().equals("GO TO JAIL")){
 			//May breakup here
@@ -179,6 +184,13 @@ public class Model {
 		else{
 			
 		}
+		
+		
+
+		msg+=""+currPlayer.getName()+" is now on: "+currLoc.getName()
+		+'\n'+"My properties: "+ currPlayer.toString()+'\n'
+		+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
+		
 		
 		// Tell the view to update itself since the state of the model has changed!
 	}
@@ -218,6 +230,11 @@ public class Model {
 		else{
 			msg += "Can't build house here." ;
 		}
+		msg=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
+		+'\n'+"My properties: "+ currPlayer.toString()+'\n'
+		+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
+		view.update();
+
 		
 	}
 	public void buildHotel(Square s){
@@ -245,7 +262,11 @@ public class Model {
 		else{
 			msg += "Can't build hotel here." ;
 		}
-		
+		msg=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
+				+'\n'+"My properties: "+ currPlayer.toString()+'\n'
+				+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
+		view.update();
+
 		
 	}
 	public void endTurn(){
@@ -407,6 +428,11 @@ public class Model {
 		else{
 			msg += "You can't mortgage it, it is not a deed!"; 
 		}
+		msg=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
+				+'\n'+"My properties: "+ currPlayer.toString()+'\n'
+				+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
+		view.update();
+
 	}
 	
 	 public void umMortgage(Square s){
@@ -429,6 +455,11 @@ public class Model {
 				msg += "It is not mortgaged yet."; 
 			}
 		}
+		msg=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
+				+'\n'+"My properties: "+ currPlayer.toString()+'\n'
+				+"My money: "+ monopolyBank.getBalance(currPlayer)+"\n";
+		view.update();
+
 	}
 	
 	 public Player[] getPlayers(){
