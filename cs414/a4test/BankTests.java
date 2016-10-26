@@ -43,7 +43,7 @@ public class BankTests {
 	public void testaddClientANDAccount(){
 		int total =0;
 		myBank.payDue(p1, 89);
-		myBank.withdrawl(p2, 99);
+		myBank.deposit(p2, 99);
 		total = a1.getBalance()+a2.getBalance();
 		
 		assertEquals(3010,total);
@@ -66,13 +66,13 @@ public class BankTests {
 	}
 	@Test
 	public void testWithdrawl(){
-		myBank.withdrawl(p1, 99);
+		myBank.deposit(p1, 99);
 		assertEquals(1599,a1.getBalance());
 
 	}
 	@Test
 	public void testGetBalance(){
-		myBank.withdrawl(p1, 99);
+		myBank.deposit(p1, 99);
 		assertEquals(1599,myBank.getBalance(p1));
 
 	}
