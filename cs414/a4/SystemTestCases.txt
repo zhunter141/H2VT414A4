@@ -1,0 +1,35 @@
+System Test Cases
+
+Test Case 1: Player's token moves number of steps based on the dice value they rolled.
+
+
+
+
+
+Test Case 2: Tokens move on the board. 
+
+
+
+Test Case 3: Player is able to purchase a deed.
+
+
+Test Case 4: Player is able to sell a deed.
+
+
+Test Case 5: Player is able to build a house on his own deed. 
+
+Test Case 6: Player is able to build a hotel on his own deed.
+
+Test Case 7: Player is able to mortgage a house on his own deed. 
+
+Test Case 8: Player pays rent when lands on other player's property. 
+
+Test Case 9: Player can not purchase community chest, go, jail.
+
+Test Case 10: Player will go to jail if lands on go to jail square. 
+
+Test Case 11: Player can purchase railroad and utility.
+
+Test Case 12: Player can only roll one in his own turn. 
+
+Test 13: Player can 
