@@ -1,13 +1,9 @@
 package cs414.a4;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.HashSet;
-
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class Controller {
@@ -33,22 +29,6 @@ public class Controller {
 				  } 
 		  });
 		  return buyButton;
-	}
-	
-	public JButton getmyDeedsButton(){
-		  //Hand view class deeds for player to select which deed to sell
-		  JButton myDeedsButton = new JButton("Sell");
-		  
-		  myDeedsButton.addActionListener(new ActionListener(){
-			  public void actionPerformed(ActionEvent e)
-			  {
-				  System.out.println("Debug-Controller: " + "Sell button pressed");
-				  HashSet<Square> playerDeeds = model.getDeeds();
-				  view.chooseDeeds(playerDeeds);
-			  } 
-		  });
-		  
-		  return myDeedsButton;
 	}
 	
 	public JButton getRollDiceButton(){

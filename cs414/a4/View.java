@@ -2,13 +2,13 @@ package cs414.a4;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import javax.swing.*;
 
@@ -19,7 +19,6 @@ public class View extends JFrame {
 
 	// Window objects
 	private JButton buyButton;
-	private JButton sellButton;
 	private JButton endTurnButton;
 	private JButton rollButton;
 	private JButton buildButton;
@@ -81,7 +80,6 @@ public class View extends JFrame {
 
 		// Buttons initialization
 		buyButton = ctrl.getBuyButton();
-		sellButton = ctrl.getmyDeedsButton();
 		rollButton = ctrl.getRollDiceButton();
 		endTurnButton = ctrl.getEndTurnButton();
 
@@ -93,7 +91,6 @@ public class View extends JFrame {
 		
 		// Add buttons to buttonPanel
 		buttonPanel.add(buyButton);
-		buttonPanel.add(sellButton);
 		buttonPanel.add(rollButton);
 		buttonPanel.add(endTurnButton);
 		buttonPanel.add(buildButton);
@@ -174,7 +171,34 @@ public class View extends JFrame {
 
 	// The function below is edited by tj
 	public void chooseDeeds(HashSet<Square> myDeeds) {
-
+		HashMap <String,Square> myMap = new HashMap<String, Square>();
+		String labels[] = new String[myDeeds.size()];
+		int i = 0;
+		for(Square s: myDeeds){
+			labels[i] = s.getName();
+			myMap.put(labels[i], s);
+			i++;
+		}
+		String input = (String) JOptionPane.showInputDialog(null, "Choose a deed to sell",
+		        "Shop Smart", JOptionPane.QUESTION_MESSAGE, null, // Use
+		                                                                        // default
+		                                                                        // icon
+		        labels, // Array of choices
+		        labels[0]); // Initial choice
+		    System.out.println("Selling deed: "+input);	     
+		    //model.sellDeed(myMap.get(input));
+		    modifyDeed(myMap.get(input));
+	}
+	
+	public void modifyDeed(Square myDeed){
+		String options[] = {"Sell","Build House","Build Hotel","Mortgage"};
+		String decision = (String) JOptionPane.showInputDialog(null, "What would you like to do with your property?",
+		        "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
+		                                                                        // default
+		                                                                        // icon
+		        options, // Array of choices
+		        options[0]); // Initial choice
+		    System.out.println("Selling deed: "+decision);
 	}
 
 	public void update() {
