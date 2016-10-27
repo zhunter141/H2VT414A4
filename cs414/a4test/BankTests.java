@@ -10,7 +10,6 @@ import cs414.a4.*;
 
 
 public class BankTests {
-	private Square sqrStart ;
 	private Bank myBank = new Bank();
 	private Token token1 ;
 	private Token token2 ;
@@ -18,7 +17,7 @@ public class BankTests {
 	private Player p2 = new Player(2,"Tom",token2);
 	private Account a1 ;
 	private Account a2 ;
-	private HashMap bankAccounts ;
+	private HashMap<Integer,Account> bankAccounts ;
 
 	
 	@Before
@@ -31,12 +30,9 @@ public class BankTests {
 	}
 	@Test
 	public void testaddClientANDAccountWithDefault() {
-		HashMap bankAccounts = myBank.getAccountListForTest();
+		HashMap<Integer,Account> bankAccounts = myBank.getAccountListForTest();
 		a1 = (Account) bankAccounts.get(p1.getId());
 		assertEquals(1500,a1.getBalance());
-		
-		
-
 	}
 	
 	@Test
@@ -46,23 +42,16 @@ public class BankTests {
 		myBank.deposit(p2, 99);
 		total = a1.getBalance()+a2.getBalance();
 		
-		assertEquals(3010,total);
-
-
-
-		
+		assertEquals(3010,total);	
 	}
 	@Test
 	public void testPayDueFalse(){
 		boolean b = myBank.payDue(p1, 1700);
 		assertEquals(false,b);
-
-		
 	}
 	@Test
 	public void testPayDue(){
-		boolean b = myBank.payDue(p1, 100);
-		assertEquals(1400,a1.getBalance());		
+		assertEquals(1500,a1.getBalance());		
 	}
 	@Test
 	public void testWithdrawl(){

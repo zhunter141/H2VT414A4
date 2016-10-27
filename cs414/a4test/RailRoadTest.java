@@ -13,17 +13,13 @@ import cs414.a4.*;
 public class RailRoadTest {
 
 	private Utility myRR;
-	private final static Color COLOR = Color.RED;
 	private final static String NAME = "RTD";
 	private int cost = 50;
 	private int rent = 10;
-	private Token myToken;
-	
 	@Before
 	public void setUp(){
 		myRR = new Utility(Color.RED, NAME, cost, rent);
-		myToken = new Token("boot");
-		Player bank = new Player(101,"bank",myToken);
+		new Token("boot");
 	}
 	@After
 	public void tearDown(){

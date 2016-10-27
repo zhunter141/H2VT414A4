@@ -9,15 +9,13 @@ import org.junit.Test;
 import cs414.a4.*;
 
 public class AccountTests {
-	private Square sqrStart ;
 	private Bank myBank = new Bank();
 	private Token token1 ;
 	private Token token2 ;
 	private Player p1 = new Player(1,"Alice",token1);
 	private Player p2 = new Player(2,"Tom",token2);
 	private Account a1 ;
-	private Account a2 ;
-	private HashMap bankAccounts ;
+	private HashMap<Integer,Account> bankAccounts ;
 
 	
 	@Before
@@ -26,7 +24,6 @@ public class AccountTests {
 		myBank.addClient(p2);
 		bankAccounts = myBank.getAccountListForTest();
 		a1 = (Account) bankAccounts.get(p1.getId());
-		a2 = (Account) bankAccounts.get(p2.getId());
 	}
 	
 	@Test
