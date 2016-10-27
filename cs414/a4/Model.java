@@ -394,7 +394,7 @@ public class Model {
 	
 	 public void umMortgage(Square s){
 		if(!(s instanceof Deed)){
-			msg += "Can not be mortgaged."+'\n'; 
+			msg += "Can not be unmortgaged."+'\n'; 
 		}
 		else{
 			Deed deed =  (Deed)s;
@@ -402,7 +402,7 @@ public class Model {
 			if(deed.isMortgagable() == true){
 				if(monopolyBank.payDue(currPlayer, (int)(1.1*deed.getCost())) == true){
 					deed.setMortgage(false);
-					msg += "Succesfully ummortgage it"+'\n';
+					msg += "Succesfully ummortgaged it"+'\n';
 				}
 				else{
 					msg += "Failure to mortgage because not enough money."+'\n';
@@ -412,11 +412,8 @@ public class Model {
 				msg += "It is not mortgaged yet."+'\n'; 
 			}
 		}
-		msg +=""+currPlayer.getName()+" is now on: "+currPlayer.getToken().getLoc().getName()
-				+'\n'+"My properties: "+ currPlayer.toString()+'\n'
-				+"My money: "+ monopolyBank.getBalance(currPlayer)+'\n';
+		msg +="Account: $"+ monopolyBank.getBalance(currPlayer)+'\n';
 		view.update();
-
 	}
 	
 	public Player[] getPlayers(){

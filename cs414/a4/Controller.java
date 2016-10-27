@@ -23,7 +23,7 @@ public class Controller {
 		  
 		  buyButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e){
-				  System.out.println("Debug-Controller: " + "Buy button pressed");
+				  //System.out.println("Debug-Controller: " + "Buy button pressed");
 				  model.buyDeed();
 				  } 
 		  });
@@ -35,7 +35,7 @@ public class Controller {
 		  
 		  rollButton.addActionListener(new ActionListener() {
 			  public void actionPerformed(ActionEvent e){
-				  System.out.println("Debug-Controller: " + "Roll Dice button pressed");
+				  ////System.out.println("Debug-Controller: " + "Roll Dice button pressed");
 				  model.rollDice();
 				  } 
 		  });
@@ -48,7 +48,7 @@ public class Controller {
 		
 		endTurnButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("Debug-Controller: "+ "End turn button pressed");
+				//System.out.println("Debug-Controller: "+ "End turn button pressed");
 				model.endTurn();
 			}
 		});
@@ -59,7 +59,7 @@ public class Controller {
 		JButton myPropertiesButton = new JButton("My properties");
 		myPropertiesButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("My Deeds button pressed!");
+				//System.out.println("My Deeds button pressed!");
 				view.chooseDeeds(model.getDeeds());
 			}
 		});
@@ -70,7 +70,7 @@ public class Controller {
 		JButton endGameButton = new JButton("End Game");
 		endGameButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				System.out.println("End Game button pressed!");
+				//System.out.println("End Game button pressed!");
 				JOptionPane.showMessageDialog(null, model.endGame());
 				view.dispose();
 			}

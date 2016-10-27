@@ -17,13 +17,10 @@ public class UtilityTest {
 	private final static String NAME = "XCEL";
 	private int cost = 80;
 	private int rent = 15;
-	private Token myToken;
-	
 	@Before
 	public void setUp(){
 		myUtil = new Utility(COLOR,NAME,cost,rent);
-		myToken = new Token("boot");
-		Player bank = new Player(101,"bank",myToken);
+		new Token("boot");
 	}
 	@After
 	public void tearDown(){

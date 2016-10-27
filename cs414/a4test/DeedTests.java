@@ -13,7 +13,6 @@ public class DeedTests {
 	private Deed myDeed;
 	private Token myToken;
 	private Player p1;
-	private Square mySquare;
 	private final static Color COLOR = Color.BLUE;
 	private final static String NAME = "BALTIC AVENUE";
 	private final static int COST = 100;

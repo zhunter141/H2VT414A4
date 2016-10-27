@@ -2,7 +2,6 @@ package cs414.a4test;
 
 import static org.junit.Assert.*;
 import java.awt.Color;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import cs414.a4.*;
@@ -12,7 +11,6 @@ public class PlayerTests {
 	private Deed myDeed;
 	private Token myToken;
 	private Player p1;
-	private Square mySquare;
 	private final static Color COLOR = Color.yellow;
 	private final static String NAME = "BALTIC AVENUE";
 	private final static int COST = 60;

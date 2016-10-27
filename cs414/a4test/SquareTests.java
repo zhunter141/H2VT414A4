@@ -12,13 +12,10 @@ public class SquareTests {
 	private Square mySquare;
 	private final static Color COLOR = Color.GREEN;
 	private final static String NAME = "GO";
-	private Token myToken;
-	
 	@Before
 	public void setUp(){
 		mySquare = new Square(COLOR,NAME);
-		myToken = new Token("boot");
-		Player bank = new Player(101,"bank",myToken);
+		new Token("boot");
 	}
 	@After
 	public void tearDown(){
